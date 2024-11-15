@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
                 </h3>
 
                 {/* Rating */}
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5">
                     {[...Array(5)].map((_, i) => (
                         <span
                             key={i}
