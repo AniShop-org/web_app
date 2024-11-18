@@ -64,21 +64,25 @@ export default function Signup() {
     return (
         <div className="bg-[#191919] min-h-screen">
             <div className="relative w-full min-h-screen">
-                <div className="absolute inset-0">
-                    <Image 
+                <div className="flex justify-center content-center">
+                <div className=" absolute inset-auto  h-40 w-20 bg-center">
+                    <Image
                         src="/auth-banner.png" 
                         alt="signup banner" 
                         fill
-                        className="object-cover brightness-25"
+                        className="object-cover brightness-25 filter grayscale"
                         priority
                     />
                 </div>
-
+                </div>
                 <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
-                    <div className="bg-black/70 p-8 rounded-lg w-full max-w-md">
-                        <h2 className="text-3xl font-bold text-white mb-6 text-center">
-                            Create Account
+                    <div className="bg-[#191919] p-8 rounded-lg w-full max-w-md">
+                        <h2 className="text-4xl font-bold text-white mb-1 text-left">
+                            Create An Account
                         </h2>
+                        <p className="text-[#808080] mb-6"> 
+                            Let's create your account
+                        </p>
                         
                         {error && (
                             <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded mb-4">
@@ -86,38 +90,38 @@ export default function Signup() {
                             </div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-5">
                             <div>
-                                <label htmlFor="username" className="block text-sm font-medium text-gray-200 mb-2">
-                                    Username
+                                <label htmlFor="username" className="block text-md font-medium text-gray-200 mb-2">
+                                    Full Name
                                 </label>
                                 <input
                                     type="text"
                                     id="username"
                                     required
-                                    className="w-full px-4 py-3 bg-[#222222] border border-[#222222] rounded-lg text-white focus:outline-none focus:border-red-500"
-                                    placeholder="Enter your username"
+                                    className="w-full px-4 py-3 bg-[#222222] border border-[#222222] rounded-lg text-white focus:outline-none focus:border-red-500 placeholder-[#999999]"
+                                    placeholder="Enter your full name"
                                     value={formData.username}
                                     onChange={(e) => setFormData({...formData, username: e.target.value})}
                                 />
                             </div>
 
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
-                                    Email Address
+                                <label htmlFor="email" className="block text-md font-medium text-gray-200 mb-2">
+                                    Email
                                 </label>
                                 <input
                                     type="email"
                                     id="email"
                                     required
-                                    className={`w-full px-4 py-3 bg-[#222222] rounded-lg text-white focus:outline-none 
+                                    className={`w-full px-4 py-3 bg-[#222222] rounded-lg text-white focus:outline-none placeholder-[#999999]
                                         ${validations.email.isTouched 
                                             ? validations.email.isValid 
                                                 ? 'border border-[#0C9409]' 
                                                 : 'border border-[#ED1010]'
                                             : 'border border-[#222222]'
                                         }`}
-                                    placeholder="Enter your email"
+                                    placeholder="Enter your email address"
                                     value={formData.email}
                                     onChange={(e) => {
                                         const email = e.target.value;
@@ -143,7 +147,7 @@ export default function Signup() {
                             </div>
 
                             <div>
-                                <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+                                <label htmlFor="password" className="block text-md font-medium text-gray-200 mb-2">
                                     Password
                                 </label>
                                 <div className="relative">
@@ -151,7 +155,7 @@ export default function Signup() {
                                         type={showPassword ? "text" : "password"}
                                         id="password"
                                         required
-                                        className={`w-full px-4 py-3 bg-[#222222] rounded-lg text-white focus:outline-none pr-12
+                                        className={`w-full px-4 py-3 bg-[#222222] rounded-lg text-white focus:outline-none pr-12 placeholder-[#999999]
                                             ${validations.password.isTouched 
                                                 ? validations.password.isValid 
                                                     ? 'border border-[#0C9409]' 
@@ -194,20 +198,22 @@ export default function Signup() {
                                     </button>
                                 </div>
                             </div>
-
+                            <p className="text-[#808080] text-sm"> 
+                                By signing up you agree to our Terms, Privacy Policy, and Cookie Use
+                            </p>
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className={`w-full bg-red-500 text-white px-8 py-3 rounded-full hover:bg-red-600 transition-colors ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`w-full bg-gradient-to-r to-[#DE370D] from-[#781E07] text-white px-8 py-3 rounded-lg hover:bg-red-600 transition-colors ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
-                                {loading ? 'Signing up...' : 'Sign Up'}
+                                {loading ? 'please wait...' : 'Create an Account'}
                             </button>
                         </form>
 
                         <p className="mt-6 text-center text-gray-400">
                             Already have an account?{' '}
-                            <Link href="/login" className="text-red-500 hover:text-red-400">
-                                Sign in
+                            <Link href="/login" className="text-[#DE370D] hover:text-orange-700 underline">
+                                Log in
                             </Link>
                         </p>
                     </div>
