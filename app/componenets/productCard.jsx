@@ -1,12 +1,16 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const ProductCard = ({ product }) => {
-    const primaryImage = product.images?.[0] || '/api/placeholder/300/400';
-    const rating = product.averageRating || 4.5;
-
+    const primaryImage = product.images?.[0];
+    const rating = product.averageRating;
+    const router = useRouter();
+    const handleClick = () => {
+        router.push(`/products/${product.id}`);
+    }
     return (
-        <div className="group relative">
+        <div className="group relative cursor-pointer" onClick={handleClick}>
             {/* Image Container */}
             <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-900">
                 <img

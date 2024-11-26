@@ -10,7 +10,7 @@ const NewArrivals = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/products/newProducts');
+                const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/products/newProducts?limit=4');
                 const data = await response.json();
                 setProducts(data);
             } catch (error) {
@@ -27,7 +27,7 @@ const NewArrivals = () => {
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <h1 className="mb-12 text-center text-4xl font-bold text-white">
-                    NEW ARRIVALS
+                    New Arrivals
                 </h1>
 
                 {/* Product Grid */}

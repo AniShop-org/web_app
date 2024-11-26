@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { TopBar } from '@/app/componenets/topbar.jsx';
-import NewArrivals from './componenets/newArrivalspage';
+import NewArrivals from './componenets/newArrivals';
+import TopSelling from './componenets/topselling';
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
         <TopBar/>
         
         <div className="relative z-10 flex flex-col justify-center min-h-screen px-4 pb-8 lg:px-20 font-sans lg:pb-32 container mx-auto">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl mx-auto">
             <h1 className="text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight">
               FIND CLOTHES THAT MATCHES YOUR STYLE
             </h1>
@@ -34,7 +35,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <NewArrivals/>
+      <div>
+        <NewArrivals/>
+      </div>
+      <div className='h-0.5 lg:w-2/3 w-3/4 bg-[#FFFFFF1A] mx-auto'></div>
+      <div>
+        <TopSelling/>
+      </div>
     </div>
   );
 }
