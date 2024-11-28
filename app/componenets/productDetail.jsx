@@ -35,14 +35,14 @@ const ProductDetail = ({ product }) => {
                     {product.images?.map((img, index) => (
                         <div
                             key={index}
-                            className={`w-16 h-16 cursor-pointer border-2 ${selectedImage === index ? 'border-red-500' : 'border-transparent'
+                            className={`w-32 h-36 cursor-pointer border-2 ${selectedImage === index ? 'border-red-500' : 'border-transparent'
                                 }`}
                             onClick={() => setSelectedImage(index)}
                         >
                             <img
                                 src={img}
                                 alt={`${product.name} thumbnail ${index + 1}`}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover rounded-2xl"
                             />
                         </div>
                     ))}
@@ -53,7 +53,7 @@ const ProductDetail = ({ product }) => {
                     <img
                         src={product.images[selectedImage]}
                         alt={product.name}
-                        className="w-full max-w-md object-cover"
+                        className="w-full max-w-md object-cover rounded-2xl"
                     />
                 </div>
             </div>
@@ -93,7 +93,7 @@ const ProductDetail = ({ product }) => {
                         {product.variants.map((variant) => (
                             <button
                                 key={variant.id}
-                                className={`px-4 py-2 rounded-xl ${selectedSize === variant.size
+                                className={`px-4 py-2 rounded-full ${selectedSize === variant.size
                                     ? 'bg-[#FF3333] text-white'
                                     : 'bg-[#F0F0F0] text-black'
                                     }`}
@@ -106,23 +106,23 @@ const ProductDetail = ({ product }) => {
                 </div>
 
                 <div className="flex items-center gap-4 mb-6">
-                    <div className="flex items-center gap-2 bg-gray-800 rounded p-2">
+                    <div className="flex items-center gap-2 bg-white rounded-full p-2">
                         <button
                             onClick={() => handleQuantityChange('decrease')}
-                            className="p-1 hover:bg-gray-700 rounded"
+                            className="p-1 text-black hover:bg-gray-100 rounded"
                         >
                             <Minus size={16} />
                         </button>
-                        <span className="w-8 text-center">{quantity}</span>
+                        <span className="w-8 text-center text-black">{quantity}</span>
                         <button
                             onClick={() => handleQuantityChange('increase')}
-                            className="p-1 hover:bg-gray-700 rounded"
+                            className="p-1 text-black hover:bg-gray-100 rounded"
                         >
                             <Plus size={16} />
                         </button>
                     </div>
 
-                    <button className="flex-1 bg-[#FF3333] text-white py-3 rounded hover:bg-red-600">
+                    <button className="flex-1 bg-[#FF3333] text-white py-3 rounded-full hover:bg-red-600">
                         Add to Cart
                     </button>
 
