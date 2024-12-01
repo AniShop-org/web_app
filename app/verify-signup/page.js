@@ -1,13 +1,17 @@
 "use client"
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function OTPVerification() {
     const router = useRouter();
+    useEffect(() => {
+        if (localStorage.getItem('authToken')) {
+            router.push('/');
+        }
+    }, [router]);
     const params = useSearchParams();
-
-    const { email } = params.get('mail') || '';
+    const email = params.get('email') || '';
     const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
     const inputRefs = [
         useRef(null),
@@ -19,12 +23,14 @@ export default function OTPVerification() {
     ];
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [otp, setOTP] = useState('')
 
     const handleSubmit = async () => {
         setLoading(true);
         setError('');
 
         try {
+            alert(email)
             const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/signup-verify-otp', {
                 method: 'POST',
                 headers: {
