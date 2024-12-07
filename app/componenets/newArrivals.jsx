@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import ProductCard from './productCard';
+import { useRouter } from 'next/navigation';
 
 const NewArrivals = () => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    const router = useRouter();
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -51,7 +52,9 @@ const NewArrivals = () => {
 
                 {/* View All Button */}
                 <div className="mt-12 text-center">
-                    <button className="rounded-full border border-white bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black">
+                    <button className="rounded-full border border-white bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black" onClick={() => {
+                        router.push('/new-arrivals');
+                    }}>
                         View All
                     </button>
                 </div>
