@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import ProductCard from './productCard';
+import { useRouter } from 'next/navigation';
 
 const TopSelling = () => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -51,7 +53,9 @@ const TopSelling = () => {
 
                 {/* View All Button */}
                 <div className="mt-12 text-center">
-                    <button className="rounded-full border border-white bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black">
+                    <button className="rounded-full border border-white bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black" onClick={() => 
+                        router.push('/top-selling')
+                        }>
                         View All
                     </button>
                 </div>

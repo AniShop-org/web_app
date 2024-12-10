@@ -35,7 +35,7 @@ export const FilterSidebar = () => {
     };
 
     return (
-        <div className="w-64 bg-gray-900 p-6 space-y-6">
+        <div className="w-64 bg-[#191919] p-6 space-y-6">
             <div>
                 <h3 className="text-lg font-semibold text-white mb-4">Filters</h3>
 

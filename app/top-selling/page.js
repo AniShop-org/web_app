@@ -17,7 +17,7 @@ export default function NewArrivals() {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://anishop-backend-test.onrender.com/api/v1/products/newProducts?limit=9&page=${currentPage}`
+          `https://anishop-backend-test.onrender.com/api/v1/products/topSelling?limit=9&page=${currentPage}`
         );
         const data = await response.json();
         setProducts(data || []);
@@ -43,7 +43,7 @@ export default function NewArrivals() {
           <FilterSidebar />
           <div className="flex-1">
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl font-bold text-white">New Arrivals</h1>
+              <h1 className="text-2xl font-bold text-white">Top Selling</h1>
             </div>
 
             {loading ? (
