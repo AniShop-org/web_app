@@ -1,21 +1,32 @@
-"use client"
+"use client";
 
-import { useEffect } from 'react';
-import { FilterSidebar } from '../componenets/FilterSidebar';
-import { ProductGrid } from '../componenets/ProductGrid';
-import { Pagination } from '../componenets/Pagination';
-import useProductStore from '../store/productstore';
+import React, { useState, useEffect } from "react";
+import { FilterSidebar } from "../componenets/FilterSidebar";
+import { ProductGrid } from "../componenets/ProductGrid";
+import { Pagination } from "../componenets/Pagination";
 
 export default function NewArrivals() {
-  const { 
-    filteredProducts, 
-    loading, 
-    currentPage, 
-    fetchProducts, 
-    setCurrentPage 
-  } = useProductStore();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5; // Adjust this dynamically if required.
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://anishop-backend-test.onrender.com/api/v1/products/newProducts?limit=5&page=${currentPage}`
+        );
+        const data = await response.json();
+        setProducts(data || []);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchProducts();
   }, [currentPage]);
 
@@ -28,20 +39,19 @@ export default function NewArrivals() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex gap-8">
           <FilterSidebar />
-          
           <div className="flex-1">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold text-white">New Arrivals</h1>
             </div>
-            
+
             {loading ? (
               <div className="text-white">Loading...</div>
             ) : (
               <>
-                <ProductGrid products={filteredProducts} />
+                <ProductGrid products={products} />
                 <Pagination
                   currentPage={currentPage}
-                  totalPages={5}
+                  totalPages={totalPages}
                   onPageChange={handlePageChange}
                 />
               </>
