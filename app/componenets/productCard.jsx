@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
 
             // Update localStorage
             localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-            // Update state to trigger re-render
+            
             setWishlist(updatedWishlist);
         } catch (error) {
             console.error('Error updating wishlist:', error);

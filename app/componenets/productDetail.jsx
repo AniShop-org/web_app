@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useOptimistic, useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -8,6 +8,8 @@ const ProductDetail = ({ product }) => {
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedImage, setSelectedImage] = useState(0);
     const [quantity, setQuantity] = useState(1);
+    const [isInCart, setIsInCart] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
     const router = useRouter();
 
     const handleAddToCart = async () => {
@@ -24,6 +26,10 @@ const ProductDetail = ({ product }) => {
         }
 
         try {
+            let updatedCart;
+            if (cartItems.some(item => item.productId === product.id && item.variantId === variant.id)) {
+                setIsInCart(true);
+            }
             const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/products/cart/addToCart', {
                 method: 'POST',
                 headers: {
@@ -38,14 +44,21 @@ const ProductDetail = ({ product }) => {
             });
 
             if (response.ok) {
-                alert('Product added to cart');
+                setIsInCart(true);
+                updatedCart = [...cartItems, product];
+                setCartItems(updatedCart);
+                localStorage.setItem('cart', JSON.stringify(updatedCart));
             } else {
                 const data = await response.json();
                 alert(data.message || 'Failed to add product to cart');
             }
         } catch (error) {
-            alert('An error occurred. Please try again later.');
+            console.error('Error adding product to cart:', error);
         }
+    };
+
+    const handleViewCart = () => {
+        router.push('/cart');
     };
 
     const handleQuantityChange = (type) => {
@@ -162,9 +175,9 @@ const ProductDetail = ({ product }) => {
                         </button>
                     </div>
                     <button className="flex-1 bg-[#FF3333] text-white py-3 rounded-full hover:bg-red-600"
-                        onClick={handleAddToCart}
+                        onClick={isInCart ? handleViewCart : handleAddToCart}
                     >
-                        Add to Cart
+                        {isInCart ? 'View Cart' : 'Add to Cart'}
                     </button>
 
                     <button className="lg:p-4 rounded hover:bg-gray-700">
