@@ -30,7 +30,6 @@ export default function OTPVerification() {
         setError('');
 
         try {
-            alert(email)
             const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/signup-verify-otp', {
                 method: 'POST',
                 headers: {

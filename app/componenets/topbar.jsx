@@ -2,6 +2,7 @@
 
 
 import { Search, Menu, ShoppingCart, User } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export const TopBar = () => {
@@ -17,8 +18,9 @@ export const TopBar = () => {
             <div className="z-50 flex items-center justify-between px-4 py-4 lg:px-6 fixed top-0 left-0 right-0 container mx-auto mt-4">
                 {/* Mobile Menu and Logo */}
                 <div className="flex items-center space-x-4 pl-10">
-                    
-                    <div className="text-white text-3xl font-bold">ANISHOP</div>
+                    <Link href="/">
+                        <div className="text-white text-3xl font-bold">ANISHOP</div>
+                    </Link>
                 </div>
 
                 {/* Desktop Navigation - Hidden on Mobile */}

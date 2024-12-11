@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -9,8 +11,31 @@ const ProductCard = ({ product }) => {
     const handleClick = () => {
         router.push(`/products/${product.id}`);
     }
+    const [wishlist, setWishlist] = useState([]);
+
+    const handleWishlistClick = (event) => {
+        event.stopPropagation();
+        try {
+            let updatedWishlist;
+            if (wishlist.some(item => item.id === product.id)) {
+                // Remove item from wishlist
+                updatedWishlist = wishlist.filter(item => item.id !== product.id);
+            } else {
+                // Add item to wishlist
+                updatedWishlist = [...wishlist, product];
+            }
+
+            // Update localStorage
+            localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+            // Update state to trigger re-render
+            setWishlist(updatedWishlist);
+        } catch (error) {
+            console.error('Error updating wishlist:', error);
+        }
+    };
+
     return (
-        <div className="group relative cursor-pointer" onClick={handleClick}>
+        <div className="group relative cursor-pointer" onClick={handleClick} title='View product'>
             {/* Image Container */}
             <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-900">
                 <img
@@ -18,9 +43,18 @@ const ProductCard = ({ product }) => {
                     alt={product.name}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <button className={`absolute left-2 top-2 rounded-full bg-black/50 p-1.5 backdrop-blur-sm transition-colors ${product.isWishlisted ? 'text-red-500' : 'text-white'
-                    }`}>
-                    <Heart className="h-5 w-5" fill={product.isWishlisted ? "currentColor" : "none"} />
+                <button
+                    className={`absolute left-2 top-2 rounded-full bg-black/50 p-1.5 backdrop-blur-sm transition-colors ${wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
+                        }`}
+                    onClick={handleWishlistClick}
+                    title={wishlist.some(item => item.id === product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+                >
+                    <Heart
+                        className="h-5 w-5"
+                        fill={
+                            wishlist.some(item => item.id === product.id) ? 'currentColor' : 'none'
+                        }
+                    />
                 </button>
             </div>
 
@@ -45,7 +79,7 @@ const ProductCard = ({ product }) => {
                         {rating}/5
                     </span>
                 </div>
-
+              
                 {/* Price */}
                 <div className="flex items-center gap-2">
                     <span className="text-lg font-bold text-white">
