@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import CartItem from '../componenets/cartItem';
 import LoadingScreen from '../componenets/loading';
 import { TopBar } from '../componenets/topbar';
+import { ArrowRight } from 'lucide-react';
 
 export default function CartPage() {
     const [cartItems, setCartItems] = useState([]);
@@ -141,7 +142,7 @@ export default function CartPage() {
                     <div>Your cart is empty.</div>
                 ) : (
                     <div className="flex flex-col md:flex-row gap-8">
-                        <div className="flex-1 space-y-6">
+                        <div className="flex-1 space-y-2 ">
                             {cartItems.map((item) => (
                                 <CartItem
                                     key={item.id}
@@ -152,12 +153,12 @@ export default function CartPage() {
                             ))}
                         </div>
 
-                        <div className="w-full md:w-1/3 p-6 bg-gray-800 rounded-lg">
+                        <div className="w-full md:w-1/3 p-6 rounded-2xl border border-[#FFFFFF1A]">
                             <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-                            <div className="space-y-2">
+                            <div className="space-y-2 text-[#FFFFFF99]">
                                 <div className="flex justify-between">
                                     <span>Subtotal ({totalItems} items)</span>
-                                    <span>₹{totalBasePrice.toFixed(2)}</span>
+                                    <span className='text-white'>₹{totalBasePrice.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span>Total Discount</span>
@@ -165,16 +166,16 @@ export default function CartPage() {
                                 </div>
                                 <div className="flex justify-between">
                                     <span>Delivery Charge</span>
-                                    <span>₹{deliveryCharge.toFixed(2)}</span>
+                                    <span className='text-white'>₹{deliveryCharge.toFixed(2)}</span>
                                 </div>
                             </div>
                             <div className="my-4 border-b border-gray-700"></div>
                             <div className="flex justify-between font-bold">
                                 <span>Total</span>
-                                <span>₹{totalPrice.toFixed(2)}</span>
+                                <span className='text-xl'>₹{totalPrice.toFixed(2)}</span>
                             </div>
-                            <button className="mt-6 w-full bg-red-600 py-3 rounded text-white font-semibold">
-                                Proceed to Checkout
+                            <button className="mt-6 w-full bg-[#FF3333] py-3 rounded-full text-white font-semibold">
+                                Proceed to Checkout <ArrowRight className="inline" size={20} />
                             </button>
                         </div>
                     </div>
