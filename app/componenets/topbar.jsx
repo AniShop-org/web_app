@@ -5,6 +5,7 @@ import { Search, Menu, ShoppingCart, User } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Searchbar } from './searchbar';
 
 export const TopBar = () => {
     const [showSearchBar, setShowSearchBar] = useState(false);
@@ -27,18 +28,7 @@ export const TopBar = () => {
                     <a href="#" className="text-white">On Sale</a>
                     <a href="#" className="text-white">New Arrivals</a>
                 </nav>
-
-                <div className="hidden lg:block flex-1 max-w-3xl mx-6">
-                    <div className="relative">
-                        <Search className="absolute left-3 top-3.5 text-gray-500" size={20} />
-                        <input
-                            type="text"
-                            placeholder="Search for products..."
-                            className="w-full py-3 pl-10 pr-4 bg-[#2A2A2A] bg-opacity-90 text-gray-200 rounded-full placeholder-[#FFFFFF66] focus:outline-none focus:ring-2 focus:ring-white"
-                        />
-                    </div>
-                </div>
-
+                <Searchbar />
                 <div className="flex items-center space-x-4">
                     <button onClick={toggleSearchBar} className="text-white lg:hidden">
                         <Search size={24} />

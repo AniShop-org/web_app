@@ -1,6 +1,6 @@
 "use client";
 
-import { Delete, DeleteIcon, Minus, Plus, Trash, Trash2, Trash2Icon } from 'lucide-react';
+import { Minus, Plus, Trash2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
