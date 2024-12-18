@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useOptimistic, useState } from 'react';
+import React, { useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 

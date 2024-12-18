@@ -20,7 +20,7 @@ export default function Home() {
 
         <TopBar/>
         
-        <div className="relative z-10 flex flex-col justify-center min-h-screen px-4 pb-8 lg:px-20 font-sans lg:pb-32 container mx-auto">
+        <div className="relative z-10 flex flex-col justify-center min-h-screen px-4 pb-8 lg:px-20 font-sans lg:pb-32 container">
           <div className="max-w-2xl mx-auto">
             <h1 className="text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight">
               FIND CLOTHES THAT MATCHES YOUR STYLE
@@ -29,9 +29,6 @@ export default function Home() {
               Browse through our diverse range of meticulously crafted garments, 
               designed to bring out your individuality and cater to your sense of style.
             </p>
-            <button className="w-full lg:w-auto bg-red-500 text-white px-8 py-3 rounded-full hover:bg-red-600 transition-colors">
-              Shop Now
-            </button>
           </div>
         </div>
       </div>
