@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { TopBar } from '@/app/componenets/topbar.jsx';
 import NewArrivals from './componenets/newArrivals';
 import TopSelling from './componenets/topselling';
+import Footer from './componenets/footer';
 
 export default function Home() {
   return (
@@ -38,6 +39,9 @@ export default function Home() {
       <div className='h-0.5 lg:w-2/3 w-3/4 bg-[#FFFFFF1A] mx-auto'></div>
       <div>
         <TopSelling/>
+      </div>
+      <div className='pt-36'>
+        <Footer />
       </div>
     </div>
   );

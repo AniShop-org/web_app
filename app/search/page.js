@@ -6,6 +6,7 @@ import { ProductGrid } from "../componenets/ProductGrid";
 import { Pagination } from "../componenets/Pagination";
 import { TopBar } from "../componenets/topbar";
 import { FilterSidebar } from "../componenets/FilterSidebar";
+import Footer from "../componenets/footer";
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
@@ -51,22 +52,27 @@ const SearchResults = () => {
         <div className="flex gap-8">
           <FilterSidebar />
           <div className="flex-1">
-            {products.length === 0 ? (<div>
-            <h1 className="text-2xl font-bold text-white">No results found for "{keyword}"</h1>
-        </div>) : (<div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold mb-4">Search Results for "{keyword}"</h1>
-            </div>)}
-
             {loading ? (
               <div className="text-white">Loading...</div>
             ) : (
               <>
+                {products.length === 0 ? (
+                  <div>
+                    <h1 className="text-2xl font-bold text-white">No results found for "{keyword}"</h1>
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-2xl font-bold mb-4">Search Results for "{keyword}"</h1>
+                  </div>
+                )}
                 <ProductGrid products={products} />
               </>
             )}
-            
           </div>
         </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

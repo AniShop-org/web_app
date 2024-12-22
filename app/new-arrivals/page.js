@@ -5,6 +5,7 @@ import { FilterSidebar } from "../componenets/FilterSidebar";
 import { ProductGrid } from "../componenets/ProductGrid";
 import { Pagination } from "../componenets/Pagination";
 import { TopBar } from "../componenets/topbar";
+import Footer from "../componenets/footer";
 
 export default function NewArrivals() {
   const [products, setProducts] = useState([]);
@@ -60,6 +61,9 @@ export default function NewArrivals() {
             )}
           </div>
         </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

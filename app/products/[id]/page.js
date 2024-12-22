@@ -4,6 +4,7 @@ import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import ProductDetail from "../../componenets/productDetail";
 import { TopBar } from "@/app/componenets/topbar";
+import Footer from "@/app/componenets/footer";
 
 export default function Product() {
     const productId = useParams().id;
@@ -26,11 +27,11 @@ export default function Product() {
     }, []);
 
     return (
-        <div className="bg-[#191919] min-h-screen">
+        <div className="bg-[#191919] min-h-screen flex flex-col">
             <div className="pb-28">
                 <TopBar />
             </div>
-            <div className="">
+            <div className="flex-grow">
                 {isLoading ? (
                     <div></div>
                 ) : (
@@ -41,7 +42,9 @@ export default function Product() {
                     </div>
                 )}
             </div>
-            
+            <div className="mt-auto">
+                <Footer />
+            </div>
         </div>
     )
 

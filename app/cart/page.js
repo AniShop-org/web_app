@@ -5,6 +5,7 @@ import CartItem from '../componenets/cartItem';
 import LoadingScreen from '../componenets/loading';
 import { TopBar } from '../componenets/topbar';
 import { ArrowRight } from 'lucide-react';
+import Footer from '../componenets/footer';
 
 export default function CartPage() {
     const [cartItems, setCartItems] = useState([]);
@@ -131,11 +132,11 @@ export default function CartPage() {
     const totalDiscount = totalBasePrice - totalPrice;
 
     return (
-        <div className="bg-[#191919] text-white min-h-screen p-8">
+        <div className="bg-[#191919] text-white min-h-screen flex flex-col">
             <div className='pb-28'>
                 <TopBar />
             </div>
-            <div className='container mx-auto'>
+            <div className='container mx-auto flex-grow'>
                 <h1 className="text-4xl font-bold mb-8">Your Cart</h1>
 
                 {cartItems.length === 0 ? (
@@ -180,6 +181,9 @@ export default function CartPage() {
                         </div>
                     </div>
                 )}
+            </div>
+            <div className='mt-auto'>
+                <Footer />
             </div>
         </div>
     );
