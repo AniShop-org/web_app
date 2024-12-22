@@ -61,6 +61,9 @@ export default function NewArrivals() {
           </div>
         </div>
       </div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
