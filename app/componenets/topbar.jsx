@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Searchbar } from './searchbar';
+import AccountDropdown from './accountDropdown';
 
 export const TopBar = () => {
     const [showSearchBar, setShowSearchBar] = useState(false);
@@ -48,9 +49,7 @@ export const TopBar = () => {
                         }}>
                         <ShoppingCart size={24} />
                     </button>
-                    <button className="text-white">
-                        <User size={24} />
-                    </button>
+                    <AccountDropdown />
                 </div>
             </div>
         </div>
