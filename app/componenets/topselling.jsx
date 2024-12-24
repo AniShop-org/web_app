@@ -14,7 +14,7 @@ const TopSelling = () => {
             try {
                 const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/products/topSelling?limit=4');
                 const data = await response.json();
-                setProducts(data);
+                setProducts(data.products || []);
             } catch (error) {
                 console.error('Error fetching products:', error);
             } finally {

@@ -1,78 +1,38 @@
-import Slider from './Slider';
-import useProductStore from '../store/productstore';
+"use client";
 
-export const FilterSidebar = () => {
-    const { filters, setFilters, setCurrentPage, applyFilters } = useProductStore();
+import RatingSlider from "./ratingSlider";
+import Slider from "./Slider";
 
-    const categories = [
-        { id: 'tshirts', label: 'T-shirts' },
-        { id: 'shorts', label: 'Shorts' },
-        { id: 'shirts', label: 'Shirts' },
-        { id: 'hoodie', label: 'Hoodie' },
-        { id: 'jeans', label: 'Jeans' }
-    ];
-
+export const FilterSidebar = ({
+    filters,
+    onFilterChange,
+    onApplyFilters
+}) => {
     const sizes = [
-        'X-Small', 'Small', 'Medium', 'Large', 'X-Large', 'XX-Large', '3X-Large'
+        "XS", "S", "M", "L",
+        "XL", "XXL", "3XL"
     ];
-
-
-    const handleFilterChange = (newFilters) => {
-        setFilters(newFilters);
-        setCurrentPage(1);
-    };
-
-    const handleCategoryClick = (categoryId) => {
-        handleFilterChange({ categoryId });
-    };
-
-    const handleSizeClick = (size) => {
-        handleFilterChange({ size });
-    };
-
-    const handleApplyFilters = () => {
-        applyFilters();
-    };
 
     return (
         <div className="w-64 bg-[#191919] p-6 space-y-6">
-            <div>
-                <h3 className="text-lg font-semibold text-white mb-4">Filters</h3>
-
-                {/* Categories */}
-                {categories.map(category => (
-                    <div
-                        key={category.id}
-                        className="flex items-center py-2"
-                        onClick={() => handleCategoryClick(category.id)}
-                    >
-                        <span className={`text-gray-300 hover:text-white cursor-pointer ${filters.categoryId === category.id ? 'text-white' : ''
-                            }`}>
-                            {category.label}
-                        </span>
-                    </div>
-                ))}
-            </div>
-
             {/* Price Range */}
             <div>
-                <h3 className="text-lg font-semibold text-white mb-4">Price</h3>
+                <h3 className="text-lg font-semibold text-white">Price</h3>
                 <div className="px-2">
                     <Slider
                         defaultValue={[filters.minPrice, filters.maxPrice]}
-                        max={2000}
-                        min={200}
+                        max={10000}
+                        min={0}
                         step={50}
                         className="w-full"
-                        onValueChange={(value) => handleFilterChange({
-                            minPrice: value[0],
-                            maxPrice: value[1]
-                        })}
+                        onChange={(value) =>
+                            onFilterChange({ minPrice: value[0], maxPrice: value[1] })
+                        }
                     />
                 </div>
             </div>
 
-            {/* Sizes */}
+            {/* Size */}
             <div>
                 <h3 className="text-lg font-semibold text-white mb-4">Size</h3>
                 <div className="flex flex-wrap gap-2">
@@ -80,10 +40,10 @@ export const FilterSidebar = () => {
                         <button
                             key={size}
                             className={`px-3 py-1 rounded-full border ${filters.size === size
-                                    ? 'border-white text-white'
-                                    : 'border-gray-600 text-gray-300'
+                                    ? "border-white text-white"
+                                    : "border-gray-600 text-gray-300"
                                 } hover:border-white hover:text-white text-sm`}
-                            onClick={() => handleSizeClick(size)}
+                            onClick={() => onFilterChange({ size })}
                         >
                             {size}
                         </button>
@@ -93,24 +53,24 @@ export const FilterSidebar = () => {
 
             {/* Rating */}
             <div>
-                <h3 className="text-lg font-semibold text-white mb-4">Rating</h3>
+                <h3 className="text-lg font-semibold text-white">Rating</h3>
                 <div className="px-2">
-                    <Slider
+                    <RatingSlider
                         defaultValue={[filters.minRating, 5]}
-                        max={5}
                         min={0}
+                        max={5}
                         step={0.5}
                         className="w-full"
-                        onValueChange={(value) => handleFilterChange({
-                            minRating: value[0]
-                        })}
+                        onChange={(value) =>
+                            onFilterChange({ minRating: value[0] })
+                        }
                     />
                 </div>
             </div>
 
             <button
-                className="w-full bg-red-500 hover:bg-red-600 text-white"
-                onClick={handleApplyFilters}
+                className="w-full bg-red-500 hover:bg-red-600 text-white mt-4 p-2 rounded-full"
+                onClick={onApplyFilters}
             >
                 Apply Filter
             </button>

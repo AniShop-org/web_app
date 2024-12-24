@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 
-const Slider = ({
+const RatingSlider = ({
     min = 0,
-    max = 100000,
+    max = 5,
     step = 1,
     defaultValue = [min, max],
     onChange,
@@ -104,11 +104,11 @@ const Slider = ({
 
             {/* Display Values */}
             <div className="absolute bottom-0 left-0 right-0 flex justify-between text-sm text-white">
-                <span>Min: ₹{values[0].toLocaleString()}</span>
-                <span>Max: ₹{values[1].toLocaleString()}</span>
+                <span>Min: {values[0].toLocaleString()}</span>
+                <span>Max: {values[1].toLocaleString()}</span>
             </div>
         </div>
     );
 };
 
-export default Slider;
+export default RatingSlider;

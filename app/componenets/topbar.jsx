@@ -11,7 +11,7 @@ import AccountDropdown from './accountDropdown';
 export const TopBar = () => {
     const [showSearchBar, setShowSearchBar] = useState(false);
     const router = useRouter();
-    const token = localStorage.getItem('authToken');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
     const toggleSearchBar = () => {
         setShowSearchBar(!showSearchBar);
     };

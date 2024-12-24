@@ -6,8 +6,14 @@ import LoadingScreen from '../componenets/loading';
 import { TopBar } from '../componenets/topbar';
 import { ArrowRight } from 'lucide-react';
 import Footer from '../componenets/footer';
+import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
+    const router = useRouter();
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        router.push('/login');
+    }
     const [cartItems, setCartItems] = useState([]);
     const [cartSummary, setCartSummary] = useState({
         deliveryCharge: 0,
@@ -15,6 +21,7 @@ export default function CartPage() {
         totalPrice: 0,
     });
     const [isLoading, setIsLoading] = useState(true);
+    
 
     const fetchCart = async () => {
         try {
