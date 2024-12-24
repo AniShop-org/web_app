@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -77,6 +77,32 @@ const ProductDetail = ({ product }) => {
             if (index === fullStars && hasHalfStar) return '★';
             return '☆';
         }).join('');
+    };
+
+    const [wishlist, setWishlist] = useState([]);
+    useEffect(() => {
+        const storedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        setWishlist(storedWishlist);
+    }, []);
+
+    const handleWishlistClick = (event) => {
+        event.stopPropagation();
+        try {
+            let updatedWishlist;
+            if (wishlist.some(item => item.id === product.id)) {
+                // Remove item from wishlist
+                updatedWishlist = wishlist.filter(item => item.id !== product.id);
+            } else {
+                // Add item to wishlist
+                updatedWishlist = [...wishlist, product];
+            }
+
+            // Update localStorage
+            localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+            setWishlist(updatedWishlist);
+        } catch (error) {
+            console.error('Error updating wishlist:', error);
+        }
     };
 
     return (
@@ -180,8 +206,18 @@ const ProductDetail = ({ product }) => {
                         {isInCart ? 'View Cart' : 'Add to Cart'}
                     </button>
 
-                    <button className="lg:p-4 rounded hover:bg-gray-700">
-                        <Heart size={22} />
+                    <button
+                        className={`lg:p-2 rounded hover:bg-gray-700 ${wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
+                            }`}
+                        onClick={handleWishlistClick}
+                        title={wishlist.some(item => item.id === product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+                    >
+                        <Heart
+                            size={25}
+                            fill={
+                                wishlist.some(item => item.id === product.id) ? 'currentColor' : 'none'
+                            }
+                        />
                     </button>
                 </div>
             </div>

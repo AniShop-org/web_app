@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import ProductDetail from "../../componenets/productDetail";
 import { TopBar } from "@/app/componenets/topbar";
 import Footer from "@/app/componenets/footer";
+import ProductDetailSkeleton from "@/app/componenets/productdetailSkeleton";
 
 export default function Product() {
     const productId = useParams().id;
@@ -33,7 +34,9 @@ export default function Product() {
             </div>
             <div className="flex-grow">
                 {isLoading ? (
-                    <div></div>
+                    <div>
+                        <ProductDetailSkeleton />
+                    </div>
                 ) : (
                     <div>
                         <div className="container mx-auto">
