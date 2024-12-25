@@ -21,7 +21,8 @@ export default function CartPage() {
         totalPrice: 0,
     });
     const [isLoading, setIsLoading] = useState(true);
-    
+    const [isUpdating, setIsUpdating] = useState(false); // Add loading state for updates
+
 
     const fetchCart = async () => {
         try {
@@ -62,10 +63,15 @@ export default function CartPage() {
     }, []);
 
     const handleQuantityChange = async (item, type) => {
+
+        if (isUpdating) return;
+        setIsUpdating(true);
         const token = localStorage.getItem('authToken');
+
         const newQuantity = type === 'increase' ? item.quantity + 1 : item.quantity - 1;
 
         if (newQuantity < 1) {
+            setIsUpdating(false);
             return;
         }
 
@@ -93,10 +99,15 @@ export default function CartPage() {
             }
         } catch (error) {
             console.error('Error updating cart item:', error);
+        } finally {
+            setIsUpdating(false);
         }
     };
 
     const handleRemove = async (item) => {
+        if (isUpdating) return;
+        setIsUpdating(true);
+
         const token = localStorage.getItem('authToken');
 
         try {
@@ -123,6 +134,8 @@ export default function CartPage() {
             }
         } catch (error) {
             console.error('Error removing item from cart:', error);
+        } finally {
+            setIsUpdating(false);
         }
     };
 
@@ -182,7 +195,10 @@ export default function CartPage() {
                                 <span>Total</span>
                                 <span className='text-xl'>₹{totalPrice.toFixed(2)}</span>
                             </div>
-                            <button className="mt-6 w-full bg-[#FF3333] py-3 rounded-full text-white font-semibold">
+                            <button
+                                className={`mt-6 w-full bg-[#FF3333] py-3 rounded-full text-white font-semibold ${isUpdating ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={isUpdating}
+                            >
                                 Proceed to Checkout <ArrowRight className="inline" size={20} />
                             </button>
                         </div>

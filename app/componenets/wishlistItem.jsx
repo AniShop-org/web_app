@@ -1,38 +1,35 @@
 "use client";
 
-import { Minus, Plus, Trash2Icon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import React from 'react';
+import { Trash2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React from "react";
 
-const WishListItem= ({ item, onRemove }) => {
+const WishListItem = ({ item, onRemove }) => {
     const router = useRouter();
+
     const handleRemove = () => {
         onRemove(item);
     };
 
     return (
-        <div className="relative flex justify-between items-center rounded-2xl border border-[#FFFFFF1A] lg:p-4 p-2">
-            <div className="flex items-center cursor-pointer" onClick={() => { router.push(`/products/${item.id}`) }}>
-                <img
-                    src={item.images[0]}
-                    alt={item.name}
-                    className="w-28 h-32 object-cover rounded-lg"
-                />
-                <div className="ml-4">
-                    <h2 className="text-lg font-bold">{item.name}</h2>
-                    <p className="text-[#FFFFFF99] text-sm">M.R.P: <s>₹{item.basePrice}</s></p>
-                    <p className="text-white font-bold text-xl">₹{item.discountPrice}</p>
-                </div>
+        <div className="relative flex flex-col items-center rounded-2xl border border-[#FFFFFF1A] p-4 bg-[#1A1A1A]">
+            <img
+                src={item.images[0]}
+                alt={item.name}
+                className="w-full h-52 object-cover rounded-lg"
+                onClick={() => router.push(`/products/${item.id}`)}
+            />
+            <div className="flex flex-col items-center mt-3 text-center">
+                <h2 className="text-lg font-bold text-white">{item.name}</h2>
+                <p className="text-[#FFFFFF99] text-sm mt-1">{item.rating} / 5</p>
+                <p className="text-white font-bold text-xl mt-1">₹{item.discountPrice}</p>
             </div>
-            <div className="absolute top-5 right-3 flex flex-col items-end">
-                <button
-                    onClick={handleRemove}
-                    className="ml-4 p-2"
-                >
-                    <Trash2Icon size={24} color='red' />
-                </button>
-            </div>
-
+            <button
+                onClick={handleRemove}
+                className="mt-3 p-2 text-red-500"
+            >
+                <Trash2Icon size={24} />
+            </button>
         </div>
     );
 };

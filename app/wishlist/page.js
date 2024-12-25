@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import WishListItem from '../componenets/wishlistItem';
 import LoadingScreen from '../componenets/loading';
 import { TopBar } from '../componenets/topbar';
+import Footer from '../componenets/footer';
 
 export default function WishlistPage() {
     const [wishList, setWishList] = useState([]);
@@ -40,25 +41,24 @@ export default function WishlistPage() {
     }
 
     return (
-        <div className="bg-[#191919] text-white min-h-screen p-8">
+        <div className="bg-[#191919] text-white min-h-screen flex flex-col">
             <div className="pb-28">
                 <TopBar />
             </div>
-            <div className="container mx-auto">
+            <div className="container mx-auto flex-grow pt-20">
                 <h1 className="text-4xl font-bold mb-8">Your Wishlist</h1>
 
                 {wishList.length === 0 ? (
                     <div>Your wishlist is empty.</div>
                 ) : (
-                    <div className="flex flex-col md:flex-row gap-8">
-                        <div className="flex-1 space-y-2">
-                            {wishList.map((item) => (
-                                <WishListItem key={item.id} item={item} onRemove={handleRemove} />
-                            ))}
-                        </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        {wishList.map((item) => (
+                            <WishListItem key={item.id} item={item} onRemove={handleRemove} />
+                        ))}
                     </div>
                 )}
             </div>
+            <Footer/>
         </div>
     );
 }
