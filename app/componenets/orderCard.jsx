@@ -1,43 +1,63 @@
-const OrderCard = () => {
+import { MoreVertical, Timer, CheckCircle, ChevronRight, AlertTriangle } from 'lucide-react';
+
+const statusConfig = {
+    'PENDING': { color: '#F0A500', icon: Timer, text: 'Pending' },
+    'PAYMENT_PENDING': { color: '#F0A500', icon: Timer, text: 'Payment Pending' },
+    'PAYMENT_SUCCESS': { color: '#83BF6E', icon: CheckCircle, text: 'Payment Success' },
+    'ORDER_CONFIRMED': { color: '#83BF6E', icon: CheckCircle, text: 'Confirmed' },
+    'ORDER_DISPATCHED': { color: '#F0A500', icon: Timer, text: 'Dispatched' },
+    'ORDER_DELIVERED': { color: '#83BF6E', icon: CheckCircle, text: 'Delivered' },
+    'ORDER_CANCELLED': { color: '#FF3333', icon: AlertTriangle, text: 'Cancelled' }
+};
+
+const OrderCard = ({ order }) => {
+    const status = statusConfig[order.status] || statusConfig.PENDING;
+    const StatusIcon = status.icon;
+    const isCompleted = order.isCompleted;
+
     return (
-        <div className="bg-gray-900 text-white rounded-lg shadow-md p-4 flex flex-col">
-            {/* Top Section */}
-            <div className="flex items-start">
-                {/* Image */}
-                <img
-                    src="https://seller-product-images.s3.amazonaws.com/products/2024/12/07/a30e2cd1-629e-4e6a-9239-a762b1b0219a_Screenshot__256_.png"
-                    alt="Product"
-                    className="w-20 h-20 rounded-md object-cover"
-                />
-                {/* Details */}
-                <div className="ml-4 flex-1 ">
-                    <h3 className="text-lg font-semibold">KING Oversized Sweatshirt</h3>
-                    <p className="text-sm text-gray-400">Size XL</p>
-                    <div className="flex items-center mt-2">
-                        <p className="text-yellow-400 text-sm font-medium flex items-center">
-                            Out of Delivery
-                            <span className="ml-1">⏳</span>
-                        </p>
-                        <button className="ml-auto text-green-400 font-medium">
-                            Check Status &gt;
-                        </button>
+        <div className="rounded-2xl bg-[#1A1A1A] overflow-hidden">
+            <div className="p-4">
+                <div className="flex gap-4">
+                    <img className='h-32 w-32 object-cover rounded-lg' 
+                        src={order.product.images[0]}
+                    />
+
+                    <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="text-lg font-medium text-white">Order #{order.id}</h3>
+                                <p className="mt-1 text-sm text-gray-400">Size {order.varient}</p>
+                            </div>
+                            <button className="text-gray-400">
+                                <MoreVertical size={20} />
+                            </button>
+                        </div>
+
+                        <div className="mt-4">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2 text-sm">
+                                    <span style={{ color: status.color }}>{status.text}</span>
+                                    <StatusIcon size={16} style={{ color: status.color }} />
+                                </div>
+                                {!isCompleted && (
+                                    <button className="flex items-center gap-1 text-sm font-medium text-[#83BF6E]">
+                                        Check Status
+                                        <ChevronRight size={16} />
+                                    </button>
+                                )}
+                            </div>
+                            <p className="mt-2 text-sm text-gray-500">Order#: {order.id}</p>
+                        </div>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">Order#: 7282736</p>
-                </div>
-                {/* Options */}
-                <div className="ml-2">
-                    <button className="text-gray-400 hover:text-gray-200">
-                        •••
-                    </button>
                 </div>
             </div>
-            {/* Bottom Section */}
-            <div className="flex items-center border-t border-gray-800 mt-4 pt-3">
-                <button className="flex-1 text-center text-green-400 font-medium hover:text-green-300">
+
+            <div className="grid grid-cols-2 border-t border-[#252525] text-sm">
+                <button className="p-3 text-center font-medium text-[#83BF6E] hover:bg-[#252525]">
                     Rate Product
                 </button>
-                <div className="border-l border-gray-800 h-4"></div>
-                <button className="flex-1 text-center text-gray-400 font-medium hover:text-gray-200">
+                <button className="border-l border-[#252525] p-3 text-center font-medium text-white hover:bg-[#252525]">
                     Share
                 </button>
             </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import { LogOutIcon, MapPinned, ShoppingBagIcon, User } from 'lucide-react';
+import { LogOutIcon, MapPinned, PackageSearch, ShoppingBagIcon, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function AccountDropdown() {
@@ -47,7 +47,7 @@ export default function AccountDropdown() {
                                 href="/orders"
                                 className="flex justify-start gap-4 items-center px-4 py-1 hover:bg-[#191919]"
                             >
-                                Orders
+                                <PackageSearch size={18} />  Orders
                             </a>
                         </li>
                         <li>

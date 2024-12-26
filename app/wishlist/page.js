@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
 import React, { useState, useEffect } from 'react';
 import WishListItem from '../componenets/wishlistItem';
-import LoadingScreen from '../componenets/loading';
 import { TopBar } from '../componenets/topbar';
 import Footer from '../componenets/footer';
+import { SideNav } from '../componenets/sideNav';
 
 export default function WishlistPage() {
     const [wishList, setWishList] = useState([]);
@@ -12,7 +12,6 @@ export default function WishlistPage() {
 
     const fetchWishlist = async () => {
         try {
-            // Load wishlist from localStorage
             const items = JSON.parse(localStorage.getItem('wishlist')) || [];
             setWishList(items);
         } catch (error) {
@@ -36,29 +35,40 @@ export default function WishlistPage() {
         }
     };
 
-    if (isLoading) {
-        return <LoadingScreen />;
-    }
-
     return (
-        <div className="bg-[#191919] text-white min-h-screen flex flex-col">
-            <div className="pb-28">
-                <TopBar />
-            </div>
-            <div className="container mx-auto flex-grow pt-20">
-                <h1 className="text-4xl font-bold mb-8">Your Wishlist</h1>
-
-                {wishList.length === 0 ? (
-                    <div>Your wishlist is empty.</div>
-                ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                        {wishList.map((item) => (
-                            <WishListItem key={item.id} item={item} onRemove={handleRemove} />
-                        ))}
+        <div className="min-h-screen flex flex-col bg-[#191919] pt-36">
+            <TopBar />
+            
+            <div className="flex-grow mx-auto px-6 pt-8 container">
+                <div className="flex gap-8">
+                    <SideNav />
+                    <div className="flex-1">
+                        <div className="mb-8">
+                            <h1 className="text-4xl font-bold text-white">My Wishlist</h1>
+                        </div>
+                        {isLoading ? (
+                            <div className='text-lg font-bold'>Loading wishlist...</div>
+                            ) : wishList.length === 0 ? (
+                                <div className="rounded-2xl bg-[#1A1A1A] p-8 text-center text-gray-400">
+                                    Your wishlist is empty.
+                                </div>
+                            ) : (
+                            <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 gap-6">
+                                {wishList.map((item) => (
+                                    <WishListItem 
+                                        key={item.id} 
+                                        product={item} 
+                                        onRemove={handleRemove} 
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
-                )}
+                </div>
             </div>
-            <Footer/>
+            <div className='pt-36'>
+                <Footer />
+            </div>
         </div>
     );
 }
