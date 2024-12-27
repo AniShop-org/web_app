@@ -1,11 +1,11 @@
 import MyAddresses from "../componenets/address";
 
-function App() {
+function Address() {
   return (
-    <div className="p-6 bg-black min-h-screen flex items-center justify-center">
+    <div className="">
       <MyAddresses />
     </div>
   );
 }
 
-export default App;
+export default Address;
