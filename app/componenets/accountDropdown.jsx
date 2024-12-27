@@ -31,7 +31,7 @@ export default function AccountDropdown() {
             {isOpen && (
                 <div
                     id="dropdownAvatar"
-                    className="absolute right-0 mt-2 w-40 rounded-lg shadow bg-[#2A2A2A]"
+                    className="absolute right-0 mt-2 w-40 rounded-lg shadow bg-[#1A1A1A] border border-[#252525]"
                 >
                     <ul className="font-thin text-white">
                         <li>
@@ -39,7 +39,7 @@ export default function AccountDropdown() {
                                 href="#"
                                 className="flex justify-start gap-4 items-center px-4 pt-2 hover:bg-[#191919]"
                             >
-                                <User size={18} fill='white'/>  Account
+                                <h2 className="mb-2 text-xl font-bold text-white">My Account</h2>
                             </a>
                         </li>
                         <li>
