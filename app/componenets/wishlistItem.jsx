@@ -16,8 +16,7 @@ const WishListItem = ({ product, onRemove }) => {
         <div className="group relative w-full cursor-pointer bg-[#1D1D1D] p-3 rounded-xl"
             onClick={() => router.push(`/products/${product.id}`)}
             title="View product">
-            {/* Image Container */}
-            <div className="relative aspect-square overflow-hidden rounded-xl bg-[#1D1D1D]">
+            <div className="relative h-72 overflow-hidden rounded-xl bg-[#1D1D1D]">
                 <img
                     src={primaryImage}
                     alt={product.name}
@@ -61,7 +60,7 @@ const WishListItem = ({ product, onRemove }) => {
                             )}
                         </div>
                         {product.percentOff > 0 && (
-                            <div className="rounded-full bg-[#FF33331A] px-2 py-1 text-xs font-medium text-[#FF3333]">
+                            <div className="rounded-full bg-[#FF33331A] pl-7 py-1 text-xs font-medium text-[#FF3333]">
                                 -{product.percentOff}%
                             </div>
                         )}

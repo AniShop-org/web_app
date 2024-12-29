@@ -16,7 +16,7 @@ const OrderCard = ({ order }) => {
     const isCompleted = order.isCompleted;
 
     return (
-        <div className="rounded-2xl bg-[#1A1A1A] overflow-hidden">
+        <div className="rounded-2xl bg-[#1A1A1A] overflow-hidden border border-[#252525]">
             <div className="p-4">
                 <div className="flex gap-4">
                     <img className='h-32 w-32 object-cover rounded-lg' 
@@ -26,7 +26,7 @@ const OrderCard = ({ order }) => {
                     <div className="flex-1">
                         <div className="flex items-start justify-between">
                             <div>
-                                <h3 className="text-lg font-medium text-white">Order #{order.id}</h3>
+                                <h3 className="text-lg font-medium text-white">{order.product.name}</h3>
                                 <p className="mt-1 text-sm text-gray-400">Size {order.varient}</p>
                             </div>
                             <button className="text-gray-400">

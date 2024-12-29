@@ -139,10 +139,6 @@ export default function CartPage() {
         }
     };
 
-    if (isLoading) {
-        return <LoadingScreen />;
-    }
-
     const { deliveryCharge, totalItems, totalPrice } = cartSummary;
     const totalBasePrice = cartItems.reduce(
         (sum, item) => sum + item.product.basePrice * item.quantity,
@@ -157,10 +153,10 @@ export default function CartPage() {
                 <TopBar />
             </div>
             <div className='container mx-auto flex-grow'>
-                <h1 className="text-4xl font-bold mb-8">Your Cart</h1>
-
-                {cartItems.length === 0 ? (
-                    <div>Your cart is empty.</div>
+                <h1 className="text-4xl font-bold mb-8">Cart</h1>
+                
+                {isLoading ? <div>Loading Cart Items...</div> : (cartItems.length === 0 ? (
+                    <div>Your cart is empty</div>
                 ) : (
                     <div className="flex flex-col md:flex-row gap-8">
                         <div className="flex-1 space-y-2 ">
@@ -203,7 +199,8 @@ export default function CartPage() {
                             </button>
                         </div>
                     </div>
-                )}
+                ))}
+                
             </div>
             <div className='mt-auto'>
                 <Footer />

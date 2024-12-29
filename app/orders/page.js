@@ -39,7 +39,7 @@ export default function OrderPage() {
                     <SideNav />
                     <div className="flex-1">
                         <div className="mb-8">
-                            <h1 className="text-4xl font-bold text-white">My Orders</h1>
+                            <h1 className="text-4xl font-bold text-white">Orders</h1>
                         </div>
                         {isLoading ? <div className='text-lg font-bold'>Loading Orders...</div> : (<div className="space-y-4">
                             {orders.length === 0 ? (
