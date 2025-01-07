@@ -2,18 +2,19 @@
 
 import React, { useState, useEffect } from 'react';
 import CartItem from '../componenets/cartItem';
-import LoadingScreen from '../componenets/loading';
 import { TopBar } from '../componenets/topbar';
-import { ArrowRight } from 'lucide-react';
 import Footer from '../componenets/footer';
 import { useRouter } from 'next/navigation';
+import Checkout from '../componenets/checkout';
 
 export default function CartPage() {
     const router = useRouter();
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        router.push('/login');
-    }
+    useEffect(() => {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+        if (!token) {
+            router.push('/login');
+        }
+    }, []);
     const [cartItems, setCartItems] = useState([]);
     const [cartSummary, setCartSummary] = useState({
         deliveryCharge: 0,
@@ -21,8 +22,31 @@ export default function CartPage() {
         totalPrice: 0,
     });
     const [isLoading, setIsLoading] = useState(true);
-    const [isUpdating, setIsUpdating] = useState(false); // Add loading state for updates
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [activeAddress, setActiveAddress] = useState({});
 
+    const fetchActiveAddress = async () => {
+        try {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/account/active-address', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `${token}`,
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setActiveAddress(data.address);
+            }
+        } catch (error) {
+            console.error('Error fetching active address:', error);
+        }
+    }
+    useEffect(() => {
+        fetchActiveAddress();
+    }, []);
 
     const fetchCart = async () => {
         try {
@@ -171,32 +195,7 @@ export default function CartPage() {
                         </div>
 
                         <div className="w-full md:w-1/3 p-6 rounded-2xl border border-[#FFFFFF1A]">
-                            <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-                            <div className="space-y-2 text-[#FFFFFF99]">
-                                <div className="flex justify-between">
-                                    <span>Subtotal ({totalItems} items)</span>
-                                    <span className='text-white'>₹{totalBasePrice.toFixed(2)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Total Discount</span>
-                                    <span className="text-[#01AB31]">-₹{totalDiscount.toFixed(2)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Delivery Charge</span>
-                                    <span className='text-white'>₹{deliveryCharge.toFixed(2)}</span>
-                                </div>
-                            </div>
-                            <div className="my-4 border-b border-gray-700"></div>
-                            <div className="flex justify-between font-bold">
-                                <span>Total</span>
-                                <span className='text-xl'>₹{totalPrice.toFixed(2)}</span>
-                            </div>
-                            <button
-                                className={`mt-6 w-full bg-[#FF3333] py-3 rounded-full text-white font-semibold ${isUpdating ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                disabled={isUpdating}
-                            >
-                                Proceed to Checkout <ArrowRight className="inline" size={20} />
-                            </button>
+                            <Checkout cartSummery={cartSummary} totalDiscount={totalDiscount} totalBasePrice={totalBasePrice} activeAddress={activeAddress} />
                         </div>
                     </div>
                 ))}

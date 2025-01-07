@@ -25,9 +25,8 @@ export const TopBar = () => {
                     </Link>
                 </div>
 
-                <nav className="hidden lg:flex space-x-8 lg:text-xl">
-                    <a href="#" className="text-white">On Sale</a>
-                    <a href="#" className="text-white">New Arrivals</a>
+                <nav className="hidden lg:flex space-x-8 lg:text-lg text-white">
+                    <a href="#" className="text-white">Download The App</a>
                 </nav>
                 <Searchbar />
                 <div className="flex items-center space-x-4">
