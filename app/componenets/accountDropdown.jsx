@@ -35,17 +35,12 @@ export default function AccountDropdown() {
                 >
                     <ul className="font-thin text-white">
                         <li>
-                            <a
-                                href="#"
-                                className="flex justify-start gap-4 items-center px-4 pt-2 hover:bg-[#191919]"
-                            >
-                                <h2 className="mb-2 text-xl font-bold text-white">My Account</h2>
-                            </a>
+                            <h2 className="mb-2 text-xl font-bold text-white flex justify-start gap-4 items-center px-4 pt-2">My Account</h2>
                         </li>
                         <li>
                             <a
                                 href="/orders"
-                                className="flex justify-start gap-4 items-center px-4 py-1 hover:bg-[#191919]"
+                                className="flex justify-start gap-4 items-center px-4 py-1 hover:bg-[#252525]"
                             >
                                 <PackageSearch size={18} />  Orders
                             </a>
@@ -53,7 +48,7 @@ export default function AccountDropdown() {
                         <li>
                             <a
                                 href="/wishlist"
-                                className="flex justify-start gap-4 items-center px-4 py-1 hover:bg-[#191919]"
+                                className="flex justify-start gap-4 items-center px-4 py-1 hover:bg-[#252525]"
                             >
                                 <ShoppingBagIcon size={18} /> Wishlist
                             </a>
@@ -61,7 +56,7 @@ export default function AccountDropdown() {
                         <li>
                             <a
                                 href="/address"
-                                className="flex justify-start gap-4 items-center px-4 py-1 hover:bg-[#191919]"
+                                className="flex justify-start gap-4 items-center px-4 py-1 hover:bg-[#252525]"
                             >
                                 <MapPinned size={18} /> Address
                             </a>
@@ -70,7 +65,7 @@ export default function AccountDropdown() {
                     <div className="">
                         <button
                             onClick={handleSignOut}
-                            className="flex justify-start gap-4 items-center px-4 pb-2 hover:bg-[#191919] w-full"
+                            className="flex justify-start gap-4 items-center px-4 pb-2 hover:bg-[#252525] w-full"
                         >
                             <LogOutIcon size={18} fill='white' /> Log out
                         </button>

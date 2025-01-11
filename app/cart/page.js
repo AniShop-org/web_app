@@ -172,17 +172,17 @@ export default function CartPage() {
     const totalDiscount = totalBasePrice - totalPrice;
 
     return (
-        <div className="bg-[#191919] text-white min-h-screen flex flex-col">
-            <div className='pb-28'>
+        <div className="bg-[#191919] text-white min-h-screen flex flex-col lg:p-0 p-4">
+            <div className='pb-36'>
                 <TopBar />
             </div>
             <div className='container mx-auto flex-grow'>
-                <h1 className="text-4xl font-bold mb-8">Cart</h1>
+                <h1 className="text-4xl font-bold mb-8">Your cart</h1>
                 
                 {isLoading ? <div>Loading Cart Items...</div> : (cartItems.length === 0 ? (
                     <div>Your cart is empty</div>
                 ) : (
-                    <div className="flex flex-col md:flex-row gap-8">
+                    <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1 space-y-2 ">
                             {cartItems.map((item) => (
                                 <CartItem
@@ -194,7 +194,7 @@ export default function CartPage() {
                             ))}
                         </div>
 
-                        <div className="w-full md:w-1/3 p-6 rounded-2xl border border-[#FFFFFF1A]">
+                        <div className="w-full md:w-1/3">
                             <Checkout cartSummery={cartSummary} totalDiscount={totalDiscount} totalBasePrice={totalBasePrice} activeAddress={activeAddress} />
                         </div>
                     </div>

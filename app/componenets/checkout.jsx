@@ -58,11 +58,6 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                                     razorpay_signature: response.razorpay_signature,
                                 }),
                             });
-                            console.log(response)
-                            console.log(verifyResponse);
-                            console.log("this is")
-                            console.log(response)
-                            console.log(verifyResponse);
                             if (!verifyResponse.ok) {
                                 throw new Error('Payment verification failed');
                             }
@@ -105,87 +100,90 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
     };
 
     return (
-        <div className="space-y-6">
-            <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Delivery Address</h3>
-                <div className="flex items-start space-x-2">
-                    <MapPin className="w-5 h-5 mt-1" />
-                    <div>
-                        <h4 className="font-medium">{activeAddress.addressType}</h4>
-                        <p className="text-sm text-gray-400">{activeAddress.landmark}, {activeAddress.address}, {activeAddress.city}, {activeAddress.pincode}</p>
+        <div>
+            <div className="space-y-6 rounded-2xl border border-[#FFFFFF1A] p-6">
+                <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Delivery Address</h3>
+                    <div className="flex items-start space-x-2">
+                        <MapPin className="w-5 h-5 mt-1" />
+                        <div>
+                            <h4 className="font-medium">{activeAddress.addressType}</h4>
+                            <p className="text-sm text-gray-400">{activeAddress.landmark}, {activeAddress.address}, {activeAddress.city}, {activeAddress.pincode}</p>
+                        </div>
                     </div>
+                    <button className="text-blue-500 text-sm">See more</button>
                 </div>
-                <button className="text-blue-500 text-sm">See more</button>
-            </div>
 
-            <div className="space-y-4 border-t border-[#32323280] pt-4">
-                <h3 className="text-lg font-semibold">Payment Method</h3>
-                <div className="space-y-3">
-                    <button
-                        onClick={() => setPaymentMethod('prepaid')}
-                        className={`w-full p-4 rounded-lg border flex items-center justify-between ${paymentMethod === 'prepaid'
+                <div className="space-y-4 border-t border-[#32323280] pt-4">
+                    <h3 className="text-lg font-semibold">Payment Method</h3>
+                    <div className="space-y-3">
+                        <button
+                            onClick={() => setPaymentMethod('prepaid')}
+                            className={`w-full p-4 rounded-lg border flex items-center justify-between ${paymentMethod === 'prepaid'
                                 ? 'border-blue-500 bg-blue-500/10'
                                 : 'border-gray-700'
-                            }`}
-                    >
-                        <div className="flex items-center space-x-2">
-                            <img src="/razorpay-logo.png" alt="Razorpay" className="h-6" />
-                            <span>Razorpay</span>
-                        </div>
-                        <div className="w-4 h-4 rounded-full border border-blue-500 flex items-center justify-center">
-                            {paymentMethod === 'prepaid' && (
-                                <div className="w-2 h-2 rounded-full bg-blue-500" />
-                            )}
-                        </div>
-                    </button>
+                                }`}
+                        >
+                            <div className="flex items-center space-x-2">
+                                <img src="/razorpay-logo.png" alt="Razorpay" className="h-6" />
+                                <span>Razorpay</span>
+                            </div>
+                            <div className="w-4 h-4 rounded-full border border-blue-500 flex items-center justify-center">
+                                {paymentMethod === 'prepaid' && (
+                                    <div className="w-2 h-2 rounded-full bg-blue-500" />
+                                )}
+                            </div>
+                        </button>
 
-                    <button
-                        onClick={() => setPaymentMethod('cod')}
-                        className={`w-full p-4 rounded-lg border flex items-center justify-between ${paymentMethod === 'cod'
+                        <button
+                            onClick={() => setPaymentMethod('cod')}
+                            className={`w-full p-4 rounded-lg border flex items-center justify-between ${paymentMethod === 'cod'
                                 ? 'border-blue-500 bg-blue-500/10'
                                 : 'border-gray-700'
-                            }`}
-                    >
-                        <span>Cash On Delivery</span>
-                        <div className="w-4 h-4 rounded-full border border-blue-500 flex items-center justify-center">
-                            {paymentMethod === 'cod' && (
-                                <div className="w-2 h-2 rounded-full bg-blue-500" />
-                            )}
+                                }`}
+                        >
+                            <span>Cash On Delivery</span>
+                            <div className="w-4 h-4 rounded-full border border-blue-500 flex items-center justify-center">
+                                {paymentMethod === 'cod' && (
+                                    <div className="w-2 h-2 rounded-full bg-blue-500" />
+                                )}
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div className="space-y-4 border-t border-[#32323280] pt-4">
+                    <h3 className="text-lg font-semibold">Order Summary</h3>
+                    <div className="space-y-2">
+                        <div className="flex justify-between">
+                            <span className="text-[#808080]">Sub-total</span>
+                            <span>₹{totalBasePrice}</span>
                         </div>
-                    </button>
-                </div>
-            </div>
-
-            <div className="space-y-4 border-t border-[#32323280] pt-4">
-                <h3 className="text-lg font-semibold">Order Summary</h3>
-                <div className="space-y-2">
-                    <div className="flex justify-between">
-                        <span className="text-[#808080]">Sub-total</span>
-                        <span>₹{totalBasePrice}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span className="text-[#808080]">Total discount</span>
-                        <span>₹{totalDiscount}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span className="text-[#808080]">Shipping fee</span>
-                        <span>₹{shippingFee}</span>
-                    </div>
-                    <div className="flex justify-between font-semibold pt-2 border-t border-[#434343] text-xl">
-                        <span>Total</span>
-                        <span>₹{total}</span>
+                        <div className="flex justify-between">
+                            <span className="text-[#808080]">Total discount</span>
+                            <span>₹{totalDiscount}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-[#808080]">Shipping fee</span>
+                            <span>₹{shippingFee}</span>
+                        </div>
+                        <div className="flex justify-between font-semibold pt-2 border-t border-[#434343] text-xl">
+                            <span>Total</span>
+                            <span>₹{total}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <div className='pt-6'>
             <button
                 onClick={handlePayment}
                 disabled={isLoading}
-                className="w-full py-4 bg-red-500 text-white rounded-lg font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full py-4 bg-red-500 text-white rounded-full font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
             >
                 <span>{isLoading ? 'Processing...' : 'Place Order'}</span>
                 {!isLoading && <span>→</span>}
             </button>
+            </div>
         </div>
     );
 };
