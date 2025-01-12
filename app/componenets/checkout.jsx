@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Razorpay from 'razorpay';
-import { MapPin } from 'lucide-react';
+import { Banknote, MapPin } from 'lucide-react';
 
 const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress }) => {
     const [paymentMethod, setPaymentMethod] = useState('prepaid');
@@ -101,9 +101,12 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
 
     return (
         <div>
-            <div className="space-y-6 rounded-2xl border border-[#FFFFFF1A] p-6">
+            <div className="space-y-6 rounded-3xl border border-[#FFFFFF1A] p-6">
                 <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Delivery Address</h3>
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-lg font-semibold">Delivery Address</h3>
+                        <button className="text-blue-500 text-sm underline" onClick={() => router.push("/address")}>Change</button>
+                    </div>
                     <div className="flex items-start space-x-2">
                         <MapPin className="w-5 h-5 mt-1" />
                         <div>
@@ -111,46 +114,34 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                             <p className="text-sm text-gray-400">{activeAddress.landmark}, {activeAddress.address}, {activeAddress.city}, {activeAddress.pincode}</p>
                         </div>
                     </div>
-                    <button className="text-blue-500 text-sm">See more</button>
                 </div>
 
                 <div className="space-y-4 border-t border-[#32323280] pt-4">
                     <h3 className="text-lg font-semibold">Payment Method</h3>
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
                         <button
                             onClick={() => setPaymentMethod('prepaid')}
-                            className={`w-full p-4 rounded-lg border flex items-center justify-between ${paymentMethod === 'prepaid'
-                                ? 'border-blue-500 bg-blue-500/10'
-                                : 'border-gray-700'
-                                }`}
+                            className={`w-full p-2 rounded-2xl border flex flex-col items-center space-y-2 ${paymentMethod === 'prepaid'
+                                ? ' bg-white text-black border-white'
+                                : 'border-[#32323280]'
+                            }`}
                         >
-                            <div className="flex items-center space-x-2">
-                                <img src="/razorpay-logo.png" alt="Razorpay" className="h-6" />
-                                <span>Razorpay</span>
-                            </div>
-                            <div className="w-4 h-4 rounded-full border border-blue-500 flex items-center justify-center">
-                                {paymentMethod === 'prepaid' && (
-                                    <div className="w-2 h-2 rounded-full bg-blue-500" />
-                                )}
-                            </div>
+                            <img src="/razorpay-logo.png" alt="Razorpay" className="h-6" />
                         </button>
 
                         <button
                             onClick={() => setPaymentMethod('cod')}
-                            className={`w-full p-4 rounded-lg border flex items-center justify-between ${paymentMethod === 'cod'
-                                ? 'border-blue-500 bg-blue-500/10'
-                                : 'border-gray-700'
+                            className={`w-full rounded-2xl p-2 border flex items-center justify-center space-x-2 ${paymentMethod === 'cod'
+                                ? 'border-white bg-white text-black'
+                                : 'text-[#898989] border-[#32323280]'
                                 }`}
                         >
-                            <span>Cash On Delivery</span>
-                            <div className="w-4 h-4 rounded-full border border-blue-500 flex items-center justify-center">
-                                {paymentMethod === 'cod' && (
-                                    <div className="w-2 h-2 rounded-full bg-blue-500" />
-                                )}
-                            </div>
+                            <Banknote size={28}/>
+                            <span className="lg:text-lg text-md text-sm">Cash On Delivery</span>
                         </button>
                     </div>
                 </div>
+
 
                 <div className="space-y-4 border-t border-[#32323280] pt-4">
                     <h3 className="text-lg font-semibold">Order Summary</h3>
@@ -167,14 +158,14 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                             <span className="text-[#808080]">Shipping fee</span>
                             <span>₹{shippingFee}</span>
                         </div>
-                        <div className="flex justify-between font-semibold pt-2 border-t border-[#434343] text-xl">
+                        <div className="flex justify-between font-semibold pt-4 border-t border-[#434343] text-xl">
                             <span>Total</span>
                             <span>₹{total}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='pt-6'>
+            <div className='pt-4'>
             <button
                 onClick={handlePayment}
                 disabled={isLoading}

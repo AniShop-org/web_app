@@ -201,7 +201,7 @@ export default function CartPage() {
                 ))}
                 
             </div>
-            <div className='mt-auto'>
+            <div className='mt-auto pt-28'>
                 <Footer />
             </div>
         </div>

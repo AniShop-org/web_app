@@ -1,7 +1,7 @@
 "use client"
 
 
-import { Search, Menu, ShoppingCart, User } from 'lucide-react';
+import { Search, Menu, ShoppingCart, User, Bell } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -40,6 +40,13 @@ export const TopBar = () => {
                             className="w-full py-3 pl-10 pr-4 bg-[#2A2A2A] bg-opacity-90 text-gray-200 rounded-full placeholder-[#FFFFFF66] focus:outline-none focus:ring-2 focus:ring-white"
                         />
                     </div>
+
+                    <button onClick={() => {
+                        router.push("/notifications");
+                    }}>
+                        <Bell size={24} />
+                    </button>
+                    
                     <button className="text-white" onClick={() => {
                             if (!token) {
                                 router.push('/login');
