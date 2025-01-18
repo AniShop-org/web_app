@@ -54,14 +54,11 @@ export default function NotificationsPage() {
       <main className="container mx-auto px-4 py-6 flex-grow mt-36">
         <div className="mb-6">
           <h1 className="text-2xl font-bold">Notifications</h1>
-          <p className="text-sm text-gray-400">
-            Stay updated with your orders and account activity
-          </p>
         </div>
 
         {loading && (
           <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-200" />
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
           </div>
         )}
 

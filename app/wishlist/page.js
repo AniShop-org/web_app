@@ -5,6 +5,7 @@ import WishListItem from '../componenets/wishlistItem';
 import { TopBar } from '../componenets/topbar';
 import Footer from '../componenets/footer';
 import { SideNav } from '../componenets/sideNav';
+import { Heart } from 'lucide-react';
 
 export default function WishlistPage() {
     const [wishList, setWishList] = useState([]);
@@ -47,12 +48,18 @@ export default function WishlistPage() {
                             <h1 className="text-4xl font-bold text-white">My Wishlist</h1>
                         </div>
                         {isLoading ? (
-                            <div className='text-lg font-bold'>Loading wishlist...</div>
-                            ) : wishList.length === 0 ? (
-                                <div className="rounded-2xl bg-[#1A1A1A] p-8 text-center text-gray-400">
-                                    Your wishlist is empty.
-                                </div>
-                            ) : (
+                            <div className="flex justify-center content-center pt-20">
+                                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+                            </div>
+                        ) : wishList.length === 0 ? (
+                            <div className="text-center py-12">
+                                <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                                <h3 className="text-lg font-medium">Your wishlist is empty</h3>
+                                <p className="text-gray-400">
+                                    Add items to your wishlist to see them here.
+                                </p>
+                            </div>
+                        ) : (
                             <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 gap-6">
                                 {wishList.map((item) => (
                                     <WishListItem 

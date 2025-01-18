@@ -1,27 +1,45 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+
+const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
+
+const validatePassword = (password) => {
+    return password.length >= 6;
+};
+
 export default function Signin() {
     const router = useRouter();
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+    const [validations, setValidations] = useState({
+        email: { isValid: false, isTouched: false },
+        password: { isValid: false, isTouched: false },
+    });
+    const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (localStorage.getItem("authToken")) {
             router.push("/");
         }
     }, [router]);
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    });
-    const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setLoading(true);
+
         try {
             const response = await fetch(
                 "https://anishop-backend-test.onrender.com/api/v1/user/auth/login",
@@ -37,7 +55,7 @@ export default function Signin() {
             if (response.ok) {
                 router.push(`verify-login?email=${formData.email}`);
             } else {
-                setError(data.message || 'login failed');
+                setError(data.message || "login failed");
             }
         } catch (err) {
             setError("Something went wrong. Please try again.");
@@ -45,100 +63,193 @@ export default function Signin() {
             setLoading(false);
         }
     };
+
     return (
-        <div className="bg-[#191919] min-h-screen relative">
-            {/* Logo */}
-            <div className="absolute top-8 left-8 z-10">
-                <div className="flex items-center space-x-2">
-                    <span className="text-white text-2xl font-bold">ANISHOP</span>
-                </div>
-            </div>
-            {/* Background Image */}
-            <div className="absolute inset-0">
+        <div className="flex flex-col md:flex-row w-full min-h-screen bg-[#191919] relative">
+            {/* Background Image - Now spans full width on mobile */}
+            <div className="absolute inset-0 w-full h-full md:hidden">
                 <Image
                     src="/auth-banner.png"
                     alt="signin banner"
                     fill
-                    className="object-cover brightness-25 filter grayscale"
+                    className="object-cover brightness-50 filter grayscale scale-125"
                     priority
                 />
             </div>
+
+            {/* Desktop Left side - Logo and Image */}
+            <div className="hidden md:block md:w-1/2 relative">
+                <div className="absolute top-8 left-8 z-10">
+                    <Link href="/" className="flex items-center space-x-2">
+                        <svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z" fill="#FF3333" />
+                        </svg>
+                        <span className="text-white text-2xl font-bold tracking-wider">
+                            ANISHOP
+                        </span>
+                    </Link>
+                </div>
+                <div className="absolute inset-0 left-0">
+                    <Image
+                        src="/auth-banner.png"
+                        alt="signin banner"
+                        fill
+                        className="object-cover brightness-50 filter grayscale scale-125"
+                        priority
+                    />
+                </div>
+            </div>
+
+            {/* Mobile Logo */}
+            <div className="md:hidden absolute top-8 left-8 z-10">
+                <Link href="/" className="flex items-center space-x-2">
+                    <svg
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z" fill="#FF3333" />
+                    </svg>
+                    <span className="text-white text-2xl font-bold tracking-wider">
+                        ANISHOP
+                    </span>
+                </Link>
+            </div>
+
             {/* Form Container */}
-            <div className="relative z-10 min-h-screen flex justify-end items-center px-16">
-                <div className="bg-[#191919] p-8 rounded-lg w-full max-w-md">
-                    <h2 className="text-4xl font-bold text-white mb-1">Login to your account</h2>
-                    <p className="text-[#808080] mb-6">it's great to see you again.</p>
+            <div className="w-full md:w-1/2 flex items-center justify-center relative z-10">
+                <div className="w-full max-w-xl p-8 flex flex-col justify-center min-h-screen md:min-h-0">
+                    <h2 className="text-4xl font-bold text-white mb-1">
+                        Login to your account
+                    </h2>
+                    <p className="text-[#808080] mb-8">
+                        It's great to see you again.
+                    </p>
+
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded mb-4">
+                        <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded mb-6">
                             {error}
                         </div>
                     )}
-                    <form onSubmit={handleSubmit} className="space-y-5">
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Email */}
                         <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-md font-medium text-gray-200 mb-2"
-                            >
-                                Email
-                            </label>
+                            <label className="block text-sm text-white mb-2">Email</label>
                             <input
                                 type="email"
-                                id="email"
                                 required
-                                className="w-full px-4 py-3 bg-[#222222] border border-[#222222] rounded-lg text-white focus:outline-none focus:border-red-500 placeholder-[#999999]"
+                                className={`w-full px-4 py-3 bg-[#222222] rounded-lg text-white focus:outline-none placeholder-[#999999]
+                                    ${
+                                        validations.email.isTouched
+                                            ? validations.email.isValid
+                                                ? "border border-[#0C9409]"
+                                                : "border border-[#ED1010]"
+                                            : "border border-[#222222]"
+                                    }
+                                `}
                                 placeholder="Enter your email address"
                                 value={formData.email}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, email: e.target.value })
+                                onChange={(e) => {
+                                    const email = e.target.value;
+                                    setFormData({ ...formData, email });
+                                    setValidations((prev) => ({
+                                        ...prev,
+                                        email: {
+                                            isTouched: true,
+                                            isValid: validateEmail(email),
+                                        },
+                                    }));
+                                }}
+                                onBlur={() =>
+                                    setValidations((prev) => ({
+                                        ...prev,
+                                        email: {
+                                            ...prev.email,
+                                            isTouched: true,
+                                        },
+                                    }))
                                 }
                             />
                         </div>
+
+                        {/* Password */}
                         <div>
-                            <label
-                                htmlFor="password"
-                                className="block text-md font-medium text-gray-200 mb-2"
-                            >
-                                Password
-                            </label>
+                            <label className="block text-sm text-white mb-2">Password</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    id="password"
                                     required
-                                    className="w-full px-4 py-3 bg-[#222222] border border-[#222222] rounded-lg text-white focus:outline-none focus:border-red-500 placeholder-[#999999] pr-12"
-                                    placeholder="Enter your password"
+                                    className={`w-full px-4 py-3 bg-[#222222] rounded-lg text-white focus:outline-none pr-12 placeholder-[#999999]
+                                        ${
+                                            validations.password.isTouched
+                                                ? validations.password.isValid
+                                                    ? "border border-[#0C9409]"
+                                                    : "border border-[#ED1010]"
+                                                : "border border-[#222222]"
+                                        }
+                                    `}
+                                    placeholder="Enter your password (min 6 characters)"
                                     value={formData.password}
-                                    onChange={(e) =>
-                                        setFormData({ ...formData, password: e.target.value })
+                                    onChange={(e) => {
+                                        const password = e.target.value;
+                                        setFormData({ ...formData, password });
+                                        setValidations((prev) => ({
+                                            ...prev,
+                                            password: {
+                                                isTouched: true,
+                                                isValid: validatePassword(password),
+                                            },
+                                        }));
+                                    }}
+                                    onBlur={() =>
+                                        setValidations((prev) => ({
+                                            ...prev,
+                                            password: {
+                                                ...prev.password,
+                                                isTouched: true,
+                                            },
+                                        }))
                                     }
                                 />
                                 <button
                                     type="button"
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#808080] hover:text-white"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
                             </div>
-                            <p className="text-right mt-2 text-sm text-white hover:text-gray-300 cursor-pointer">
-                                Forgot password?
-                            </p>
+                            <div className="flex justify-end mt-2">
+                                <Link
+                                    href="/forgot-password"
+                                    className="text-sm text-[#808080] hover:text-white"
+                                >
+                                    Forgot Password?
+                                </Link>
+                            </div>
                         </div>
+
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full bg-gradient-to-r to-[#DE370D] from-[#781E07] text-white px-8 py-3 rounded-lg hover:bg-red-600 transition-colors ${loading ? "opacity-50 cursor-not-allowed" : ""
-                                }`}
+                            className="w-full bg-[#FF3333] text-white py-3 rounded-lg hover:bg-[#E62E2E] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {loading ? "Logging in..." : "Login In"}
+                            {loading ? "Please wait..." : "Log In"}
                         </button>
                     </form>
-                    <p className="mt-6 text-left text-gray-400">
+
+                    <p className="mt-6 text-[#808080] text-sm">
                         New User?{" "}
-                        <Link
-                            href="/signup"
-                            className="text-blue-500 hover:text-blue-700 underline"
-                        >
+                        <Link href="/signup" className="text-[#FF3333] hover:text-[#E62E2E] underline">
                             Sign up
                         </Link>
                     </p>

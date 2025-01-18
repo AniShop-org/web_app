@@ -5,6 +5,7 @@ import { SideNav } from "./sideNav";
 import { TopBar } from "./topbar";
 import Footer from "./footer";
 import { AddressCard } from "./addressCard";
+import { MapPin } from "lucide-react";
 
 const MyAddresses = () => {
     const [addresses, setAddresses] = useState([]);
@@ -114,8 +115,18 @@ const MyAddresses = () => {
                     </div>
                     <div>
                         {loading ? (
-                            <p className="text-white font-bold">Loading Addresses...</p>
-                        ) : (
+                            <div className="flex justify-center content-center pt-20">
+                                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+                            </div> 
+                        ) : (addresses.length === 0 ? (
+                            <div className="text-center py-12">
+                                <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                                <h3 className="text-lg font-medium">No addresses found</h3>
+                                <p className="text-gray-400">
+                                    Add an address to see it here.
+                                </p>
+                            </div>
+                            ):(
                             addresses.map((address) => (
                                 <AddressCard
                                     key={address.id}
@@ -127,7 +138,7 @@ const MyAddresses = () => {
                                     isDeleting={deletingId === address.id}
                                 />
                             ))
-                        )}
+                        ))}
                     </div>
                 </div>
             </div>

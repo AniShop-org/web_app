@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -10,36 +9,26 @@ export default function OTPVerification() {
             router.push('/');
         }
     }, [router]);
+
     const params = useSearchParams();
     const email = params.get('email') || '';
     const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
-    const inputRefs = [
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null)
-    ];
+    const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [otp, setOTP] = useState('')
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (enteredOTP) => {
         setLoading(true);
         setError('');
 
         try {
             const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/login-verify-otp', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, otp }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp: enteredOTP }),
             });
 
             const data = await response.json();
-
             if (response.ok) {
                 localStorage.setItem('authToken', data.token);
                 router.push('/');
@@ -64,7 +53,11 @@ export default function OTPVerification() {
             inputRefs[index + 1].current.focus();
         }
 
-        setOTP(newOtpDigits.join(''));
+        const newOtpString = newOtpDigits.join('');
+
+        if (newOtpDigits.every((digit) => digit !== '')) {
+            handleSubmit(newOtpString);
+        }
     };
 
     const handleKeyDown = (index, e) => {
@@ -78,7 +71,7 @@ export default function OTPVerification() {
             <div className="bg-[#222222] p-8 rounded-lg w-full max-w-md">
                 <h1 className="text-2xl font-bold mb-4">Enter 6 Digit Code</h1>
                 <p className="mb-4">Enter the 6-digit code that was sent to {email}.</p>
-                
+
                 <div className="flex gap-2 mb-4">
                     {otpDigits.map((digit, index) => (
                         <input
@@ -95,23 +88,22 @@ export default function OTPVerification() {
                 </div>
 
                 <button
-                    className="bg-gradient-to-r from-[#781E07] to-[#DE370D] text-white px-4 py-3 rounded-md w-full mb-4"
-                    onClick={handleSubmit}
-                    disabled={loading || otpDigits.some(digit => !digit)}
+                    className="bg-gradient-to-r from-[#781E07] to-[#DE370D] text-white px-4 py-3 rounded-full w-full mb-4"
+                    onClick={() => handleSubmit(otpDigits.join(''))}
+                    disabled={loading || otpDigits.some((digit) => !digit)}
                 >
-                    {loading ? 'Please wait...' : 'Continue'}
+                    {loading ? 'Logging In...' : 'Continue'}
                 </button>
-                
+
                 {error && <p className="text-red-500">{error}</p>}
-                <p 
-                    className="text-[#999999] underline cursor-pointer" 
+                <p
+                    className="text-[#999999] underline cursor-pointer"
                     onClick={() => {
                         setOtpDigits(['', '', '', '', '', '']);
-                        setOTP('');
                         inputRefs[0].current.focus();
                     }}
                 >
-                    Resend code
+                    Edit OTP
                 </p>
             </div>
         </div>

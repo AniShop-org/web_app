@@ -6,6 +6,7 @@ import { TopBar } from '../componenets/topbar';
 import Footer from '../componenets/footer';
 import { useRouter } from 'next/navigation';
 import Checkout from '../componenets/checkout';
+import { ShoppingCart } from 'lucide-react';
 
 export default function CartPage() {
     const router = useRouter();
@@ -179,8 +180,18 @@ export default function CartPage() {
             <div className='container mx-auto flex-grow'>
                 <h1 className="text-4xl font-bold mb-8">Your cart</h1>
                 
-                {isLoading ? <div>Loading Cart Items...</div> : (cartItems.length === 0 ? (
-                    <div>Your cart is empty</div>
+                {isLoading ?  
+                    <div className="flex justify-center content-center pt-20">
+                        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+                    </div> 
+                : (cartItems.length === 0 ? (
+                    <div className="text-center py-12">
+                        <ShoppingCart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium">Your cart is empty</h3>
+                        <p className="text-gray-400">
+                            Add items to your cart to see them here.
+                        </p>
+                    </div>
                 ) : (
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1 space-y-2 ">
