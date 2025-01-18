@@ -24,7 +24,7 @@ export default function Signin() {
         setLoading(true);
         try {
             const response = await fetch(
-                "https://anishop-backend-test.onrender.com/api/v1/user/auth/signin",
+                "https://anishop-backend-test.onrender.com/api/v1/user/auth/login",
                 {
                     method: "POST",
                     headers: {
@@ -35,10 +35,9 @@ export default function Signin() {
             );
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem("authToken", data.token);
-                router.push("/");
+                router.push(`verify-login?email=${formData.email}`);
             } else {
-                setError(data.message || "Signin failed");
+                setError(data.message || 'login failed');
             }
         } catch (err) {
             setError("Something went wrong. Please try again.");
