@@ -6,6 +6,8 @@ import ProductDetail from "../../componenets/productDetail";
 import { TopBar } from "@/app/componenets/topbar";
 import Footer from "@/app/componenets/footer";
 import ProductDetailSkeleton from "@/app/componenets/productdetailSkeleton";
+import SimilarProducts from "@/app/componenets/similarProduct";
+import Reviews from "@/app/componenets/reviews";
 
 export default function Product() {
     const productId = useParams().id;
@@ -44,6 +46,12 @@ export default function Product() {
                         </div>
                     </div>
                 )}
+            </div>
+            <div className="">
+                <Reviews reviews={product.reviews} />
+            </div>
+            <div>
+                <SimilarProducts categoriId={product.categoryId} />
             </div>
             <div className="mt-auto">
                 <Footer />

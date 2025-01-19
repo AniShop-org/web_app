@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Reviews from './reviews';
 
 const ProductDetail = ({ product }) => {
     const [selectedSize, setSelectedSize] = useState('');
@@ -221,9 +220,6 @@ const ProductDetail = ({ product }) => {
                         />
                     </button>
                 </div>
-            </div>
-            <div>
-                <Reviews reviews={product.reviews} />
             </div>
         </div>
     );
