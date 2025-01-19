@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
     const rating = product.averageRating;
     const router = useRouter();
     const handleClick = () => {
-        router.push(`/products/${product.id}`);
+        router.push(`/products/${product.id}?category=${product.categoryId}`);
     }
     const [wishlist, setWishlist] = useState([]);
     useEffect(() => {

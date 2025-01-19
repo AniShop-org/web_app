@@ -1,6 +1,6 @@
 "use client"
 
-import { useParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import ProductDetail from "../../componenets/productDetail";
 import { TopBar } from "@/app/componenets/topbar";
@@ -11,12 +11,15 @@ import Reviews from "@/app/componenets/reviews";
 
 export default function Product() {
     const productId = useParams().id;
+    const searchParams = useSearchParams();
+    const categoryId = searchParams.get('category');
     const [product, setProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
+                console.log('categoryId', categoryId);
                 const response = await fetch(`https://anishop-backend-test.onrender.com/api/v1/products/${productId}`);
                 const data = await response.json();
                 setProduct(data);
@@ -28,6 +31,7 @@ export default function Product() {
         }
         fetchProduct();
     }, []);
+
 
     return (
         <div className="bg-[#191919] min-h-screen flex flex-col">
@@ -47,11 +51,8 @@ export default function Product() {
                     </div>
                 )}
             </div>
-            <div className="">
-                <Reviews reviews={product.reviews} />
-            </div>
-            <div>
-                <SimilarProducts categoriId={product.categoryId} />
+            <div className="mb-10">
+                <SimilarProducts categoriId={categoryId} />
             </div>
             <div className="mt-auto">
                 <Footer />

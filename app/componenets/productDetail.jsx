@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Reviews from './reviews';
 
 const ProductDetail = ({ product }) => {
     const [selectedSize, setSelectedSize] = useState('');
@@ -106,6 +107,7 @@ const ProductDetail = ({ product }) => {
     };
 
     return (
+        <div>
         <div className="flex flex-col md:flex-row gap-8 bg-[#191919] text-white p-6">
             {/* Left side - Image gallery */}
             <div className="flex flex-col-reverse md:flex-row gap-4">
@@ -221,7 +223,13 @@ const ProductDetail = ({ product }) => {
                     </button>
                 </div>
             </div>
+            
         </div>
+            <div className="mt-8">
+                <Reviews reviews={product.reviews} />
+            </div>
+        </div>
+
     );
 };
 
