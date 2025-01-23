@@ -134,7 +134,7 @@ const ProductDetail = ({ product }) => {
                     <img
                         src={product.images[selectedImage]}
                         alt={product.name}
-                        className="lg:w-80 lg:h-96 w-full h-2/4 max-w-md object-cover rounded-2xl"
+                        className="lg:w-11/12 lg:h-96 w-96 h-2/4 max-w-md object-cover rounded-2xl"
                     />
                 </div>
             </div>
