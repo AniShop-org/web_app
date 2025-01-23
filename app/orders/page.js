@@ -7,6 +7,13 @@ import { SideNav } from '../componenets/sideNav';
 import Footer from '../componenets/footer';
 
 export default function OrderPage() {
+
+    if (typeof window != 'undefined') {
+        if (!localStorage.getItem('authToken')) {
+            router.push('/login');
+        }
+    }   
+
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('All Orders');
@@ -100,7 +107,9 @@ export default function OrderPage() {
                         </div>
 
                         {isLoading ? (
-                            <div className='text-lg font-bold text-white'>Loading Orders...</div>
+                            <div className="flex justify-center content-center pt-20">
+                                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+                            </div> 
                         ) : (
                             <div className="space-y-4">
                                 {filteredOrders.length === 0 ? (

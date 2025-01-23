@@ -6,6 +6,7 @@ import { TopBar } from "./topbar";
 import Footer from "./footer";
 import { AddressCard } from "./addressCard";
 import { MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const MyAddresses = () => {
     const [addresses, setAddresses] = useState([]);
@@ -13,6 +14,13 @@ const MyAddresses = () => {
     const [loading, setLoading] = useState(true);
     const [selectingId, setSelectingId] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
+    const router = useRouter();
+
+    if (typeof window != 'undefined') {
+        if (!localStorage.getItem('authToken')) {
+            router.push('/login');
+        }
+    }   
 
     useEffect(() => {
         // Fetch active address first
@@ -108,9 +116,9 @@ const MyAddresses = () => {
                 </div>
                 <div className="flex-grow">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-4xl text-white font-bold pb-4">Addresses</h2>
-                        <button className="inline-flex items-center bg-white hover:bg-neutral-100 transition-colors text-black text-sm px-3 py-1.5 rounded-lg">
-                            <span className="mr-1 text-base leading-none">+</span> Add new address
+                        <h2 className="text-4xl text-white font-bold pb-4">My Addresses</h2>
+                        <button className="inline-flex items-center bg-white hover:bg-neutral-100 transition-colors text-black text-sm px-3 py-1.5 rounded-lg" onClick={() => router.push('/new-address')}>
+                            <span className="mr-1 text-base leading-none bg-white">+</span> Add new address
                         </button>
                     </div>
                     <div>
