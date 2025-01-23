@@ -14,8 +14,10 @@ export const FilterSidebar = ({
     ];
 
     return (
-        <div className="w-64 bg-[#191919] p-6 space-y-6">
+        <div className="w-64 bg-[#191919] p-6 space-y-6 border border-[#FFFFFF1A] rounded-2xl h-auto">
+            <h1 className="font-bold text-2xl">Filters</h1>
             {/* Price Range */}
+            <hr className="border-[#FFFFFF1A] sm:mx-auto" />
             <div>
                 <h3 className="text-lg font-semibold text-white">Price</h3>
                 <div className="px-2">
@@ -33,6 +35,7 @@ export const FilterSidebar = ({
             </div>
 
             {/* Size */}
+            <hr className="border-[#FFFFFF1A] sm:mx-auto" />
             <div>
                 <h3 className="text-lg font-semibold text-white mb-4">Size</h3>
                 <div className="flex flex-wrap gap-2">
@@ -50,7 +53,7 @@ export const FilterSidebar = ({
                     ))}
                 </div>
             </div>
-
+            <hr className="border-[#FFFFFF1A] sm:mx-auto" />
             {/* Rating */}
             <div>
                 <h3 className="text-lg font-semibold text-white">Rating</h3>

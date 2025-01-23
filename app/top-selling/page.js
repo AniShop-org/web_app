@@ -87,14 +87,18 @@ export default function TopSellingPage() {
                 <ProductGrid products={products} />
               </>
             )}
+            
+            <hr className="my-6 border-[#FFFFFF1A] sm:mx-auto mt-10" />
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-          />
+
       <Footer />
     </div>
   );
