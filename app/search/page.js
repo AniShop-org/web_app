@@ -72,6 +72,17 @@ const SearchResults = () => {
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
+  
+  const handleClearFilters = () => {
+    setFilters({
+      minRating: 0,
+      minPrice: 0,
+      maxPrice: 10000,
+      size: ""
+    });
+    setCurrentPage(1);
+    fetchProducts(1);
+  }
 
   return (
     <div className="min-h-screen bg-[#191919]">
@@ -79,17 +90,20 @@ const SearchResults = () => {
 
       <div className="max-w-7xl mx-auto px-4 py-40">
         <div className="flex gap-8">
-          {/* Filter Sidebar: pass filters and callbacks */}
-          <FilterSidebar
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onApplyFilters={handleApplyFilters}
-          />
-
+          <div>
+            <FilterSidebar
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onApplyFilters={handleApplyFilters}
+              onClearFilters={handleClearFilters}
+            />
+          </div>
           {/* Main Content */}
           <div className="flex-1">
             {loading ? (
-              <div className="text-white">Loading...</div>
+              <div className="flex justify-center content-center pt-20">
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+              </div>
             ) : products.length === 0 ? (
               <div>
                 <h1 className="text-2xl font-bold text-white">

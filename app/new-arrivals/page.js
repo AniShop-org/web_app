@@ -59,24 +59,39 @@ export default function NewArrivals() {
     fetchProducts(1);
   };
 
+  const handleClearFilters = () => {
+    setFilters({
+      minRating: 0,
+      minPrice: 0,
+      maxPrice: 10000,
+      size: ""
+    });
+    setCurrentPage(1);
+    fetchProducts(1);
+  }
+
   return (
     <div className="min-h-screen bg-[#191919]">
       <TopBar />
       <div className="max-w-7xl mx-auto px-4 py-40">
         <div className="flex gap-8">
-          <FilterSidebar
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onApplyFilters={handleApplyFilters}
-          />
-
+          <div>
+            <FilterSidebar
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onApplyFilters={handleApplyFilters}
+              onClearFilters={handleClearFilters}
+            />
+          </div>
           <div className="flex-1">
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl font-bold text-white">New Arrivals</h1>
+              <h1 className="text-4xl font-bold text-white">New Arrivals</h1>
             </div>
 
             {loading ? (
-              <div className="text-white">Loading...</div>
+              <div className="flex justify-center content-center pt-20">
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+              </div>
             ) : (
               <>
                 <ProductGrid products={products} />

@@ -1,24 +1,44 @@
 "use client";
 
+import { useState } from "react";
 import RatingSlider from "./ratingSlider";
 import Slider from "./Slider";
+import { Filter, X } from "lucide-react";
 
 export const FilterSidebar = ({
     filters,
     onFilterChange,
-    onApplyFilters
+    onApplyFilters,
+    onClearFilters
 }) => {
-    const sizes = [
-        "XS", "S", "M", "L",
-        "XL", "XXL", "3XL"
-    ];
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const sizes = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
 
-    return (
-        <div className="w-64 bg-[#191919] p-6 space-y-6 border border-[#FFFFFF1A] rounded-2xl h-auto">
-            <h1 className="font-bold text-2xl">Filters</h1>
-            {/* Price Range */}
+    const handleApplyAndClose = () => {
+        onApplyFilters();
+        setIsMobileOpen(false);
+    };
+
+    const handleClearAndClose = () => {
+        onClearFilters();
+        setIsMobileOpen(false);
+    };
+
+    const FilterContent = () => (
+        <div className="mt-10 lg:mt-0">
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="font-bold text-2xl">Filters</h1>
+                <button
+                    onClick={handleClearAndClose}
+                    className="text-sm text-red-500 hover:text-red-400"
+                >
+                    Clear filters
+                </button>
+            </div>
+
             <hr className="border-[#FFFFFF1A] sm:mx-auto" />
-            <div>
+            {/* Price Range */}
+            <div className="my-6">
                 <h3 className="text-lg font-semibold text-white">Price</h3>
                 <div className="px-2">
                     <Slider
@@ -34,9 +54,9 @@ export const FilterSidebar = ({
                 </div>
             </div>
 
-            {/* Size */}
             <hr className="border-[#FFFFFF1A] sm:mx-auto" />
-            <div>
+            {/* Size */}
+            <div className="my-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Size</h3>
                 <div className="flex flex-wrap gap-2">
                     {sizes.map((size) => (
@@ -53,9 +73,10 @@ export const FilterSidebar = ({
                     ))}
                 </div>
             </div>
+
             <hr className="border-[#FFFFFF1A] sm:mx-auto" />
             {/* Rating */}
-            <div>
+            <div className="my-6">
                 <h3 className="text-lg font-semibold text-white">Rating</h3>
                 <div className="px-2">
                     <RatingSlider
@@ -73,10 +94,49 @@ export const FilterSidebar = ({
 
             <button
                 className="w-full bg-red-500 hover:bg-red-600 text-white mt-4 p-2 rounded-full"
-                onClick={onApplyFilters}
+                onClick={handleApplyAndClose}
             >
                 Apply Filter
             </button>
         </div>
+    );
+
+    return (
+        <>
+            {/* Mobile Filter Button */}
+            <button
+                className="md:hidden fixed bottom-4 right-4 z-40 bg-red-500 p-3 rounded-full shadow-lg"
+                onClick={() => setIsMobileOpen(true)}
+            >
+                <Filter className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Desktop Sidebar */}
+            <div className="hidden md:block w-64 bg-[#191919] p-6 space-y-6 border border-[#FFFFFF1A] rounded-2xl h-auto">
+                <FilterContent />
+            </div>
+
+            {/* Mobile Sidebar */}
+            {isMobileOpen && (
+                <>
+                    {/* Backdrop */}
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                        onClick={() => setIsMobileOpen(false)}
+                    />
+
+                    {/* Sidebar */}
+                    <div className="fixed left-0 top-0 h-full w-80 bg-[#191919] p-6 z-50 overflow-y-auto">
+                        <button
+                            onClick={() => setIsMobileOpen(false)}
+                            className="absolute top-4 right-4"
+                        >
+                            <X className="w-6 h-6 text-white" />
+                        </button>
+                        <FilterContent />
+                    </div>
+                </>
+            )}
+        </>
     );
 };
