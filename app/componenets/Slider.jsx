@@ -10,7 +10,6 @@ const Slider = ({
     onChange,
 }) => {
     const [values, setValues] = useState(() => {
-        // Ensure the default values are clamped within the min and max range
         const clampedDefault = [
             Math.max(min, Math.min(max, defaultValue[0])),
             Math.max(min, Math.min(max, defaultValue[1])),
@@ -27,7 +26,6 @@ const Slider = ({
     );
 
     const handleMouseDown = (index, e) => {
-        e.preventDefault();
         setIsDragging(index);
     };
 
@@ -36,49 +34,51 @@ const Slider = ({
             if (isDragging === null || !sliderRef.current) return;
 
             const slider = sliderRef.current.getBoundingClientRect();
-            const percentage = Math.min(Math.max(0, (e.clientX - slider.left) / slider.width), 1);
+            const percentage = Math.max(0, Math.min(1, (e.clientX - slider.left) / slider.width));
             const newValue = Math.round((percentage * (max - min) + min) / step) * step;
 
             setValues((prev) => {
                 const newValues = [...prev];
                 newValues[isDragging] = newValue;
 
-                // Ensure left thumb doesn't cross right thumb and vice versa
-                if (isDragging === 0 && newValue <= prev[1]) {
-                    return [newValue, prev[1]];
-                } else if (isDragging === 1 && newValue >= prev[0]) {
-                    return [prev[0], newValue];
+                // Ensure thumbs don't cross each other
+                if (isDragging === 0 && newValue > prev[1]) {
+                    newValues[0] = prev[1];
+                } else if (isDragging === 1 && newValue < prev[0]) {
+                    newValues[1] = prev[0];
                 }
-                return prev;
+
+                return newValues;
             });
         },
         [isDragging, max, min, step]
     );
 
-    const handleMouseUp = () => {
+    const handleMouseUp = useCallback(() => {
         setIsDragging(null);
-    };
+    }, []);
 
     useEffect(() => {
         if (isDragging !== null) {
             window.addEventListener("mousemove", handleMouseMove);
             window.addEventListener("mouseup", handleMouseUp);
+
             return () => {
                 window.removeEventListener("mousemove", handleMouseMove);
                 window.removeEventListener("mouseup", handleMouseUp);
             };
         }
-    }, [isDragging, handleMouseMove]);
+    }, [isDragging, handleMouseMove, handleMouseUp]);
 
     useEffect(() => {
-        const debounce = setTimeout(() => {
-            onChange?.(values);
-        }, 300);
-        return () => clearTimeout(debounce);
+        onChange?.(values);
     }, [values, onChange]);
 
     return (
-        <div ref={sliderRef} className="relative w-full max-w-lg h-20 select-none">
+        <div
+            ref={sliderRef}
+            className="relative w-full max-w-lg h-20 select-none"
+        >
             {/* Track */}
             <div className="absolute top-1/2 w-full h-1 bg-gray-300 rounded-full transform -translate-y-1/2">
                 <div
@@ -97,9 +97,7 @@ const Slider = ({
                     className="absolute top-1/2 w-5 h-5 bg-[#FF3333] rounded-full cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform"
                     style={{ left: `${calculatePosition(value)}%` }}
                     onMouseDown={(e) => handleMouseDown(index, e)}
-                >
-
-                </div>
+                />
             ))}
 
             {/* Display Values */}

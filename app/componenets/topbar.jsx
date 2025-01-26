@@ -1,63 +1,201 @@
-"use client"
+"use client";
 
-
-import { Search, Menu, ShoppingCart, User, Bell } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Searchbar } from './searchbar';
-import AccountDropdown from './accountDropdown';
+import { Search, Menu, ShoppingCart, User, Bell, X } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import AccountDropdown from "./accountDropdown";
 
 export const TopBar = () => {
     const [showSearchBar, setShowSearchBar] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [recentSearches, setRecentSearches] = useState([]);
+    const [showRecent, setShowRecent] = useState(false);
+
     const router = useRouter();
-    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token =
+        typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+
+    // Fetch recent searches from localStorage once on mount
+    useEffect(() => {
+        const storedSearches =
+            JSON.parse(localStorage.getItem("recentSearches")) || [];
+        setRecentSearches(storedSearches);
+    }, []);
+
     const toggleSearchBar = () => {
-        setShowSearchBar(!showSearchBar);
+        setShowSearchBar((prev) => !prev);
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (!searchTerm.trim()) return;
+
+        const updatedSearches = [
+            searchTerm,
+            ...recentSearches.filter((term) => term !== searchTerm),
+        ].slice(0, 5); // Limit to 5 recent searches
+
+        setRecentSearches(updatedSearches);
+        localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
+        setShowRecent(false);
+        router.push(`/search?keyword=${encodeURIComponent(searchTerm)}`);
+    };
+
+    const handleRecentSearch = (term) => {
+        setSearchTerm(term);
+        setShowRecent(false);
+        router.push(`/search?keyword=${encodeURIComponent(term)}`);
+    };
+
+    const navigateToCartOrLogin = () => {
+        if (!token) {
+            router.push("/login");
+        } else {
+            router.push("/cart");
+        }
     };
 
     return (
         <div>
             <div className="z-50 flex items-center justify-between px-4 py-4 lg:px-6 fixed top-0 left-0 right-0 container mx-auto mt-4">
                 <div className="flex items-center space-x-4 pl-10">
-                    <Link href="/">
-                        <div className="text-white text-3xl font-bold">ANISHOP</div>
+                    <Link
+                        href="/"
+                        className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
+                    >
+                        <svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            fill="none"
+                        >
+                            <path
+                                d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z"
+                                fill="#FF3333"
+                            />
+                        </svg>
+                        <div className="text-white text-3xl font-bold tracking-wider">
+                            ANISHOP
+                        </div>
                     </Link>
                 </div>
 
-                <nav className="hidden lg:flex space-x-8 lg:text-lg text-white">
-                    <a href="#" className="text-white">Download The App</a>
+                <nav className="hidden lg:flex space-x-8 lg:text-lg">
+                    <a
+                        href="#"
+                        className="text-white hover:text-red-500 transition-colors"
+                    >
+                        Download The App
+                    </a>
                 </nav>
-                <Searchbar />
-                <div className="flex items-center space-x-4">
-                    <button onClick={toggleSearchBar} className="text-white lg:hidden">
-                        <Search size={24} />
-                    </button>
-                    <div className={`absolute top-full left-0 w-full bg-white p-4 shadow-md ${showSearchBar ? 'block' : 'hidden'}`}>
+
+                {/* Desktop Search Bar */}
+                <div className="relative hidden lg:block lg:w-[420px]">
+                    <form
+                        onSubmit={handleSearch}
+                        className="relative flex items-center"
+                    >
+                        <Search className="absolute left-4 text-gray-400" size={20} />
                         <input
                             type="text"
                             placeholder="Search for products..."
-                            className="w-full py-3 pl-10 pr-4 bg-[#2A2A2A] bg-opacity-90 text-gray-200 rounded-full placeholder-[#FFFFFF66] focus:outline-none focus:ring-2 focus:ring-white"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onFocus={() => setShowRecent(true)}
+                            onBlur={() => setShowRecent(false)}
+                            className="w-full py-3 pl-12 pr-4 bg-[#2A2A2A] text-gray-200 rounded-full placeholder-gray-400
+                                       focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200"
                         />
-                    </div>
+                    </form>
 
-                    <button onClick={() => {
-                        router.push("/notifications");
-                    }}>
+                    {/* Recent Searches Dropdown */}
+                    {showRecent && recentSearches.length > 0 && (
+                        <div className="absolute top-full left-0 w-full bg-[#2A2A2A] rounded-lg shadow-lg mt-2 z-50">
+                            <h3 className="text-sm text-gray-400 px-4 py-2">
+                                Recent Searches
+                            </h3>
+                            <ul className="space-y-1">
+                                {recentSearches.map((term, index) => (
+                                    <li
+                                        key={index}
+                                        className="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer transition-colors"
+                                        onMouseDown={() => handleRecentSearch(term)}
+                                    >
+                                        <Search
+                                            size={16}
+                                            className="text-gray-400 mr-2"
+                                        />
+                                        <span className="text-gray-200">{term}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex items-center space-x-6">
+                    <button
+                        onClick={toggleSearchBar}
+                        className="text-white lg:hidden hover:text-red-500 transition-colors"
+                    >
+                        <Search size={24} />
+                    </button>
+
+                    <button
+                        onClick={() => router.push("/notifications")}
+                        className="text-white hover:text-red-500 transition-colors"
+                    >
                         <Bell size={24} />
                     </button>
-                    
-                    <button className="text-white" onClick={() => {
-                            if (!token) {
-                                router.push('/login');
-                            }
-                            router.push('/cart')
-                        }}>
+
+                    <button
+                        className="text-white hover:text-red-500 transition-colors"
+                        onClick={navigateToCartOrLogin}
+                    >
                         <ShoppingCart size={24} />
                     </button>
+
+                    {/* Account Dropdown */}
                     <AccountDropdown />
                 </div>
             </div>
+
+            {/* Mobile Search Overlay */}
+            {showSearchBar && (
+                <div className="fixed inset-0 z-50 lg:hidden">
+                    <div
+                        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                        onClick={toggleSearchBar}
+                    />
+                    <div className="absolute top-0 left-0 right-0 bg-[#2A2A2A] animate-slide-down">
+                        <div className="p-4">
+                            <form onSubmit={handleSearch} className="relative flex items-center">
+                                <Search
+                                    className="absolute left-4 text-gray-400"
+                                    size={20}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Search for products..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full py-3 pl-12 pr-12 bg-[#2A2A2A] text-gray-200 rounded-full 
+                                             placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500
+                                             transition-all duration-200"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={toggleSearchBar}
+                                    className="absolute right-4 text-gray-400 hover:text-white transition-colors"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};

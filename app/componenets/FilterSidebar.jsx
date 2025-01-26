@@ -63,8 +63,8 @@ export const FilterSidebar = ({
                         <button
                             key={size}
                             className={`px-3 py-1 rounded-full border ${filters.size === size
-                                    ? "border-white text-white"
-                                    : "border-gray-600 text-gray-300"
+                                ? "border-white text-white"
+                                : "border-gray-600 text-gray-300"
                                 } hover:border-white hover:text-white text-sm`}
                             onClick={() => onFilterChange({ size })}
                         >
