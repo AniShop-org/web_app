@@ -91,19 +91,16 @@ const OrderCard = ({ order }) => {
                                     Size {order.varient}
                                 </p>
                             </div>
-                            <button className="text-gray-400">
-                                <MoreVertical size={20} />
-                            </button>
                         </div>
 
-                        <div className="mt-4">
+                        <div className="mt-2">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2 text-sm">
                                     <span style={{ color: status.color }}>{status.text}</span>
                                     <StatusIcon size={16} style={{ color: status.color }} />
                                 </div>
                                 <button
-                                    className="flex items-center gap-1 text-sm font-medium text-[#83BF6E] hover:underline"
+                                    className="text-sm font-semibold text-black bg-white p-2 rounded-md lg:mx-6"
                                     onClick={handleButtonClick}
                                 >
                                     {getButtonText()}
@@ -117,8 +114,8 @@ const OrderCard = ({ order }) => {
                                         )}
                                 </button>
                             </div>
-                            <p className="mt-2 text-sm text-gray-500">
-                                Order#: {order.id}
+                            <p className="text-xl text-white font-semibold">
+                                ₹{order.price}
                             </p>
                         </div>
                     </div>
