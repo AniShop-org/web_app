@@ -6,6 +6,7 @@ import NewArrivals from './componenets/newArrivals';
 import TopSelling from './componenets/topselling';
 import Footer from './componenets/footer';
 import { useEffect, useState } from 'react';
+import BrowseByCategory from './componenets/browseCategory';
 
 export default function Home() {
 
@@ -58,6 +59,9 @@ export default function Home() {
       <div className='h-0.5 lg:w-2/3 w-3/4 bg-[#FFFFFF1A] mx-auto'></div>
       <div>
         <TopSelling/>
+      </div>
+      <div>
+        <BrowseByCategory categories={categories}/>
       </div>
       <div className='pt-36'>
         <Footer />
