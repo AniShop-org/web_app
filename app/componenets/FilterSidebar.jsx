@@ -103,7 +103,6 @@ export const FilterSidebar = ({
 
     return (
         <>
-            {/* Mobile Filter Button */}
             <button
                 className="md:hidden fixed bottom-4 right-4 z-40 bg-red-500 p-3 rounded-full shadow-lg"
                 onClick={() => setIsMobileOpen(true)}
@@ -111,7 +110,6 @@ export const FilterSidebar = ({
                 <Filter className="w-6 h-6 text-white" />
             </button>
 
-            {/* Desktop Sidebar */}
             <div className="hidden md:block w-64 bg-[#191919] p-6 space-y-6 border border-[#FFFFFF1A] rounded-2xl h-auto">
                 <FilterContent />
             </div>

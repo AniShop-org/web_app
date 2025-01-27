@@ -12,7 +12,7 @@ const ProductDetail = ({ product }) => {
     const [isInCart, setIsInCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const router = useRouter();
-
+    console.log(product);
     const handleAddToCart = async () => {
         const token = localStorage.getItem('authToken');
         if (!token) {

@@ -12,7 +12,6 @@ export const SideNav = () => {
     };
 
     const linkClasses = (href) => {
-        // Highlight if current path matches
         return pathname === href
             ? "flex items-center gap-3 rounded-lg bg-[#252525] py-3 pl-4 text-white"
             : "flex items-center gap-3 rounded-lg py-3 pl-4 text-gray-400 hover:bg-[#252525] hover:text-white";
@@ -29,7 +28,7 @@ export const SideNav = () => {
                     </a>
                     <a href="/wishlist" className={linkClasses("/wishlist")}>
                         <ShoppingBag size={20} strokeWidth={1.5} />
-                        My Wishlist
+                        Wishlist
                     </a>
                     <a href="/address" className={linkClasses("/address")}>
                         <MapPin size={20} strokeWidth={1.5} />

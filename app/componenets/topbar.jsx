@@ -16,7 +16,6 @@ export const TopBar = () => {
     const token =
         typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
-    // Fetch recent searches from localStorage once on mount
     useEffect(() => {
         const storedSearches =
             JSON.parse(localStorage.getItem("recentSearches")) || [];
@@ -34,7 +33,7 @@ export const TopBar = () => {
         const updatedSearches = [
             searchTerm,
             ...recentSearches.filter((term) => term !== searchTerm),
-        ].slice(0, 5); // Limit to 5 recent searches
+        ].slice(0, 5);
 
         setRecentSearches(updatedSearches);
         localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
@@ -90,8 +89,7 @@ export const TopBar = () => {
                     </a>
                 </nav>
 
-                {/* Desktop Search Bar */}
-                <div className="relative hidden lg:block lg:w-[420px]">
+                <div className="relative hidden lg:block lg:w-5/12">
                     <form
                         onSubmit={handleSearch}
                         className="relative flex items-center"
@@ -109,7 +107,6 @@ export const TopBar = () => {
                         />
                     </form>
 
-                    {/* Recent Searches Dropdown */}
                     {showRecent && recentSearches.length > 0 && (
                         <div className="absolute top-full left-0 w-full bg-[#2A2A2A] rounded-lg shadow-lg mt-2 z-50">
                             <h3 className="text-sm text-gray-400 px-4 py-2">
@@ -156,12 +153,10 @@ export const TopBar = () => {
                         <ShoppingCart size={24} />
                     </button>
 
-                    {/* Account Dropdown */}
                     <AccountDropdown />
                 </div>
             </div>
 
-            {/* Mobile Search Overlay */}
             {showSearchBar && (
                 <div className="fixed inset-0 z-50 lg:hidden">
                     <div
@@ -180,9 +175,11 @@ export const TopBar = () => {
                                     placeholder="Search for products..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
+                                    onFocus={() => setShowRecent(true)}
+                                    onBlur={() => setShowRecent(false)}
                                     className="w-full py-3 pl-12 pr-12 bg-[#2A2A2A] text-gray-200 rounded-full 
-                                             placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500
-                                             transition-all duration-200"
+                                 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3333]
+                                 transition-all duration-200 autofocus"
                                 />
                                 <button
                                     type="button"
@@ -192,6 +189,33 @@ export const TopBar = () => {
                                     <X size={20} />
                                 </button>
                             </form>
+
+                            {/* Mobile Recent Searches */}
+                            {showRecent && recentSearches.length > 0 && (
+                                <div className=" bg-[#2A2A2A] rounded-2xl mt-4">
+                                    <h3 className="text-sm text-gray-400 px-4 py-2">
+                                        Recent Searches
+                                    </h3>
+                                    <ul className="space-y-1">
+                                        {recentSearches.map((term, index) => (
+                                            <li
+                                                key={index}
+                                                className="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer transition-colors"
+                                                onMouseDown={() => {
+                                                    handleRecentSearch(term);
+                                                    toggleSearchBar();
+                                                }}
+                                            >
+                                                <Search
+                                                    size={16}
+                                                    className="text-gray-400 mr-2"
+                                                />
+                                                <span className="text-gray-200">{term}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

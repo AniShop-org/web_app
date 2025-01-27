@@ -47,25 +47,52 @@ export default function OrderPage() {
             setIsLoading(false);
         }
     };
+    function getOrderStatus(order) {
+        if (!order?.Orderstatus?.length) return 'Unknown Status';
+        const completed = order.Orderstatus
+            .filter((s) => s.isCompleted)
+            .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        if (!completed.length) return 'Unknown Status';
+        return completed[completed.length - 1].status;
+    }
 
-    const filterOrders = (orders) => {
-        switch (activeTab) {
-            case 'Ongoing':
-                return orders.filter(order => 
-                    ['PENDING', 'PAYMENT_PENDING', 'ORDER_CONFIRMED', 'ORDER_DISPATCHED'].includes(order.status)
-                );
-            case 'Completed':
-                return orders.filter(order => 
-                    order.status === 'ORDER_DELIVERED'
-                );
-            case 'Canceled':
-                return orders.filter(order => 
-                    order.status === 'ORDER_CANCELLED'
-                );
-            default:
-                return orders;
-        }
-    };
+  const filterOrders = (orders) => {
+    return orders.filter((order) => {
+      const finalStatus = getOrderStatus(order);
+
+      switch (activeTab) {
+        case 'Ongoing':
+          return [
+            'PAYMENT_PENDING',
+            'ORDER_PLACED',
+            'ORDER_CONFIRMED',
+            'ORDER_DISPATCHED',
+            'OUT_FOR_DELIVERY',
+            'ISSUED_REPLACEMENT',
+            'REPLACEMENT_CONFIRMED',
+            'ORDER_REFUND',
+          ].includes(finalStatus);
+
+        case 'Completed':
+          return [
+            'ORDER_DELIVERED',
+            'ORDER_REPLACED',
+          ].includes(finalStatus);
+
+        case 'Canceled':
+          return [
+            'ORDER_CANCELLED',
+            'PAYMENT_FAILED',
+            'ORDER_REJECTED',
+            'REPLACEMENT_REJECTED',
+          ].includes(finalStatus);
+
+        default:
+          // 'All Orders' shows everything
+          return true;
+      }
+    });
+  };
 
     const filteredOrders = filterOrders(orders);
     const hasMoreOrders = visibleOrders < filteredOrders.length;
@@ -85,7 +112,6 @@ export default function OrderPage() {
                         <div className="mb-8">
                             <h1 className="text-4xl font-bold text-white mb-6">My Orders</h1>
                             
-                            {/* Status Tabs */}
                             <div className="flex gap-4 border-b border-[#252525]">
                                 {tabs.map((tab) => (
                                     <button
@@ -97,7 +123,7 @@ export default function OrderPage() {
                                         }`}
                                         onClick={() => {
                                             setActiveTab(tab);
-                                            setVisibleOrders(3); // Reset visible orders when changing tabs
+                                            setVisibleOrders(3);
                                         }}
                                     >
                                         {tab}

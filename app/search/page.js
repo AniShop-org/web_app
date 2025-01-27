@@ -54,17 +54,14 @@ export default function SearchResults() {
     }
   };
 
-  // Keep ref in sync
   useEffect(() => {
     filtersRef.current = filters;
   }, [filters]);
 
-  // Fetch on keyword/page changes
   useEffect(() => {
     fetchSearchResults();
   }, [keyword, page]);
 
-  // Fetch on filter changes (debounced)
   useEffect(() => {
     const timer = setTimeout(() => {
 
@@ -72,7 +69,6 @@ export default function SearchResults() {
     return () => clearTimeout(timer);
   }, [filters]);
 
-  // Only update if any filter value changed
   const handleFilterChange = (newFilters) => {
     setFilters((prev) => {
       const updated = { ...prev, ...newFilters };
@@ -120,7 +116,7 @@ export default function SearchResults() {
               </h1>
             ) : (
               <>
-                <h1 className="text-2xl font-bold mb-4 text-white">
+                <h1 className="text-3xl font-bold mb-4 text-white">
                   Search Results for "{keyword}"
                 </h1>
                 <ProductGrid products={products} />
