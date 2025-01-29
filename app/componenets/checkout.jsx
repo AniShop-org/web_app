@@ -9,7 +9,6 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
     const [paymentMethod, setPaymentMethod] = useState('prepaid');
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    console.log(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID)
     const shippingFee = cartSummery?.deliveryCharge || 0;
     const total = cartSummery.totalPrice;
 
@@ -31,7 +30,6 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                 }
 
                 const order = await response.json();
-                console.log(order);
                 const options = {
                     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                     amount: order.razorpayResponse.amount,

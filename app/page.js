@@ -15,7 +15,7 @@ export default function Home() {
 
   const fetchCategoryAndBanner = async () => {
     try {
-      const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/category');
+      const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/category?limit=6');
       const data = await response.json();
       setCategories(data.categories);
       setBanner(data.websiteBanner[0]);

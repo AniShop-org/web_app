@@ -49,11 +49,8 @@ export default function OrderPage() {
     };
     function getOrderStatus(order) {
         if (!order?.Orderstatus?.length) return 'Unknown Status';
-        const completed = order.Orderstatus
-            .filter((s) => s.isCompleted)
-            .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-        if (!completed.length) return 'Unknown Status';
-        return completed[completed.length - 1].status;
+        const matchedStatus = order.Orderstatus.find((s) => s.id === order.statusId);
+        return matchedStatus ? matchedStatus.status : 'Unknown Status';
     }
 
   const filterOrders = (orders) => {

@@ -1,5 +1,9 @@
-import { MoreVertical, Timer, CheckCircle, ChevronRight, AlertTriangle } from 'lucide-react';
+"use client";
+import { MoreVertical, Timer, CheckCircle, ChevronRight, AlertTriangle, Star, X } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 
 const statusConfig = {
     'PAYMENT_PENDING': { color: '#F0A500', icon: Timer, text: 'Payment Pending' },
@@ -20,16 +24,21 @@ const statusConfig = {
 
 function getCurrentStatusKey(order) {
     if (!order?.Orderstatus?.length) return 'Unknown Status';
-    // Pick the last completed status (by creation time) instead of matching statusId
-    const completed = order.Orderstatus
-        .filter(s => s.isCompleted)
-        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    if (!completed.length) return 'Unknown Status';
-    return completed[completed.length - 1].status;
+    const matchedStatus = order.Orderstatus.find((s) => s.id === order.statusId);
+    return matchedStatus ? matchedStatus.status : 'Unknown Status';
 }
 
 
 const OrderCard = ({ order }) => {
+    const router = useRouter();
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
+    const [hoverRating, setHoverRating] = useState(0);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
     const currentStatusKey = getCurrentStatusKey(order);
     const status = statusConfig[currentStatusKey] || {
         color: '#F0A500',
@@ -40,36 +49,101 @@ const OrderCard = ({ order }) => {
     const StatusIcon = status.icon;
 
     const getButtonText = () => {
-        switch (currentStatusKey) {
-            case 'ORDER_PLACED':
-            case 'ORDER_CONFIRMED':
-            case 'ORDER_DISPATCHED':
-            case 'OUT_FOR_DELIVERY':
-                return 'Track Order';
-            case 'ORDER_DELIVERED':
-                return 'Rate Product';
-            default:
-                return 'View Product';
+        if (order.isCompleted && !order.isReviewed) {
+            return 'Rate Product';
         }
+
+        const cancellations = [
+            'ORDER_CANCELLED',
+            'ORDER_REJECTED',
+            'REPLACEMENT_REJECTED',
+            'PAYMENT_FAILED'
+        ];
+
+        if (cancellations.includes(currentStatusKey)) {
+            return 'View Product';
+        }
+
+        return [
+            'ORDER_PLACED',
+            'ORDER_CONFIRMED',
+            'ORDER_DISPATCHED',
+            'OUT_FOR_DELIVERY'
+        ].includes(currentStatusKey) ? 'Track Order' : 'View Product';
     };
 
     const handleButtonClick = () => {
-        switch (currentStatusKey) {
-            case 'ORDER_PLACED':
-            case 'ORDER_CONFIRMED':
-            case 'ORDER_DISPATCHED':
-            case 'OUT_FOR_DELIVERY':
-                console.log('Navigating to track order page...');
-                break;
-            case 'ORDER_DELIVERED':
-                console.log('Navigating to rate product page...');
-                break;
-            default:
-                console.log('Navigating to product details page...');
+        if (order.isCompleted && !order.isReviewed) {
+            setIsReviewModalOpen(true);
+            return;
+        }
+
+        const cancellations = [
+            'ORDER_CANCELLED',
+            'ORDER_REJECTED',
+            'REPLACEMENT_REJECTED',
+            'PAYMENT_FAILED'
+        ];
+
+        if (cancellations.includes(currentStatusKey)) {
+            router.push(`/products/${order.product.id}?category=${order.product.categoryId}`);
+            return;
+        }
+
+        if ([
+            'ORDER_PLACED',
+            'ORDER_CONFIRMED',
+            'ORDER_DISPATCHED',
+            'OUT_FOR_DELIVERY'
+        ].includes(currentStatusKey)) {
+            console.log('Navigating to track order page...');
+            return;
+        }
+
+        router.push(`/products/${order.product.id}?category=${order.product.categoryId}`);
+    };
+
+    const submitReview = async () => {
+        setIsSubmitting(true);
+        setSuccessMessage('');
+        setErrorMessage('');
+
+        try {
+            const token = typeof window !== 'undefined'
+                ? localStorage.getItem('authToken')
+                : null;
+            const response = await fetch(
+                'https://anishop-backend-test.onrender.com/api/v1/order/review',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: token || '',
+                    },
+                    body: JSON.stringify({
+                        orderId: order.id,
+                        rating: Number(rating),
+                        comment,
+                    }),
+                }
+            );
+            if (response.ok) {
+                setSuccessMessage('Review submitted successfully!');
+                setTimeout(() => {
+                    setIsReviewModalOpen(false);
+                }, 2000);
+            } else {
+                setErrorMessage('Failed to submit review. Please try again.');
+            }
+        } catch (error) {
+            setErrorMessage('Error posting review. Please try again.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
+        <>
         <div className="rounded-2xl bg-[#1A1A1A] overflow-hidden border border-[#252525]">
             <div className="p-4">
                 <div className="flex gap-4">
@@ -100,18 +174,18 @@ const OrderCard = ({ order }) => {
                                     <StatusIcon size={16} style={{ color: status.color }} />
                                 </div>
                                 <button
-                                    className="text-sm font-semibold text-black bg-white p-2 rounded-md lg:mx-6"
+                                    className="text-sm font-semibold text-black bg-white p-2 rounded-md lg:mx-6 flex items-center gap-1"
                                     onClick={handleButtonClick}
                                 >
-                                    {getButtonText()}
+                                    <span>{getButtonText()}</span>
                                     {[
                                         'ORDER_PLACED',
                                         'ORDER_CONFIRMED',
                                         'ORDER_DISPATCHED',
                                         'OUT_FOR_DELIVERY',
                                     ].includes(currentStatusKey) && (
-                                            <ChevronRight size={16} />
-                                        )}
+                                        <ChevronRight size={14} />
+                                    )}
                                 </button>
                             </div>
                             <p className="text-xl text-white font-semibold">
@@ -122,6 +196,73 @@ const OrderCard = ({ order }) => {
                 </div>
             </div>
         </div>
+
+
+            {/* Review Modal */}
+            {isReviewModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                    <div className="relative bg-[#1A1A1A] w-full max-w-md mx-auto p-6 rounded-xl border border-[#252525]">
+                        <button
+                            className="absolute right-4 top-4 text-gray-400 hover:text-white transition-colors"
+                            onClick={() => setIsReviewModalOpen(false)}
+                        >
+                            <X size={24} />
+                        </button>
+                        <div className="mb-6">
+                            <h2 className="text-2xl font-bold text-white">Leave a Review</h2>
+                            <hr className="my-6 border-[#FFFFFF1A] sm:mx-auto" />
+                            <p className="text-white mb-1 lg:text-xl">How was your order?</p>
+                            <p className="text-[#808080]">Please give your rating and also your review.</p>
+                        </div>
+
+                        {successMessage && <div className="mb-4 text-green-500">{successMessage}</div>}
+                        {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
+
+                        {/* Star Rating */}
+                        <div className="mb-6">
+                            <div className="flex items-center justify-center gap-2 mb-4">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <button
+                                        key={star}
+                                        onClick={() => setRating(star)}
+                                        onMouseEnter={() => setHoverRating(star)}
+                                        onMouseLeave={() => setHoverRating(0)}
+                                        className="p-1 transition-transform hover:scale-110"
+                                    >
+                                        <Star
+                                            size={32}
+                                            fill={star <= (hoverRating || rating) ? '#F0A500' : 'transparent'}
+                                            stroke={star <= (hoverRating || rating) ? '#F0A500' : '#666666'}
+                                            strokeWidth={1.5}
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Comment Input */}
+                        <div className="mb-8">
+                            <textarea
+                                placeholder="Write your review..."
+                                rows="4"
+                                className="w-full bg-inherit text-white p-4 rounded-lg border border-[#333333] focus:outline-none focus:border-red-500 placeholder-[#FFFFFF1A]"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Submit Button */}
+                        <button
+                            onClick={submitReview}
+                            disabled={!rating || isSubmitting}
+                            className="w-full py-3 bg-red-600 text-black font-semibold rounded-lg transition-colors hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                        </button>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 

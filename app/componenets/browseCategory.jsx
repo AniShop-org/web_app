@@ -13,7 +13,7 @@ const BrowseByCategory = ({categories}) => {
                 {categories.map((category) => (
                     <div
                         key={category.id}
-                        className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer bg-white"
+                        className="relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer bg-white"
                     >
                         <div className="relative h-64 w-full">
                             <img
@@ -21,19 +21,21 @@ const BrowseByCategory = ({categories}) => {
                                 alt={category.name}
                                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4">
-                                <div className="w-full flex justify-between items-center">
-                                    <h3 className="text-xl font-semibold text-white">
+                            <div className="absolute inset-0 flex items-end ">
+                                <div className="w-full flex justify-between items-center bg-black/60 backdrop-blur-sm">
+                                    <h3 className="text-xl font-semibold text-white p-3">
                                         {category.name}
                                     </h3>
+                                    <div className="px-3">
                                     <button
-                                        className="bg-white text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+                                        className="bg-white text-black px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors"
                                         onClick={() => {
                                             router.push(`/categories/${category.id}`);
                                         }}
                                     >
                                         Explore
                                     </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -11,10 +11,8 @@ const SimilarProducts = ({ categoriId }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                console.log('categoryId', categoriId);
                 const response = await fetch(`https://anishop-backend-test.onrender.com/api/v1/products/category/${categoriId}?page=1&limit=4`);
                 const data = await response.json();
-                console.log(data);
                 setProducts(data.products)
             } catch (error) {
                 console.error('Error fetching products:', error);

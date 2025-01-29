@@ -99,7 +99,7 @@ export default function NewArrivals() {
     return (
       <div className="min-h-screen bg-[#191919]">
         <TopBar />
-        <div className="max-w-7xl mx-auto px-4 py-40">
+        <div className="max-w-7xl mx-auto px-3 py-40">
           <div className="flex gap-8">
             <div>
               <FilterSidebar
@@ -109,13 +109,27 @@ export default function NewArrivals() {
                 onClearFilters={handleClearFilters}
               />
             </div>
-            <div className="flex-1">
-              <div className="flex justify-between items-center mb-6">
-                <h1 className="text-4xl font-bold text-white">New Arrivals</h1>
-              </div>
-              <div className="flex justify-center content-center pt-20">
-                <p className="text-white">No products found</p>
-              </div>
+            <div className="flex-1 flex flex-col items-center justify-center">
+              <svg
+                className="h-12 w-12 text-gray-400 mb-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <h1 className="text-3xl font-bold mb-2 text-white">
+                No products found
+              </h1>
+              <p className="text-gray-400">
+                Try adjusting your filters or search criteria
+              </p>
             </div>
           </div>
         </div>

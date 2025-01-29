@@ -19,7 +19,6 @@ export default function Product() {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                console.log('categoryId', categoryId);
                 const response = await fetch(`https://anishop-backend-test.onrender.com/api/v1/products/${productId}`);
                 const data = await response.json();
                 setProduct(data);
