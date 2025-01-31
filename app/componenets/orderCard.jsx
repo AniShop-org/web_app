@@ -96,7 +96,7 @@ const OrderCard = ({ order }) => {
             'ORDER_DISPATCHED',
             'OUT_FOR_DELIVERY'
         ].includes(currentStatusKey)) {
-            console.log('Navigating to track order page...');
+            router.push(`/track/${order.id}`);
             return;
         }
 
