@@ -1,6 +1,5 @@
 "use client";
 
-import Image from 'next/image';
 import { TopBar } from '@/app/componenets/topbar.jsx';
 import NewArrivals from './componenets/newArrivals';
 import TopSelling from './componenets/topselling';

@@ -1,10 +1,8 @@
 "use client"
-
 import { useState, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import Swal from 'sweetalert2';
 
 export default function OTPVerification() {
     const router = useRouter();
@@ -13,63 +11,43 @@ export default function OTPVerification() {
             router.push('/');
         }
     }, [router]);
+
     const params = useSearchParams();
     const email = params.get('email') || '';
     const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
-    const inputRefs = [
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null)
-    ];
+    const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [otp, setOTP] = useState('')
 
     useEffect(() => {
         if (!email) {
-            router.push('/signup');
+            router.push('/login');
         }
     }, [email, router]);
-    
+
     if (!email) {
         return null;
     }
-    const handleSubmit = async () => {
+
+    const handleSubmit = async (enteredOTP) => {
         setLoading(true);
         setError('');
 
         try {
-            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/signup-verify-otp', {
+            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/reset-password-verify-otp', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, otp }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp: enteredOTP }),
             });
 
             const data = await response.json();
-
             if (response.ok) {
-                localStorage.setItem('authToken', data.token);
-                setTimeout(() => {
-                    Swal.fire({
-                        title: 'Signup Successful',
-                        text: 'You have successfully signed up.',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    router.push('/');
-
-                }, 2000)
+                router.push(`/reset-password?email=${email}`);
             } else {
                 setError(data.message);
             }
         } catch (error) {
-            setError('An error occurred. Please try again later.');
+            setError('An error occurred while verifying OTP. Please try again later.');
         } finally {
             setLoading(false);
         }
@@ -86,7 +64,11 @@ export default function OTPVerification() {
             inputRefs[index + 1].current.focus();
         }
 
-        setOTP(newOtpDigits.join(''));
+        const newOtpString = newOtpDigits.join('');
+
+        if (newOtpDigits.every((digit) => digit !== '')) {
+            handleSubmit(newOtpString);
+        }
     };
 
     const handleKeyDown = (index, e) => {
@@ -101,7 +83,7 @@ export default function OTPVerification() {
 
         try {
             setLoading(true);
-            await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/resend-signup-otp', {
+            await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/forgot-password-resend-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),

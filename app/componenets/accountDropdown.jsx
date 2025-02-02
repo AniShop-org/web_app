@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { LogOutIcon, MapPinned, PackageSearch, ShoppingBagIcon, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 
 export default function AccountDropdown() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +13,19 @@ export default function AccountDropdown() {
     };
 
     const handleSignOut = () => {
-        localStorage.removeItem('authToken');
-        router.push('/login')
+        Swal.fire({
+            icon: 'warning',
+            confirmButtonColor: 'red',
+            title: 'Are you sure you want to logout?',
+            showCancelButton: true,
+            confirmButtonText: 'Logout',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('authToken');
+                router.push('/login')
+            }
+        })
     };
 
     return (

@@ -50,9 +50,7 @@ export default function ExploreAllCategories() {
       </main>
 
       <footer className="border-t border-[#FFFFFF1A] mt-auto">
-        <div className="container mx-auto px-4 py-6">
             <Footer />
-        </div>
       </footer>
     </div>
   );
