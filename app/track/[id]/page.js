@@ -2,6 +2,7 @@
 
 import Footer from "@/app/componenets/footer";
 import OrderCard from "@/app/componenets/orderCard";
+import { SideNav } from "@/app/componenets/sideNav";
 import { TopBar } from "@/app/componenets/topbar";
 import TrackingPage from "@/app/componenets/trackOrder";
 import { useParams } from "next/navigation"
@@ -43,20 +44,40 @@ export default function() {
     }, []);
 
     if (isLoading) {
-        return <div>Loading...</div>
+        return (       
+        <div className="min-h-screen flex flex-col bg-[#191919]">
+            <TopBar />
+            <div className="flex flex-1 container mx-auto px-4 pt-36">
+                <aside>
+                    <SideNav />
+                </aside>
+                <main className="flex-1 md:px-40 lg:pr-20">
+                    <h1 className="text-white text-4xl font-bold pb-6">Order status</h1>
+                    <div className="flex justify-center content-center pt-20">
+                    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+                    </div>    
+                </main>
+            </div>
+            <Footer />
+        </div>
+        );    
     }
     return (
-        <div className="min-h-screen flex flex-col bg-[#191919] pt-36">
-            <header>
-                <TopBar />
-            </header>
-            <main className="flex-1 flex flex-col items-center justify-center">
-                <OrderCard order={order} />
-                <TrackingPage order={order} />
-            </main>
-            <footer>
-                <Footer />
-            </footer>
+        <div className="min-h-screen flex flex-col bg-[#191919]">
+            <TopBar />
+            <div className="flex flex-1 container mx-auto px-4 pt-36">
+                <aside>
+                    <SideNav />
+                </aside>
+                <main className="flex-1 md:px-40 lg:pr-20">
+                    <h1 className="text-white text-4xl font-bold pb-6">Order status</h1>
+                    <div className="mx-auto">
+                        <OrderCard order={order} />
+                        <TrackingPage order={order} />
+                    </div>
+                </main>
+            </div>
+            <Footer />
         </div>
     )
 }
