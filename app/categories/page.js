@@ -8,6 +8,7 @@ import Link from "next/link";
 
 export default function ExploreAllCategories() {
   const [categories, setCategories] = useState([]);
+  const [count, setCoutn] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchCategories = async () => {
@@ -15,6 +16,7 @@ export default function ExploreAllCategories() {
       const res = await fetch('https://anishop-backend-test.onrender.com/api/v1/category');
       const data = await res.json();
       setCategories(data.categories);
+      setCoutn(data.numberOfProductsPerCategory)
     } catch (error) {
       console.error('Error fetching categories:', error);
     } finally {
@@ -42,8 +44,8 @@ export default function ExploreAllCategories() {
         <h1 className="text-white text-4xl font-bold mb-8">BROWSE BY CATEGORY</h1>
         
         <div className="">
-          {categories.map(category => (
-            <CategoryCard key={category.id} category={category} />
+          {categories.map((category, index) => (
+            <CategoryCard key={category.id} category={category} count={count[index]} />
           ))}
         </div>
         

@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 
-export const CategoryCard = ({ category }) => {
+export const CategoryCard = ({ category, count }) => {
     const router = useRouter();
 
     return (
@@ -18,7 +18,7 @@ export const CategoryCard = ({ category }) => {
                 </div>
                 <div>
                     <h3 className="text-white text-lg font-bold">{category.name}</h3>
-                    <p className="text-[#767676] text-sm">{category.productsCount || "940"} Products</p>
+                    <p className="text-[#767676]">{count.productCount} Products</p>
                 </div>
             </div>
             <div className="text-gray-400">
