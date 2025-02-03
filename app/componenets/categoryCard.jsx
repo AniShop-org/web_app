@@ -7,6 +7,7 @@ export const CategoryCard = ({ category, count }) => {
         <div
             className="flex items-center justify-between w-full p-4 hover:bg-[#FFFFFF0A] cursor-pointer border-b border-[#FFFFFF1A]"
             onClick={() => router.push(`/categories/${category.id}`)}
+            title="View category"
         >
             <div className="flex items-center gap-4">
                 <div className="relative w-20 h-20 overflow-hidden rounded">

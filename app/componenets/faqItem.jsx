@@ -10,7 +10,7 @@ export const FAQItem = ({ question, answer }) => {
         <div className="border-b border-[#FFFFFF1A]">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full py-4 flex items-center justify-between text-left text-white"
+                className="w-full py-4 flex items-center justify-between text-left text-white text-lg"
             >
                 <span>{question}</span>
                 <ChevronRight
