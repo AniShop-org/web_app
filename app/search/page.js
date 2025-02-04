@@ -96,8 +96,8 @@ export default function SearchResults() {
     return (
       <div className="min-h-screen bg-[#191919]">
         <TopBar />
-        <div className="max-w-7xl mx-auto px-3 py-40">
-          <div className="flex gap-8">
+        <div className="max-w-7xl mx-auto py-40">
+          <div className="flex px-4">
             <div>
               <FilterSidebar
                 filters={filters}

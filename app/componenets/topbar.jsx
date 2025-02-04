@@ -55,6 +55,14 @@ export const TopBar = () => {
         }
     };
 
+    const navigateToNotifications = () => {
+        if (!token) {
+            router.push("/login");
+        } else {
+            router.push("/notifications");
+        }
+    }
+
     return (
         <div>
             <div className="z-50 flex items-center justify-between py-4 lg:px-6 fixed top-0 left-0 right-0 container mx-auto mt-4">
@@ -140,7 +148,7 @@ export const TopBar = () => {
                     </button>
 
                     <button
-                        onClick={() => router.push("/notifications")}
+                        onClick={navigateToNotifications}
                         className="text-white transition-colors"
                         title="Notifications"
                     >
