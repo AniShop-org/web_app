@@ -107,7 +107,7 @@ const ProductDetail = ({ product }) => {
 
     return (
         <div>
-        <div className="flex flex-col md:flex-row gap-8 bg-[#191919] text-white p-6">
+        <div className="flex flex-col md:flex-row gap-8 bg-[#191919] text-white p-6 px-4">
             {/* Left side - Image gallery */}
             <div className="flex flex-col-reverse md:flex-row gap-4">
                 {/* Thumbnail column */}

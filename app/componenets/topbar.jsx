@@ -57,7 +57,7 @@ export const TopBar = () => {
 
     return (
         <div>
-            <div className="z-50 flex items-center justify-between px-4 py-4 lg:px-6 fixed top-0 left-0 right-0 container mx-auto mt-4">
+            <div className="z-50 flex items-center justify-between py-4 lg:px-6 fixed top-0 left-0 right-0 container mx-auto mt-4">
                 <div className="flex items-center space-x-4 pl-10">
                     <Link
                         href="/"
@@ -74,7 +74,7 @@ export const TopBar = () => {
                                 fill="#FF3333"
                             />
                         </svg>
-                        <div className="text-white text-3xl font-bold tracking-wider">
+                        <div className="text-white lg:text-3xl text-2xl font-bold tracking-wider">
                             ANISHOP
                         </div>
                     </Link>
@@ -131,7 +131,7 @@ export const TopBar = () => {
                     )}
                 </div>
 
-                <div className="flex items-center space-x-6">
+                <div className="flex items-center space-x-2 lg:space-x-4 px-2">
                     <button
                         onClick={toggleSearchBar}
                         className="text-white lg:hidden hover:text-red-500 transition-colors"
