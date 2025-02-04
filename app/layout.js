@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
         <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#191919]`}
       >
         <Suspense>
           {children}
