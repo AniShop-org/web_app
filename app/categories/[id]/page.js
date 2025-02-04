@@ -129,17 +129,20 @@ export default function categoryProducts() {
   return (
     <div className="min-h-screen bg-[#191919]">
       <TopBar />
-      <div className="max-w-7xl mx-auto px-3 py-40">
-        <div className="flex gap-8">
-          <div>
-          <FilterSidebar
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onApplyFilters={handleApplyFilters}
-            onClearFilters={handleClearFilters}
-          />
+      <div className="container mx-auto px-4 py-20 lg:py-40">
+        <div className="flex flex-col lg:flex-row lg:gap-8 max-w-7xl">
+          {/* Sidebar - Hide on mobile, show as modal/drawer */}
+          <div className="lg:block">
+            <FilterSidebar
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onApplyFilters={handleApplyFilters}
+              onClearFilters={handleClearFilters}
+            />
           </div>
-          <div className="flex-1">
+
+          {/* Main Content */}
+          <div className="flex-1 w-full">
             {loading ? (
               <div className="flex justify-center content-center pt-20">
                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
@@ -147,7 +150,7 @@ export default function categoryProducts() {
             ) : (
               <>
                 <h1 className="text-3xl font-bold mb-4 text-white">
-                  Products in {products[0].category.name}
+                  Products in {products[0]?.category?.name || "Category"}
                 </h1>
                 <ProductGrid products={products} />
               </>

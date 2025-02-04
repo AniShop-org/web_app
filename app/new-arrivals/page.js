@@ -138,44 +138,45 @@ export default function NewArrivals() {
   }
 
   return (
-    <div className="min-h-screen bg-[#191919]">
-      <TopBar />
-      <div className="max-w-7xl mx-auto px-4 py-40">
-        <div className="flex gap-8">
-          <div>
-            <FilterSidebar
-              filters={filters}
-              onFilterChange={handleFilterChange}
-              onApplyFilters={handleApplyFilters}
-              onClearFilters={handleClearFilters}
-            />
+  <div className="min-h-screen bg-[#191919]">
+    <TopBar />
+    <div className="container mx-auto px-4 py-20 lg:py-40">
+      <div className="flex flex-col lg:flex-row lg:gap-7 max-w-7xl">
+        {/* Sidebar - Hide on mobile, show as modal/drawer */}
+        <div className="lg:block">
+          <FilterSidebar
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onApplyFilters={handleApplyFilters}
+            onClearFilters={handleClearFilters}
+          />
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 w-full">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl lg:text-4xl font-bold text-white">New Arrivals</h1>
           </div>
-          <div className="flex-1">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-4xl font-bold text-white">New Arrivals</h1>
+
+          {loading ? (
+            <div className="flex justify-center content-center pt-20">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
             </div>
+          ) : (
+            <ProductGrid products={products} />
+          )}
+          
+          <hr className="my-6 border-[#FFFFFF1A] sm:mx-auto mt-10" />
 
-            {loading ? (
-              <div className="flex justify-center content-center pt-20">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
-              </div>
-            ) : (
-              <>
-                <ProductGrid products={products} />
-              </>
-            )}
-            <hr className="my-6 border-[#FFFFFF1A] sm:mx-auto mt-10" />
-
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
-
-      <Footer />
     </div>
+    <Footer />
+  </div>
   );
 }
