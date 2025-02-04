@@ -6,6 +6,7 @@ import TopSelling from './componenets/topselling';
 import Footer from './componenets/footer';
 import { useEffect, useState } from 'react';
 import BrowseByCategory from './componenets/browseCategory';
+import Image from 'next/image';
 
 export default function Home() {
 
@@ -32,11 +33,16 @@ export default function Home() {
       <div className="relative w-full min-h-screen">
         {/* Banner Image */}
         <div className="absolute inset-0">
-          <img 
+          {banner.image? (
+            <Image
             src={banner.image}
-            alt="product banner" 
-            className="object-cover brightness-50 h-full w-full"
+            alt="product banner"
+            fill
+            priority
+            className="object-cover brightness-50"
           />
+          ): null}
+          
         </div>
 
         <TopBar/>
@@ -44,7 +50,7 @@ export default function Home() {
         <div className="relative z-10 flex flex-col justify-center min-h-screen px-4 pb-8 lg:px-20 font-sans lg:pb-32 container">
           <div className="max-w-2xl mx-auto">
             <h1 className="text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight">
-                {banner.heading}
+              {banner.heading}
             </h1>
             <p className="lg:text-lg text-gray-200 mb-8">
               {banner.subHeading}

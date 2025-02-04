@@ -30,8 +30,8 @@ const TrackingPage = ({ order }) => {
     const progressPercentage = (completedCount / totalSteps) * 100 - 12;
 
     return (
-        <div className="min-h-screen p-8 text-white">
-            <div className="mx-auto max-w-2xl">
+        <div className="p-8 text-white">
+            <div className="max-w-4xl">
                 <div className="relative flex">
                     <div
                         className="relative flex-shrink-0 w-1 rounded-t-full bg-[#333333]"
@@ -61,7 +61,7 @@ const TrackingPage = ({ order }) => {
 
                             return (
                                 <div key={status.id} className="flex flex-col">
-                                    <h3 className="text-lg font-medium">{info.text}</h3>
+                                    <h3 className="text-xl font-medium">{info.text}</h3>
                                     <p className="mt-1 text-sm text-[#808080]">
                                         {status.updatedAt
                                             ? new Date(status.updatedAt).toLocaleString('en-US', {

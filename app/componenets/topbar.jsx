@@ -142,6 +142,7 @@ export const TopBar = () => {
                     <button
                         onClick={() => router.push("/notifications")}
                         className="text-white transition-colors"
+                        title="Notifications"
                     >
                         <Bell size={24} />
                     </button>
@@ -149,6 +150,7 @@ export const TopBar = () => {
                     <button
                         className="text-white transition-colors"
                         onClick={navigateToCartOrLogin}
+                        title="Cart"
                     >
                         <ShoppingCart size={24} />
                     </button>
