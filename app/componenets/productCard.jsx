@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const ProductCard = ({ product }) => {
     const primaryImage = product.images?.[0];
@@ -41,14 +42,16 @@ const ProductCard = ({ product }) => {
         <div className="group relative cursor-pointer" onClick={handleClick} title='View product'>
             {/* Image Container */}
             <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-900">
-                <img
+                <Image
                     src={primaryImage}
                     alt={product.name}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <button
-                    className={`absolute left-2 top-2 rounded-full bg-black/50 p-1.5 backdrop-blur-sm transition-colors ${wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
-                        }`}
+                    className={`absolute left-2 top-2 rounded-full bg-black/50 p-1.5 backdrop-blur-sm transition-colors ${
+                        wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
+                    }`}
                     onClick={handleWishlistClick}
                     title={wishlist.some(item => item.id === product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
                 >
