@@ -87,6 +87,10 @@ export default function Signup() {
             return;
         }
 
+        if (formErrors && Object.keys(formErrors).length > 0) {
+            return;
+        }
+
         setFormErrors({});
         setLoading(true);
 
@@ -186,7 +190,6 @@ export default function Signup() {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-5 w-full">
-                        {/* Username */}
                         <div>
                             <label className="block text-md font-medium text-gray-200 mb-2">
                                 Full Name
@@ -194,30 +197,53 @@ export default function Signup() {
                             <input
                                 type="text"
                                 required
-                                className="w-full px-4 py-3 bg-[#222222] border border-[#222222] rounded-lg text-white focus:outline-none focus:border-[#FF3333] placeholder-[#999999]"
+                                className={`w-full px-4 py-3 bg-[#222222] rounded-lg text-white focus:outline-none placeholder-[#999999]
+                                    ${
+                                        validations.username.isTouched
+                                            ? validations.username.isValid
+                                                ? "border border-[#0C9409]"
+                                                : "border border-[#ED1010]"
+                                            : "border border-[#222222]"
+                                    }
+                                `}
                                 placeholder="Enter your full name"
                                 value={formData.username}
                                 onChange={(e) => {
-                                    setFormData({ ...formData, username: e.target.value });
+                                    const value = e.target.value;
+                                    setFormData({ ...formData, username: value });
                                     setValidations((prev) => ({
                                         ...prev,
                                         username: {
                                             ...prev.username,
                                             isTouched: true,
-                                            isValid: e.target.value.trim().length > 0,
+                                            isValid: value.trim().length > 0,
                                         },
                                     }));
                                 }}
-                                onBlur={() =>
+                                onBlur={() => {
                                     setValidations((prev) => ({
                                         ...prev,
                                         username: {
                                             ...prev.username,
                                             isTouched: true,
                                         },
-                                    }))
-                                }
+                                    }));
+                                    if (!formData.username.trim()) {
+                                        setFormErrors(prev => ({
+                                            ...prev,
+                                            username: "Full Name is required"
+                                        }));
+                                    } else {
+                                        setFormErrors(prev => ({
+                                            ...prev,
+                                            username: undefined
+                                        }));
+                                    }
+                                }}
                             />
+                            {formErrors.username && (
+                                <p className="text-red-500 text-sm mt-1">{formErrors.username}</p>
+                            )}
                         </div>
 
                         {/* Email */}
