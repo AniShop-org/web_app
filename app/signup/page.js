@@ -15,6 +15,26 @@ const validatePassword = (password) => {
     return password.length >= 6;
 };
 
+const getPasswordStrength = (password) => {
+  if (!password) return "";
+  if (password.length < 6) return "Too short";
+
+  let score = 0;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  switch (score) {
+    case 0:
+      return "Weak";
+    case 1:
+      return "Moderate";
+    case 2:
+      return "Strong";
+    default:
+      return "Very Strong";
+  }
+};
 export default function Signup() {
     const router = useRouter();
 
@@ -40,7 +60,16 @@ export default function Signup() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [formErrors, setFormErrors] = useState({});
-
+    const [passwordStrength, setPasswordStrength] = useState("");
+    
+    const handlePasswordChange = (value) => {
+        setFormData((prev) => ({ ...prev, password: value }));
+        setPasswordStrength(getPasswordStrength(value));
+        setValidations((prev) => ({
+        ...prev,
+        password: { ...prev.password, isValid: validatePassword(value) },
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -231,10 +260,11 @@ export default function Signup() {
                                     }))
                                 }
                             />
+
+                        </div>
                             {formErrors.email && (
                                 <p className="text-red-500 text-sm">{formErrors.email}</p>
                             )}
-                        </div>
 
                         {/* Password */}
                         <div>
@@ -257,15 +287,7 @@ export default function Signup() {
                                     placeholder="Create a password (min 6 characters)"
                                     value={formData.password}
                                     onChange={(e) => {
-                                        const password = e.target.value;
-                                        setFormData({ ...formData, password });
-                                        setValidations((prev) => ({
-                                            ...prev,
-                                            password: {
-                                                isTouched: true,
-                                                isValid: validatePassword(password),
-                                            },
-                                        }));
+                                        handlePasswordChange(e.target.value);
                                     }}
                                     onBlur={() =>
                                         setValidations((prev) => ({
@@ -285,8 +307,11 @@ export default function Signup() {
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
                             </div>
-                            {formErrors.password && (
-                                <p className="text-red-500 text-sm">{formErrors.password}</p>
+                            {formData.password && (
+                                <p className="text-xs mt-1 text-gray-400">
+                                    Password Strength: <span className="font-semibold">{passwordStrength}</span>
+                                    <p className="text-red-500 text-sm">{formErrors.password}</p>
+                                </p>
                             )}
                         </div>
 
