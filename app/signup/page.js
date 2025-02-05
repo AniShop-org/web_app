@@ -209,7 +209,14 @@ export default function Signup() {
                                 placeholder="Enter your full name"
                                 value={formData.username}
                                 onChange={(e) => {
-                                    const value = e.target.value;
+                                    let value = e.target.value;
+                                    if (value.startsWith(" ")) {
+                                        setFormErrors(prev => ({
+                                            ...prev,
+                                            username: "Full Name cannot start with a space"
+                                        }))
+                                    }
+                                    value = value.trim();
                                     setFormData({ ...formData, username: value });
                                     setValidations((prev) => ({
                                         ...prev,
@@ -246,7 +253,6 @@ export default function Signup() {
                             )}
                         </div>
 
-                        {/* Email */}
                         <div>
                             <label className="block text-md font-medium text-gray-200 mb-2">
                                 Email
@@ -266,7 +272,14 @@ export default function Signup() {
                                 placeholder="Enter your email address"
                                 value={formData.email}
                                 onChange={(e) => {
-                                    const email = e.target.value;
+                                    let email = e.target.value;
+                                    if (email.startsWith(" ")) {
+                                        setFormErrors(prev => ({
+                                            ...prev,
+                                            email: "Email cannot start with a space"
+                                        }))
+                                    }
+                                    email = email.trim();
                                     setFormData({ ...formData, email });
                                     setValidations((prev) => ({
                                         ...prev,
@@ -313,7 +326,14 @@ export default function Signup() {
                                     placeholder="Create a password (min 6 characters)"
                                     value={formData.password}
                                     onChange={(e) => {
-                                        handlePasswordChange(e.target.value.trim());
+                                        let password = e.target.value;
+                                        if (password.startsWith(" ")) {
+                                            setFormErrors(prev => ({
+                                                ...prev,
+                                                password: "Password cannot start with a space"
+                                            }))
+                                        }
+                                        handlePasswordChange(password.trim());
                                     }}
                                     onBlur={() =>
                                         setValidations((prev) => ({
