@@ -87,7 +87,7 @@ export default function Signup() {
             return;
         }
 
-        if (formErrors && Object.keys(formErrors).length > 0) {
+        if (formErrors.email || formErrors.password || formErrors.username) {
             return;
         }
 
@@ -313,7 +313,7 @@ export default function Signup() {
                                     placeholder="Create a password (min 6 characters)"
                                     value={formData.password}
                                     onChange={(e) => {
-                                        handlePasswordChange(e.target.value);
+                                        handlePasswordChange(e.target.value.trim());
                                     }}
                                     onBlur={() =>
                                         setValidations((prev) => ({
@@ -334,10 +334,10 @@ export default function Signup() {
                                 </button>
                             </div>
                             {formData.password && (
-                                <p className="text-xs mt-1 text-gray-400">
+                                <div className="text-xs mt-1 text-gray-400">
                                     Password Strength: <span className="font-semibold">{passwordStrength}</span>
-                                    <p className="text-red-500 text-sm">{formErrors.password}</p>
-                                </p>
+                                    <div className="text-red-500 text-sm">{formErrors.password}</div>
+                                </div>
                             )}
                         </div>
 
