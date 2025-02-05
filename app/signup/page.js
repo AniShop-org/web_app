@@ -39,10 +39,26 @@ export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
+        let errors = {};
+
+        if (!validateEmail(formData.email)) {
+            errors.email = "Please enter a valid email address.";
+        }
+        if (formData.password.length < 6) {
+            errors.password = "Please enter a password with a minimum of 6 characters.";
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors);
+            return;
+        }
+
+        setFormErrors({});
         setLoading(true);
 
         try {
@@ -59,8 +75,7 @@ export default function Signup() {
 
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem("authToken", data.token);
-                router.push("/");
+                router.push(`/verify-signup?email=${formData.email}`);
             } else {
                 setError(data.message || "Signup failed");
             }
@@ -216,6 +231,9 @@ export default function Signup() {
                                     }))
                                 }
                             />
+                            {formErrors.email && (
+                                <p className="text-red-500 text-sm">{formErrors.email}</p>
+                            )}
                         </div>
 
                         {/* Password */}
@@ -267,6 +285,9 @@ export default function Signup() {
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
                             </div>
+                            {formErrors.password && (
+                                <p className="text-red-500 text-sm">{formErrors.password}</p>
+                            )}
                         </div>
 
                         <p className="text-[#808080] text-sm">
