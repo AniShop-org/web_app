@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Menu, ShoppingCart, User, Bell, X } from "lucide-react";
+import { Search, Menu, ShoppingCart, User, Bell, X, Image } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -67,25 +67,15 @@ export const TopBar = () => {
         <div>
             <div className="z-50 flex items-center justify-between py-4 lg:px-6 fixed top-0 left-0 right-0 container mx-auto mt-4">
                 <div className="flex items-center space-x-4 pl-10">
-                    <Link
+                    <a
                         href="/"
                         className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
                     >
-                        <svg
-                            width="32"
-                            height="32"
-                            viewBox="0 0 32 32"
-                            fill="none"
-                        >
-                            <path
-                                d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z"
-                                fill="#FF3333"
-                            />
-                        </svg>
-                        <div className="text-white lg:text-3xl text-2xl font-bold tracking-wider">
+                        <img src={"/logo.png"} height={52} width={52} alt="logo" />
+                        <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-3">
                             ANISHOP
                         </div>
-                    </Link>
+                    </a>
                 </div>
 
                 <nav className="hidden lg:flex space-x-8 lg:text-lg">
