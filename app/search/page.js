@@ -138,7 +138,7 @@ export default function SearchResults() {
   return (
     <div className="min-h-screen bg-[#191919]">
       <TopBar />
-      <div className="container mx-auto px-4 py-20 lg:py-40">
+      <div className="container mx-auto px-4 py-40">
         <div className="flex flex-col lg:flex-row lg:gap-8 max-w-7xl">
           <div className="lg:block">
             <FilterSidebar
@@ -157,7 +157,7 @@ export default function SearchResults() {
               </div>
             ) : (
               <>
-                <h1 className="text-3xl font-bold mb-4 text-white">
+                <h1 className="text-3xl font-bold mb-4 text-white container mx-auto">
                   Search Results for "{keyword}"
                 </h1>
                 <ProductGrid products={products} />

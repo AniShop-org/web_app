@@ -167,7 +167,7 @@ export default function TopSellingPage() {
 
           {loading ? (
             <div className="flex justify-center content-center pt-20">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200 container mx-auto" />
             </div>
           ) : (
             <ProductGrid products={products} />

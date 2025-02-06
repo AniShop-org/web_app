@@ -140,7 +140,7 @@ export default function NewArrivals() {
   return (
   <div className="min-h-screen bg-[#191919]">
     <TopBar />
-    <div className="container mx-auto px-4 py-20 lg:py-40">
+    <div className="container mx-auto px-4 py-40">
       <div className="flex flex-col lg:flex-row lg:gap-7 max-w-7xl">
         {/* Sidebar - Hide on mobile, show as modal/drawer */}
         <div className="lg:block">
@@ -160,7 +160,7 @@ export default function NewArrivals() {
 
           {loading ? (
             <div className="flex justify-center content-center pt-20">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200 container mx-auto" />
             </div>
           ) : (
             <ProductGrid products={products} />

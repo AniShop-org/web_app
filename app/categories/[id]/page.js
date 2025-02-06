@@ -148,12 +148,12 @@ export default function categoryProducts() {
                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
               </div>
             ) : (
-              <>
+              <div className=" container mx-auto">
                 <h1 className="text-3xl font-bold mb-4 text-white">
                   Products in {products[0]?.category?.name || "Category"}
                 </h1>
                 <ProductGrid products={products} />
-              </>
+              </div>
             )}
             <hr className="my-6 border-[#FFFFFF1A] sm:mx-auto mt-10" />
             <Pagination
