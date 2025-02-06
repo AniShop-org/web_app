@@ -11,6 +11,8 @@ const ProductDetail = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
     const [isInCart, setIsInCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const router = useRouter();
     const handleAddToCart = async () => {
         const token = localStorage.getItem('authToken');
@@ -30,6 +32,7 @@ const ProductDetail = ({ product }) => {
             if (cartItems.some(item => item.productId === product.id && item.variantId === variant.id)) {
                 setIsInCart(true);
             }
+            setLoading(true);
             const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/products/cart/addToCart', {
                 method: 'POST',
                 headers: {
@@ -54,6 +57,8 @@ const ProductDetail = ({ product }) => {
             }
         } catch (error) {
             console.error('Error adding product to cart:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -173,10 +178,11 @@ const ProductDetail = ({ product }) => {
                         {product.variants.map((variant) => (
                             <button
                                 key={variant.id}
+                                disabled={loading}
                                 className={`px-4 py-2 rounded-full ${selectedSize === variant.size
                                     ? 'bg-[#FF3333] text-white'
                                     : 'bg-[#F0F0F0] text-black'
-                                    }`}
+                                    } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 onClick={() => setSelectedSize(variant.size)}
                             >
                                 {variant.size}
@@ -188,28 +194,35 @@ const ProductDetail = ({ product }) => {
                 <div className="flex items-center gap-4 mb-6">
                     <div className="flex items-center lg:gap-4 gap-2 bg-white rounded-full p-2 lg:px-8 px-1">
                         <button
+                            disabled={loading}
                             onClick={() => handleQuantityChange('decrease')}
-                            className="p-1 text-black hover:bg-gray-100 rounded"
+                            className={`p-1 text-black hover:bg-gray-100 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             <Minus size={20} />
                         </button>
                         <span className="w-8 text-center text-black">{quantity}</span>
                         <button
+                            disabled={loading}
                             onClick={() => handleQuantityChange('increase')}
-                            className="p-1 text-black hover:bg-gray-100 rounded"
+                            className={`p-1 text-black hover:bg-gray-100 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             <Plus size={20} />
                         </button>
                     </div>
-                    <button className="flex-1 bg-[#FF3333] text-white py-3 rounded-full hover:bg-red-600"
+                    <button 
+                        disabled={loading}
+                        className={`flex-1 bg-[#FF3333] text-white py-3 rounded-full hover:bg-red-600 
+                            ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={isInCart ? handleViewCart : handleAddToCart}
                     >
-                        {isInCart ? 'View Cart' : 'Add to Cart'}
+                        {loading ? 'Adding to Cart...' : isInCart ? 'View Cart' : 'Add to Cart'}
                     </button>
 
                     <button
-                        className={`lg:p-2 rounded hover:bg-gray-700 ${wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
-                            }`}
+                        disabled={loading}
+                        className={`lg:p-2 rounded hover:bg-gray-700 ${
+                            wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
+                        } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={handleWishlistClick}
                         title={wishlist.some(item => item.id === product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
                     >
@@ -228,7 +241,6 @@ const ProductDetail = ({ product }) => {
                 <Reviews reviews={product.reviews} />
             </div>
         </div>
-
     );
 };
 

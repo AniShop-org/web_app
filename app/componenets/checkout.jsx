@@ -103,7 +103,7 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
                         <h3 className="text-lg font-semibold">Delivery Address</h3>
-                        <button className="text-blue-500 text-sm underline" onClick={() => router.push("/address")}>Change</button>
+                        <button className="text-blue-500 text-sm underline" onClick={() => router.push("/change-address")}>Change</button>
                     </div>
                     <div className="flex items-start space-x-2">
                         <MapPin className="w-5 h-5 mt-1" />

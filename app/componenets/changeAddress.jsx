@@ -5,10 +5,10 @@ import { SideNav } from "./sideNav";
 import { TopBar } from "./topbar";
 import Footer from "./footer";
 import { AddressCard } from "./addressCard";
-import { MapPin } from "lucide-react";
+import { ArrowRight, MapPin, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const MyAddresses = () => {
+const ChangeAddress = () => {
     const [addresses, setAddresses] = useState([]);
     const [selectedAddressId, setSelectedAddressId] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ const MyAddresses = () => {
         if (!localStorage.getItem('authToken')) {
             router.push('/login');
         }
-    }   
+    }
 
     useEffect(() => {
         // Fetch active address first
@@ -108,7 +108,7 @@ const MyAddresses = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#191919] lg:pt-36 pt-20">
+        <div className="min-h-screen flex flex-col bg-[#191919] pt-36">
             <TopBar />
             <div className="flex-grow container mx-auto px-4 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
                 <div className="pr-10">
@@ -116,16 +116,14 @@ const MyAddresses = () => {
                 </div>
                 <div className="flex-grow">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-4xl text-white font-bold pb-4">My Addresses</h2>
-                        <button className="inline-flex items-center bg-white hover:bg-neutral-100 transition-colors text-black text-sm px-3 py-1.5 rounded-lg" onClick={() => router.push('/new-address')}>
-                            <span className="mr-1 text-base leading-none bg-white">+</span> Add new address
-                        </button>
+                        <h2 className="text-4xl text-white font-bold pb-4">Select Address</h2>
                     </div>
                     <div>
+                        <div className="pb-4 font-semibold">Saved Addresses</div>
                         {loading ? (
                             <div className="flex justify-center content-center pt-20">
                                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
-                            </div> 
+                            </div>
                         ) : (addresses.length === 0 ? (
                             <div className="text-center py-12">
                                 <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -134,7 +132,7 @@ const MyAddresses = () => {
                                     Add an address to see it here.
                                 </p>
                             </div>
-                            ):(
+                        ) : (
                             addresses.map((address) => (
                                 <AddressCard
                                     key={address.id}
@@ -148,6 +146,19 @@ const MyAddresses = () => {
                             ))
                         ))}
                     </div>
+                    <div className="pt-8 flex justify-between gap-4">
+                        <button className="border border-[#FFFFFF] rounded-full lg:p-3 p-2 lg:px-20 px-10" 
+                        onClick={() => 
+                            router.push('/new-address')}
+                        >
+                            <span className="flex items-center"><Plus size={28} className="mr-2"/>Add new address</span>
+                        </button>
+                        <button className="bg-[#FF3333] rounded-full lg:p-3 lg:px-20 px-8 p-2" onClick={() => {
+                            router.push("/cart")
+                        }}>
+                            <span className="flex items-center">Continue to checkout <ArrowRight className="ml-2" size={28}/></span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <Footer />
@@ -155,4 +166,4 @@ const MyAddresses = () => {
     );
 };
 
-export default MyAddresses;
+export default ChangeAddress;

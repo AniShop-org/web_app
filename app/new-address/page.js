@@ -94,7 +94,7 @@ return (
     <div className="min-h-screen flex flex-col bg-[#191919]">
         <TopBar />
         
-        <div className="flex-grow mx-auto w-full px-4 md:px-6 pt-36 container">
+        <div className="flex-grow mx-auto w-full px-4 md:px-6 lg:pt-36 pt-20 container">
             <div className="flex flex-col md:flex-row md:gap-8">
                 <div className="hidden md:block">
                     <SideNav />
