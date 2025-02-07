@@ -94,9 +94,9 @@ export default function SearchResults() {
 
   if (products.length === 0 && !loading) {
     return (
-      <div className="min-h-screen bg-[#191919]">
+      <div className="min-h-screen bg-[#191919] max-w-auto">
         <TopBar />
-        <div className="max-w-7xl mx-auto py-40">
+        <div className="max-w-7xl mx-auto py-40 container overflow-x-hidden">
           <div className="flex px-4">
             <div>
               <FilterSidebar
@@ -136,9 +136,9 @@ export default function SearchResults() {
   }
 
   return (
-    <div className="min-h-screen bg-[#191919]">
+    <div className="min-h-screen bg-[#191919] overflow-x-hidden">
       <TopBar />
-      <div className="container mx-auto px-4 py-40">
+      <div className="container mx-auto px-4 py-40 overflow-x-hidden">
         <div className="flex flex-col lg:flex-row lg:gap-8 max-w-7xl">
           <div className="lg:block">
             <FilterSidebar
