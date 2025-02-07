@@ -1,47 +1,61 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const getPageNumbers = () => {
+        const pages = [];
+        pages.push(1);
+        if (currentPage > 3) pages.push('...');
+        for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+            pages.push(i);
+        }
+        if (currentPage < totalPages - 2) pages.push('...');
+        if (totalPages > 1) pages.push(totalPages);
+        return pages;
+    };
+
     return (
-        <div className="flex items-center justify-between px-4 mb-20 container mx-auto mt-10">
-            {/* Previous Button */}
+        <div className="flex items-center justify-between px-2 mb-10 container mx-auto mt-10">
             <button
-                className={`px-6 py-2 rounded-md flex items-center justify-center text-sm ${currentPage === 1
-                    ? 'bg-gray-700 opacity-50 text-white cursor-not-allowed'
+                className={`px-3 sm:px-6 py-2 rounded-md flex items-center justify-center text-sm sm:text-md ${currentPage === 1
+                        ? 'bg-gray-700 opacity-50 text-white cursor-not-allowed'
                         : 'bg-white text-black hover:opacity-80'
                     }`}
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
             >
-                <ArrowLeft size={16} className="mr-2"/> Previous
+                <ArrowLeft size={14} className="mr-1" /> Prev
             </button>
 
-            {/* Page Numbers */}
-            <div className="flex items-center gap-2">
-                {[...Array(totalPages)].map((_, i) => (
+            <div className="flex items-center gap-1">
+                {getPageNumbers().map((pageNum, idx) => (
                     <button
-                        key={i + 1}
-                        className={`w-10 h-10 flex items-center justify-center rounded-md text-sm font-medium ${currentPage === i + 1
+                        key={idx}
+                        className={`w-8 h-8 flex items-center justify-center rounded-md text-md font-medium ${pageNum === currentPage
                                 ? 'bg-white text-black shadow-md'
-                            : 'text-[#FFFFFF80] hover:bg-gray-600 hover:text-white'
+                                : pageNum === '...'
+                                    ? 'text-[#FFFFFF80] cursor-default'
+                                    : 'text-[#FFFFFF80] hover:bg-gray-600 hover:text-white'
                             }`}
-                        onClick={() => onPageChange(i + 1)}
+                        onClick={() => pageNum !== '...' ? onPageChange(pageNum) : null}
+                        disabled={pageNum === '...'}
                     >
-                        {i + 1}
+                        {pageNum}
                     </button>
                 ))}
             </div>
 
-            {/* Next Button */}
             <button
-                className={`px-6 py-2 rounded-md flex items-center justify-center text-sm ${currentPage === totalPages
+                className={`px-3 sm:px-6 py-2 rounded-md flex items-center justify-center text-sm sm:text-md ${currentPage === totalPages
                         ? 'bg-gray-700 opacity-50 text-white cursor-not-allowed'
                         : 'bg-white text-black hover:opacity-80'
                     }`}
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
             >
-                Next <ArrowRight size={16} className="ml-2" />
+                Next <ArrowRight size={14} className="ml-1" />
             </button>
         </div>
     );
 };
+
+export default Pagination;
