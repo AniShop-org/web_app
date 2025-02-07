@@ -66,7 +66,7 @@ export const TopBar = () => {
     return (
         <div>
             <div className="z-50 flex items-center justify-between py-4 lg:px-6 fixed top-0 left-0 right-0 container mx-auto mt-4">
-                <div className="flex items-center space-x-4 pl-10">
+                <div className="flex items-center space-x-4 pl-3">
                     <a
                         href="/"
                         className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
