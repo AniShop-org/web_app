@@ -152,13 +152,13 @@ const ProductDetail = ({ product }) => {
             </div>
 
             <div className="flex-1">
-                <h1 className="lg:text-4xl text-2xl font-bold sm:mb-2">{product.name}</h1>
+                <h1 className="lg:text-4xl text-xl font-bold sm:mb-2">{product.name}</h1>
 
-                <div className="flex items-center gap-2 sm:mb-4 text-2xl">
+                <div className="flex items-center gap-2 sm:mb-4 text-xl">
                     <div className="text-yellow-400">
                         {calculateRating(product.averageRating)}
                     </div>
-                    <span className="text-gray-400 text-lg sm:text-xl">{product.averageRating}/5</span>
+                    <span className="text-gray-400 text-sm sm:text-lg">{product.averageRating}/5</span>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -227,7 +227,7 @@ const ProductDetail = ({ product }) => {
 
                     <button
                         disabled={loading}
-                        className={`lg:p-2 rounded hover:bg-gray-700 ${
+                        className={`rounded hover:bg-gray-700 ${
                             wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
                         } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={handleWishlistClick}
