@@ -108,7 +108,7 @@ const MyAddresses = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#191919] lg:pt-36 pt-20">
+        <div className="min-h-screen flex flex-col bg-[#191919] lg:pt-36 pt-16">
             <TopBar />
             <div className="flex-grow container mx-auto px-4 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
                 <div className="pr-10">
@@ -116,9 +116,9 @@ const MyAddresses = () => {
                 </div>
                 <div className="flex-grow">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-4xl text-white font-bold pb-4">My Addresses</h2>
-                        <button className="inline-flex items-center bg-white hover:bg-neutral-100 transition-colors text-black text-sm px-3 py-1.5 rounded-lg" onClick={() => router.push('/new-address')}>
-                            <span className="mr-1 text-base leading-none bg-white">+</span> Add new address
+                        <h2 className="sm:text-3xl text-2xl text-white font-bold pb-4">My Addresses</h2>
+                        <button className="inline-flex items-center bg-white hover:bg-neutral-100 transition-colors text-black text-xs sm:text-sm sm:px-3 px-1 py-1.5 rounded-lg" onClick={() => router.push('/new-address')}>
+                            <span className="mr-1 sm:text-base text-xs bg-white">+</span> Add new address
                         </button>
                     </div>
                     <div>

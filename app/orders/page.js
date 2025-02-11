@@ -99,7 +99,7 @@ export default function OrderPage() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#191919] pt-36">
+        <div className="min-h-screen flex flex-col bg-[#191919] sm:pt-36 pt-12">
             <TopBar />
 
             <div className="flex-grow mx-auto container px-6 pt-8">
@@ -107,7 +107,7 @@ export default function OrderPage() {
                     <SideNav />
                     <div className="flex-1">
                         <div className="mb-8">
-                            <h1 className="text-4xl font-bold text-white mb-6">My Orders</h1>
+                            <h1 className="sm:text-4xl text-2xl font-bold text-white mb-6">My Orders</h1>
                             
                             <div className="flex gap-4 border-b border-[#252525]">
                                 {tabs.map((tab) => (

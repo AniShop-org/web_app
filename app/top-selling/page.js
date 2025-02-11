@@ -183,7 +183,7 @@ export default function TopSellingPage() {
         </div>
       </div>
     </div>
-    <Footer />
+    <Fo oter />
   </div>
   );
 }

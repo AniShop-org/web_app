@@ -98,7 +98,7 @@ export default function NewArrivals() {
   if (products.length === 0 && !loading) {
     return (
       <div className="min-h-screen bg-[#191919]">
-        <div className="max-w-7xl mx-auto py-40">
+        <div className="max-w-7xl mx-auto py-20">
           <div className="flex px-4">
             <div>
               <FilterSidebar
@@ -140,7 +140,7 @@ export default function NewArrivals() {
   return (
   <div className="min-h-screen bg-[#191919] overflow-x-hidden">
     <TopBar />
-    <div className="container mx-auto px-4 py-40 overflow-x-hidden">
+    <div className="container mx-auto px-4 sm:py-40 py-20 overflow-x-hidden">
       <div className="flex flex-col lg:flex-row lg:gap-7 max-w-7xl">
         {/* Sidebar - Hide on mobile, show as modal/drawer */}
         <div className="lg:block">

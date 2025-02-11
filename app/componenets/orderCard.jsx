@@ -145,10 +145,10 @@ const OrderCard = ({ order }) => {
     return (
         <>
         <div className="rounded-2xl bg-[#1A1A1A] overflow-hidden border border-[#252525]">
-            <div className="p-4">
+            <div className="p-1">
                 <div className="flex gap-4">
                     <Image
-                        className="h-32 w-32 object-cover rounded-lg"
+                        className="sm:h-32 sm:w-32 h-24 w-20 object-cover rounded-lg"
                         src={order.product.images[0]}
                         alt={order.product.name}
                         width={128}
@@ -158,7 +158,7 @@ const OrderCard = ({ order }) => {
                     <div className="flex-1">
                         <div className="flex items-start justify-between">
                             <div>
-                                <h3 className="text-lg font-medium text-white">
+                                <h3 className="sm:text-lg font-medium text-white">
                                     {order.product.name}
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-400">
@@ -167,14 +167,18 @@ const OrderCard = ({ order }) => {
                             </div>
                         </div>
 
-                        <div className="mt-2">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2 text-sm">
+                        <div className="">
+                                <div className="flex items-center text-xs sm:text-sm sm:gap-2 gap-1">
                                     <span style={{ color: status.color }}>{status.text}</span>
-                                    <StatusIcon size={16} style={{ color: status.color }} />
+                                    <StatusIcon className='sm:h-5 sm:w-5 h-3 w-3' style={{ color: status.color }} />
                                 </div>
+                            <div className="flex items-center justify-between">
+                                    <p className="sm:text-xl text-white font-semibold">
+                                        ₹{order.price}
+                                    </p>
+
                                 <button
-                                    className="text-sm font-semibold text-black bg-white p-2 rounded-md lg:mx-6 flex items-center gap-1"
+                                    className="sm:text-sm text-xs text-black bg-white p-1.5 rounded-md lg:mx-6 flex items-center gap-1 mr-1"
                                     onClick={handleButtonClick}
                                 >
                                     <span>{getButtonText()}</span>
@@ -186,11 +190,12 @@ const OrderCard = ({ order }) => {
                                     ].includes(currentStatusKey) && (
                                         <ChevronRight size={14} />
                                     )}
+
+
                                 </button>
+                                    
                             </div>
-                            <p className="text-xl text-white font-semibold">
-                                ₹{order.price}
-                            </p>
+                            
                         </div>
                     </div>
                 </div>

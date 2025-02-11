@@ -51,7 +51,7 @@ export default function NotificationsPage() {
   return (
     <div className="bg-[#191919] text-white min-h-screen flex flex-col">
       <TopBar />
-      <main className="container mx-auto px-4 py-6 flex-grow mt-36">
+      <main className="container mx-auto px-4 py-6 flex-grow sm:mt-36 mt-14">
         <div className="mb-6">
           <h1 className="text-2xl font-bold">Notifications</h1>
         </div>

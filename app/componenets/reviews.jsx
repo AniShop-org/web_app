@@ -35,7 +35,7 @@ const Reviews = ({ reviews = [] }) => {
 
     return (
         <div className="p-6 text-white container mx-auto">
-            <h1 className="mb-12 text-2xl font-bold">All Reviews</h1>
+            <h1 className="mb-12 sm:text-2xl text-xl font-bold">All Reviews</h1>
             {reviews.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16">
                     <MessageSquare className="w-16 h-16 text-gray-400 mb-4" />

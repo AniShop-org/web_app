@@ -8,9 +8,21 @@ import { Banknote, MapPin } from 'lucide-react';
 const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress }) => {
     const [paymentMethod, setPaymentMethod] = useState('prepaid');
     const [isLoading, setIsLoading] = useState(false);
+    const [showFullAddress, setShowFullAddress] = useState(false);
+
     const router = useRouter();
+
     const shippingFee = cartSummery?.deliveryCharge || 0;
     const total = cartSummery.totalPrice;
+
+    const getTruncatedAddress = (addr) => {
+        const fullAddr = `${addr.landmark}, ${addr.address}, ${addr.city}, ${addr.pincode}`;
+        return fullAddr.length > 35 ? fullAddr.slice(0, 35) + '...' : fullAddr;
+    };
+
+    const handleAddressClick = () => {
+        setShowFullAddress(!showFullAddress);
+    };
 
     const handlePayment = async () => {
         setIsLoading(true);
@@ -103,13 +115,25 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
                         <h3 className="text-lg font-semibold">Delivery Address</h3>
-                        <button className="text-blue-500 text-sm underline" onClick={() => router.push("/change-address")}>Change</button>
+                        <button
+                            className="text-blue-500 text-sm underline"
+                            onClick={() => router.push("/change-address")}
+                        >
+                            Change
+                        </button>
                     </div>
                     <div className="flex items-start space-x-2">
                         <MapPin className="w-5 h-5 mt-1" />
                         <div>
                             <h4 className="font-medium">{activeAddress.addressType}</h4>
-                            <p className="text-sm text-gray-400">{activeAddress.landmark}, {activeAddress.address}, {activeAddress.city}, {activeAddress.pincode}</p>
+                            <p
+                                className="text-sm text-gray-400 cursor-pointer"
+                                onClick={handleAddressClick}
+                            >
+                                {showFullAddress
+                                    ? `${activeAddress.landmark}, ${activeAddress.address}, ${activeAddress.city}, ${activeAddress.pincode}`
+                                    : getTruncatedAddress(activeAddress)}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -163,11 +187,11 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                     </div>
                 </div>
             </div>
-            <div className='pt-4'>
+            <div className='pt-4 px-1'>
             <button
                 onClick={handlePayment}
                 disabled={isLoading}
-                className="w-full py-4 bg-red-500 text-white rounded-full font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full sm:py-4 py-3 bg-red-500 text-white rounded-full font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
             >
                 <span>{isLoading ? 'Processing...' : 'Place Order'}</span>
                 {!isLoading && <span>→</span>}

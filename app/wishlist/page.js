@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import WishListItem from '../componenets/wishlistItem';
+import ProductCard from '../componenets/wishlistItem';
 import { TopBar } from '../componenets/topbar';
 import Footer from '../componenets/footer';
 import { SideNav } from '../componenets/sideNav';
@@ -37,15 +37,15 @@ export default function WishlistPage() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#191919] pt-36">
+        <div className="min-h-screen flex flex-col bg-[#191919] sm:pt-36 pt-16">
             <TopBar />
             
             <div className="flex-grow mx-auto px-6 pt-8 container">
                 <div className="flex gap-8">
                     <SideNav />
                     <div className="flex-1">
-                        <div className="mb-8">
-                            <h1 className="text-4xl font-bold text-white">My Wishlist</h1>
+                        <div className="sm:mb-8 mb-4">
+                            <h1 className="sm:text-3xl text-2xl font-bold text-white">My Wishlist</h1>
                         </div>
                         {isLoading ? (
                             <div className="flex justify-center content-center pt-20">
@@ -60,9 +60,9 @@ export default function WishlistPage() {
                                 </p>
                             </div>
                         ) : (
-                            <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="grid lg:grid-cols-4 grid-cols-2 md:grid-cols-3 sm:gap-5 gap-3">
                                 {wishList.map((item) => (
-                                    <WishListItem 
+                                    <ProductCard 
                                         key={item.id} 
                                         product={item} 
                                         onRemove={handleRemove} 

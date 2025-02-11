@@ -27,7 +27,7 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
                     className="w-28 h-32 object-cover rounded-lg"
                 />
                 <div className="ml-4">
-                    <h2 className="text-lg font-bold">{item.product.name}</h2>
+                    <h2 className="font-bold">{item.product.name}</h2>
                     <p className="text-[#FFFFFF99]">Size: {item.variant.size}</p>
                     <p className="text-[#FFFFFF99] text-sm">M.R.P: <s>₹{item.product.basePrice}</s></p>
                     <p className="text-white font-bold text-xl">₹{item.product.discountPrice}</p>
@@ -38,22 +38,22 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
                     onClick={handleRemove}
                     className="ml-4 p-2"
                 >
-                    <Trash2Icon size={24} color='red' />
+                    <Trash2Icon className='h-4 w-4 lg:h-6 lg:w-6' color='red' />
                 </button>
             </div>
-            <div className='absolute bottom-6 right-3 flex items-center lg:gap-2 gap-1 bg-white rounded-full p-2 lg:px-4 px-1'>
+            <div className='absolute bottom-6 right-3 flex items-center lg:gap-2 gap-1 bg-white rounded-full p-1 sm:p-2 lg:px-4 px-1'>
                 <button
                     onClick={handleDecrease}
                     className="p-1 text-black hover:bg-gray-100 rounded"
                 >
-                    <Minus size={20} />
+                    <Minus className='h-3 w-3 lg:h-5 lg:w-5' />
                 </button>
-                <span className="w-8 text-center text-black">{item.quantity}</span>
+                <span className="sm:w-8 w-3-4 text-center text-black text-sm sm:text-lg">{item.quantity}</span>
                 <button
                     onClick={handleIncrease}
                     className="p-1 text-black hover:bg-gray-100 rounded"
                 >
-                    <Plus size={20} />
+                    <Plus className='h-3 w-3 lg:h-5 lg:w-5' />
                 </button>
             </div>
         </div>

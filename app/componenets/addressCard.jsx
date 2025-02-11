@@ -1,5 +1,5 @@
 export const AddressCard = ({ address, isSelected, onSelect, onRemove, onEdit, isSelecting, isDeleting }) => (
-    <div className={`bg-neutral-900/50 rounded-3xl p-6 mb-2 border border-[#252525] ${isSelecting ? 'opacity-50' : ''}`}>
+    <div className={`bg-neutral-900/50 rounded-3xl sm:p-6 p-2 mb-2 border border-[#252525] ${isSelecting ? 'opacity-50' : ''}`}>
         <div
             className="flex items-start gap-3 cursor-pointer"
             onClick={() => !isSelecting && !isDeleting && onSelect(address.id)}
@@ -13,8 +13,8 @@ export const AddressCard = ({ address, isSelected, onSelect, onRemove, onEdit, i
             />
             <div className="flex-grow pl-4">
                 <div className="flex justify-between items-center">
-                    <h3 className="text-white text-lg font-bold pb-2">{address.name}</h3>
-                    <span className="px-3 py-0.5 bg-white text-black rounded-full">
+                    <h3 className="text-white text-base font-bold sm:pb-2">{address.name}</h3>
+                    <span className="px-3 py-1 bg-white text-black rounded-full text-xs">
                         {address.addressType}
                     </span>
                 </div>
@@ -26,7 +26,7 @@ export const AddressCard = ({ address, isSelected, onSelect, onRemove, onEdit, i
                 </p>
             </div>
         </div>
-        <div className="flex justify-end mt-3 space-x-4 text-sm">
+        <div className="flex justify-end space-x-4 text-sm">
             <button
                 onClick={() => {
                     if (window.confirm('Are you sure you want to remove this address?')) {
