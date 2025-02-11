@@ -65,13 +65,13 @@ const ProductCard = ({ product }) => {
             </div>
 
             {/* Product Details */}
-            <div className="mt-4 space-y-2">
+            <div className="sm:mt-4 mt-2 sm:space-y-2">
                 <h3 className="text-lg font-sans font-extrabold text-white">
                     {product.name}
                 </h3>
 
                 {/* Rating */}
-                <div className="flex items-center gap-0.5">
+                <div className="flex items-center sm:gap-0.5">
                     {[...Array(5)].map((_, i) => (
                         <span
                             key={i}

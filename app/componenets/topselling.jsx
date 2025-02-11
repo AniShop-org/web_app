@@ -25,7 +25,7 @@ const TopSelling = () => {
     }, []);
 
     return (
-        <section className="px-4 py-16 mt-32">
+        <section className="px-4 py-16 sm:mt-32">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <h1 className="mb-12 text-center lg:text-3xl text-xl font-bold text-white">

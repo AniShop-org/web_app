@@ -32,7 +32,7 @@ export default function Product() {
 
     return (
         <div className="bg-[#191919] min-h-screen flex flex-col">
-            <div className="pb-28">
+            <div className="pb-10 lg:pb-28">
                 <TopBar />
             </div>
             <div className="flex-grow">

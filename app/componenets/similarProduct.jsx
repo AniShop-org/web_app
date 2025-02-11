@@ -27,7 +27,7 @@ const SimilarProducts = ({ categoriId }) => {
         <section className="px-4 py-16 mt-32">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
-                <h1 className="mb-12 text-center lg:text-4xl text-2xl font-bold text-white">
+                <h1 className="sm:mb-12 mb-6 text-center lg:text-4xl text-2xl font-bold text-white">
                     You might also like
                 </h1>
 

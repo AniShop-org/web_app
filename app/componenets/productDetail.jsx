@@ -134,7 +134,7 @@ const ProductDetail = ({ product }) => {
                     ))}
                 </div>
 
-                <div className="flex-1 overflow-hidden p-5 pb-0">
+                <div className="flex-1 overflow-hidden p-5 sm:p-0 pb-0">
                         <img
                             src={product.images[selectedImage]}
                             alt={product.name}
@@ -152,9 +152,9 @@ const ProductDetail = ({ product }) => {
             </div>
 
             <div className="flex-1">
-                <h1 className="lg:text-4xl text-2xl font-bold mb-2">{product.name}</h1>
+                <h1 className="lg:text-4xl text-2xl font-bold sm:mb-2">{product.name}</h1>
 
-                <div className="flex items-center gap-2 mb-4 text-2xl">
+                <div className="flex items-center gap-2 sm:mb-4 text-2xl">
                     <div className="text-yellow-400">
                         {calculateRating(product.averageRating)}
                     </div>
@@ -177,7 +177,7 @@ const ProductDetail = ({ product }) => {
                     )}
                 </div>
 
-                <p className="text-[#E7E7E799] mb-6 pt-6 text-sm lg:text-lg">{product.description}</p>
+                <p className="text-[#E7E7E799] mb-6 sm:pt-6 pt-2 text-sm lg:text-lg">{product.description}</p>
                 <div className="h-0.5 w-full bg-[#FFFFFF1A]"></div>
                 <div className="lg:mb-6 pt-6 mb-3">
                     <h3 className="text-md mb-2 text-[#E7E7E799]">Choose Size</h3>
