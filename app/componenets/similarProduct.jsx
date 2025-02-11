@@ -27,13 +27,13 @@ const SimilarProducts = ({ categoriId }) => {
         <section className="px-4 py-16 mt-32">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
-                <h1 className="mb-12 text-center text-4xl font-bold text-white">
+                <h1 className="mb-12 text-center lg:text-4xl text-2xl font-bold text-white">
                     You might also like
                 </h1>
 
                 {/* Product Grid */}
                 {isLoading ? (
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {[...Array(4)].map((_, i) => (
                             <div key={i} className="animate-pulse">
                                 <div className="aspect-square rounded-lg bg-[#32323280]" />

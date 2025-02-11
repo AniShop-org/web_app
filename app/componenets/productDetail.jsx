@@ -135,11 +135,19 @@ const ProductDetail = ({ product }) => {
                 </div>
 
                 <div className="flex-1 overflow-hidden">
-                    <img
-                        src={product.images[selectedImage]}
-                        alt={product.name}
-                        className="w-full h-[300px] md:h-[400px] lg:h-96 object-cover rounded-xl"
-                    />
+                        <img
+                            src={product.images[selectedImage]}
+                            alt={product.name}
+                            className="
+      w-full
+      max-w-[450px]
+      object-cover
+      rounded-xl
+      h-[360px]
+      md:h-[500px]
+      lg:h-[530px]
+    "
+                        />
                 </div>
             </div>
 
