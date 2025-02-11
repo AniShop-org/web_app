@@ -174,11 +174,11 @@ export default function CartPage() {
 
     return (
         <div className="bg-[#191919] text-white min-h-screen flex flex-col lg:p-0 p-4">
-            <div className='pb-36'>
+            <div className='sm:pb-36 pb-20'>
                 <TopBar />
             </div>
             <div className='container mx-auto flex-grow'>
-                <h1 className="text-4xl font-bold mb-8">Your cart</h1>
+                <h1 className="sm:text-4xl text-2xl font-bold sm:mb-8 mb-2">Your cart</h1>
                 
                 {isLoading ?  
                     <div className="flex justify-center content-center pt-20">

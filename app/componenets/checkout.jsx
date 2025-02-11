@@ -119,7 +119,7 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                     <div className="grid grid-cols-2 gap-3">
                         <button
                             onClick={() => setPaymentMethod('prepaid')}
-                            className={`w-full p-2 rounded-2xl border flex flex-col items-center space-y-2 ${paymentMethod === 'prepaid'
+                            className={`w-full p-3 rounded-2xl border flex flex-col items-center space-y-2 ${paymentMethod === 'prepaid'
                                 ? ' bg-white text-black border-white'
                                 : 'border-[#32323280]'
                             }`}

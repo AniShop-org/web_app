@@ -24,10 +24,10 @@ const NewArrivals = () => {
     }, []);
 
     return (
-        <section className="px-4 py-16 sm:mt-32">
+        <section className="px-4 sm:py-16 py-4 ">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
-                <h1 className="mb-12 text-center text-xl lg:text-3xl font-bold text-white">
+                <h1 className="sm:mb-12 mb-4 text-center text-xl lg:text-3xl font-bold text-white">
                     New Arrivals
                 </h1>
 
@@ -50,7 +50,7 @@ const NewArrivals = () => {
                 )}
 
                 {/* View All Button */}
-                <div className="mt-12 text-center">
+                <div className="sm:mt-12 mt-4 text-center">
                     <button className="rounded-full border border-white bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black" onClick={() => {
                         router.push('/new-arrivals');
                     }}>

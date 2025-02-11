@@ -25,10 +25,10 @@ const TopSelling = () => {
     }, []);
 
     return (
-        <section className="px-4 py-16 sm:mt-32">
+        <section className="px-4 sm:py-16 py-4">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
-                <h1 className="mb-12 text-center lg:text-3xl text-xl font-bold text-white">
+                <h1 className="sm:mb-12 mb-4 text-center lg:text-3xl text-xl font-bold text-white">
                     Top Selling
                 </h1>
 
@@ -52,7 +52,7 @@ const TopSelling = () => {
                 )}
 
                 {/* View All Button */}
-                <div className="mt-12 text-center">
+                <div className="sm:mt-12 mt-4 text-center">
                     <button className="rounded-full border border-white bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black" onClick={() => 
                         router.push('/top-selling')
                         }>
