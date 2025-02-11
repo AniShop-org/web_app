@@ -116,11 +116,11 @@ const ProductDetail = ({ product }) => {
             {/* Left side - Image gallery */}
             <div className="flex flex-col-reverse md:flex-row gap-4">
                 {/* Thumbnail column */}
-                <div className="flex md:flex-col gap-2 md:mt-0">
+                <div className="flex md:flex-col gap-2 md:mt-0 pl-4 sm:pl-0">
                     {product.images?.map((img, index) => (
                         <div
                             key={index}
-                            className={`w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 cursor-pointer border-2 ${selectedImage === index ? 'border-[#FF3333] rounded-2xl' : 'border-transparent'
+                            className={`w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 cursor-pointer border-2 ${selectedImage === index ? 'border-[#FF3333] rounded-2xl' : 'border-transparent'
                                 }`}
                             onClick={() => setSelectedImage(index)}
                         >
@@ -134,19 +134,19 @@ const ProductDetail = ({ product }) => {
                     ))}
                 </div>
 
-                <div className="flex-1 overflow-hidden">
+                <div className="flex-1 overflow-hidden p-5 pb-0">
                         <img
                             src={product.images[selectedImage]}
                             alt={product.name}
                             className="
-      w-full
-      max-w-[450px]
-      object-cover
-      rounded-xl
-      h-[360px]
-      md:h-[500px]
-      lg:h-[530px]
-    "
+                                w-full
+                                max-w-[450px]
+                                object-cover
+                                rounded-xl
+                                h-[320px]
+                                md:h-[500px]
+                                lg:h-[500px]
+                            "
                         />
                 </div>
             </div>
@@ -179,14 +179,14 @@ const ProductDetail = ({ product }) => {
 
                 <p className="text-[#E7E7E799] mb-6 pt-6 text-sm lg:text-lg">{product.description}</p>
                 <div className="h-0.5 w-full bg-[#FFFFFF1A]"></div>
-                <div className="mb-6 pt-6">
+                <div className="lg:mb-6 pt-6 mb-3">
                     <h3 className="text-md mb-2 text-[#E7E7E799]">Choose Size</h3>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 text-sm lg:text-lg">
                         {product.variants.map((variant) => (
                             <button
                                 key={variant.id}
                                 disabled={loading}
-                                className={`px-4 py-2 rounded-full ${selectedSize === variant.size
+                                className={`px-3 py-2 lg:px-4 rounded-full ${selectedSize === variant.size
                                     ? 'bg-[#FF3333] text-white'
                                     : 'bg-[#F0F0F0] text-black'
                                     } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -198,27 +198,27 @@ const ProductDetail = ({ product }) => {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center lg:gap-4 gap-6 mb-6">
                     <div className="flex items-center lg:gap-4 gap-2 bg-white rounded-full p-2 lg:px-8 px-1">
                         <button
                             disabled={loading}
                             onClick={() => handleQuantityChange('decrease')}
                             className={`p-1 text-black hover:bg-gray-100 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <Minus size={20} />
+                            <Minus className='h-3 w-3 lg:h-6 lg:w-6' />
                         </button>
-                        <span className="w-8 text-center text-black">{quantity}</span>
+                        <span className="lg:w-8 w-4 text-center text-sm lg:text-lg text-black">{quantity}</span>
                         <button
                             disabled={loading}
                             onClick={() => handleQuantityChange('increase')}
                             className={`p-1 text-black hover:bg-gray-100 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <Plus size={20} />
+                            <Plus className='h-3 w-3 lg:h-6 lg:w-6' />
                         </button>
                     </div>
                     <button 
                         disabled={loading}
-                        className={`flex-1 bg-[#FF3333] text-white py-3 rounded-full hover:bg-red-600 
+                        className={`flex-1 bg-[#FF3333] text-white lg:py-3 py-2 rounded-full hover:bg-red-600 
                             ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={isInCart ? handleViewCart : handleAddToCart}
                     >
@@ -234,7 +234,7 @@ const ProductDetail = ({ product }) => {
                         title={wishlist.some(item => item.id === product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
                     >
                         <Heart
-                            size={25}
+                            className='h-5 w-5 lg:w-7 lg:h-7'
                             fill={
                                 wishlist.some(item => item.id === product.id) ? 'currentColor' : 'none'
                             }

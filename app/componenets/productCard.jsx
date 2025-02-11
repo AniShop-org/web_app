@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <button
-                    className={`absolute left-2 top-2 rounded-full bg-black/50 p-1.5 backdrop-blur-sm transition-colors ${
+                    className={`absolute left-2 top-2 rounded-full p-1.5 transition-colors ${
                         wishlist.some(item => item.id === product.id) ? 'text-red-500' : 'text-white'
                     }`}
                     onClick={handleWishlistClick}
