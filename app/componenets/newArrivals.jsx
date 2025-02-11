@@ -27,7 +27,7 @@ const NewArrivals = () => {
         <section className="px-4 py-16 mt-32">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
-                <h1 className="mb-12 text-center text-4xl font-bold text-white">
+                <h1 className="mb-12 text-center text-xl lg:text-3xl font-bold text-white">
                     New Arrivals
                 </h1>
 

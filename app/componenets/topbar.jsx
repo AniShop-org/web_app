@@ -71,9 +71,9 @@ export const TopBar = () => {
                         href="/"
                         className="flex items-center hover:opacity-90 transition-opacity"
                     >
-                        <img src={"/logo.png"} alt="logo" className="h-10 w-10 lg:w-12 lg:h-12" />
+                        <img src={"/logo.png"} alt="logo" className="h-8 w-8 lg:w-10 lg:h-10" />
                         <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-1">
-                            ANISHOP
+                            AniShop
                         </div>
                     </a>
                 </div>
@@ -134,7 +134,7 @@ export const TopBar = () => {
                         onClick={toggleSearchBar}
                         className="text-white lg:hidden hover:text-red-500 transition-colors"
                     >
-                        <Search size={24} />
+                        <Search className="h-5 w-5" />
                     </button>
 
                     <button
@@ -142,7 +142,7 @@ export const TopBar = () => {
                         className="text-white transition-colors"
                         title="Notifications"
                     >
-                        <Bell size={24} />
+                        <Bell className="h-5 w-5 lg:h-6 lg:w-6" />
                     </button>
 
                     <button
@@ -150,7 +150,7 @@ export const TopBar = () => {
                         onClick={navigateToCartOrLogin}
                         title="Cart"
                     >
-                        <ShoppingCart size={24} />
+                        <ShoppingCart className="h-5 w-5 lg:h-6 lg:w-6" />
                     </button>
 
                     <AccountDropdown />

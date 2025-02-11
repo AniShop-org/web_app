@@ -13,9 +13,9 @@ const BrowseByCategory = ({categories}) => {
                 {categories.map((category) => (
                     <div
                         key={category.id}
-                        className="relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer bg-white"
+                        className="relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer bg-white w-[300px] md:w-[250px] lg:w-full mx-auto"
                     >
-                        <div className="relative h-64 w-full">
+                        <div className="relative h-[200px] md:h-[250px] lg:h-64">
                             <img
                                 src={category.image}
                                 alt={category.name}

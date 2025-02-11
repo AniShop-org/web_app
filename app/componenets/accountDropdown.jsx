@@ -38,7 +38,7 @@ export default function AccountDropdown() {
                 type="button"
             >
                 <span className="sr-only">Open user menu</span>
-                <User size={24} color="white" />
+                <User className="h-5 w-5 lg:h-6 lg:w-6" color="white" />
             </button>
 
             {isOpen && (
