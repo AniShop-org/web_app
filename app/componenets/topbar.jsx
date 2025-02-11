@@ -69,10 +69,10 @@ export const TopBar = () => {
                 <div className="flex items-center space-x-4 pl-3">
                     <a
                         href="/"
-                        className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
+                        className="flex items-center hover:opacity-90 transition-opacity"
                     >
-                        <img src={"/logo.png"} height={52} width={52} alt="logo" />
-                        <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-3">
+                        <img src={"/logo.png"} alt="logo" className="h-10 w-10 lg:w-12 lg:h-12" />
+                        <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-1">
                             ANISHOP
                         </div>
                     </a>
