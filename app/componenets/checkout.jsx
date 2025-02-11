@@ -124,18 +124,18 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                                 : 'border-[#32323280]'
                             }`}
                         >
-                            <img src="/razorpay-logo.png" alt="Razorpay" className="h-6" />
+                            <img src="/razorpay-logo.png" alt="Razorpay" className="lg:h-6 h-3" />
                         </button>
 
                         <button
                             onClick={() => setPaymentMethod('cod')}
-                            className={`w-full rounded-2xl p-2 border flex items-center justify-center space-x-2 ${paymentMethod === 'cod'
+                            className={`w-full rounded-2xl border flex items-center justify-center ${paymentMethod === 'cod'
                                 ? 'border-white bg-white text-black'
                                 : 'text-[#898989] border-[#32323280]'
                                 }`}
                         >
-                            <Banknote size={28}/>
-                            <span className="lg:text-lg text-md text-sm">Cash On Delivery</span>
+                            <Banknote className='h-4 lg:h-6'/>
+                            <span className="lg:text-lg text-md text-sm lg:pl-2">Cash</span>
                         </button>
                     </div>
                 </div>
@@ -145,18 +145,18 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                     <h3 className="text-lg font-semibold">Order Summary</h3>
                     <div className="space-y-2">
                         <div className="flex justify-between">
-                            <span className="text-[#808080]">Sub-total</span>
-                            <span>₹{totalBasePrice}</span>
+                            <span className="text-[#808080] text-sm sm:text-lg">Sub-total</span>
+                            <span className='text-sm sm:text-lg'>₹{totalBasePrice}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-[#808080]">Total discount</span>
-                            <span>₹{totalDiscount}</span>
+                            <span className="text-[#808080] text-sm sm:text-lg">Total discount</span>
+                            <span className='text-sm sm:text-lg'>₹{totalDiscount}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-[#808080]">Shipping fee</span>
-                            <span>₹{shippingFee}</span>
+                            <span className="text-[#808080] text-sm sm:text-lg">Shipping fee</span>
+                            <span className='text-sm sm:text-lg'>₹{shippingFee}</span>
                         </div>
-                        <div className="flex justify-between font-semibold pt-4 border-t border-[#434343] text-xl">
+                        <div className="flex justify-between pt-4 border-t border-[#434343] text-xl">
                             <span>Total</span>
                             <span>₹{total}</span>
                         </div>

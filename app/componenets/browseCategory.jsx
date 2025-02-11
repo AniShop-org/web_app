@@ -5,7 +5,7 @@ const BrowseByCategory = ({categories}) => {
     const router = useRouter();
     return (
         <div className="w-full max-w-7xl mx-auto px-4 py-8 bg-[#262626] rounded-3xl">
-            <h2 className="text-3xl font-bold text-center text-white mb-8">
+            <h2 className="lg:text-3xl text-xl font-bold text-center text-white mb-8">
                 BROWSE BY CATEGORY
             </h2>
 

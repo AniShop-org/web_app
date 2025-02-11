@@ -116,46 +116,45 @@ const ProductDetail = ({ product }) => {
             {/* Left side - Image gallery */}
             <div className="flex flex-col-reverse md:flex-row gap-4">
                 {/* Thumbnail column */}
-                <div className="flex md:flex-col gap-2 mt-4 md:mt-0">
+                <div className="flex md:flex-col gap-2 md:mt-0">
                     {product.images?.map((img, index) => (
                         <div
                             key={index}
-                            className={`lg:w-32 lg:h-36 w-28 h-32 cursor-pointer border-2 ${selectedImage === index ? 'border-[#FF3333] rounded-2xl' : 'border-transparent'
+                            className={`w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 cursor-pointer border-2 ${selectedImage === index ? 'border-[#FF3333] rounded-2xl' : 'border-transparent'
                                 }`}
                             onClick={() => setSelectedImage(index)}
                         >
                             <img
                                 src={img}
                                 alt={`${product.name} thumbnail ${index + 1}`}
-                                className="w-full h-full object-cover rounded-2xl"
+                                className="w-full h-full object-cover rounded-xl"
+                                loading="lazy"
                             />
                         </div>
                     ))}
                 </div>
 
-                {/* Main image */}
-                <div className="flex-1">
+                <div className="flex-1 overflow-hidden">
                     <img
                         src={product.images[selectedImage]}
                         alt={product.name}
-                        className="lg:w-11/12 lg:h-96 w-96 h-2/4 max-w-md object-cover rounded-2xl"
+                        className="w-full h-[300px] md:h-[400px] lg:h-96 object-cover rounded-xl"
                     />
                 </div>
             </div>
 
-            {/* Right side - Product details */}
             <div className="flex-1">
-                <h1 className="text-4xl font-bold mb-2">{product.name}</h1>
+                <h1 className="lg:text-4xl text-2xl font-bold mb-2">{product.name}</h1>
 
                 <div className="flex items-center gap-2 mb-4 text-2xl">
                     <div className="text-yellow-400">
                         {calculateRating(product.averageRating)}
                     </div>
-                    <span className="text-gray-400">{product.averageRating}/5</span>
+                    <span className="text-gray-400 text-lg sm:text-xl">{product.averageRating}/5</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <span className="text-2xl font-bold text-white">
+                    <span className="text-2xl lg:font-bold font-semibold text-white">
                         ₹{product.discountPrice}
                     </span>
                     {product.percentOff > 0 && (
@@ -170,7 +169,7 @@ const ProductDetail = ({ product }) => {
                     )}
                 </div>
 
-                <p className="text-[#E7E7E799] mb-6 pt-6">{product.description}</p>
+                <p className="text-[#E7E7E799] mb-6 pt-6 text-sm lg:text-lg">{product.description}</p>
                 <div className="h-0.5 w-full bg-[#FFFFFF1A]"></div>
                 <div className="mb-6 pt-6">
                     <h3 className="text-md mb-2 text-[#E7E7E799]">Choose Size</h3>

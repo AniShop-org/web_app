@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#191919]">
-      <div className="relative w-full min-h-screen">
+      <div className="relative w-full min-h-[50vh] lg:min-h-[70vh]">
         {/* Banner Image */}
         <div className="absolute inset-0">
           {banner.image? (
@@ -47,7 +47,7 @@ export default function Home() {
 
         <TopBar/>
         
-        <div className="relative z-10 flex flex-col justify-center min-h-screen px-4 pb-8 lg:px-20 font-sans lg:pb-32 container">
+        <div className="relative z-10 flex flex-col justify-center min-h-[50vh] lg:min-h-[70vh] px-4 pb-8 lg:px-20 font-sans container">
           <div className="max-w-2xl mx-auto">
             <h1 className="text-4xl lg:text-7xl font-bold text-white mb-4 leading-tight">
               {banner.heading}
