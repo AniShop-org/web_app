@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Footer from '../componenets/footer';
+import { TopBar } from '../componenets/topbar';
 
 export default function ConfrimOrderOtp() {
     const router = useRouter();
@@ -68,46 +70,82 @@ export default function ConfrimOrderOtp() {
         }
     };
 
-    return (
-        <div className="flex items-center justify-center h-screen bg-[#191919] text-white">
-            <div className="bg-[#222222] p-8 rounded-lg w-full max-w-md">
-                <h1 className="text-2xl font-bold mb-4">Enter 6 Digit Code</h1>
-                <p className="mb-4">Enter the 6-digit code that was sent to {email}.</p>
-                
-                <div className="flex gap-2 mb-4">
-                    {otpDigits.map((digit, index) => (
-                        <input
-                            key={index}
-                            ref={inputRefs[index]}
-                            type="text"
-                            className="w-12 h-12 text-center bg-[#333333] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[#DE370D]"
-                            maxLength={1}
-                            value={digit}
-                            onChange={(e) => handleOtpChange(index, e.target.value)}
-                            onKeyDown={(e) => handleKeyDown(index, e)}
-                        />
-                    ))}
-                </div>
+    const handleResendOtp = async () => {
+        setOtpDigits(['', '', '', '', '', '']);
+        inputRefs[0].current.focus();
 
-                <button
-                    className="bg-gradient-to-r from-[#781E07] to-[#DE370D] text-white px-4 py-3 rounded-md w-full mb-4"
-                    onClick={handleSubmit}
-                    disabled={loading || otpDigits.some(digit => !digit)}
-                >
-                    {loading ? 'Please wait...' : 'Continue'}
-                </button>
-                
-                {error && <p className="text-red-500">{error}</p>}
-                <p 
-                    className="text-[#999999] underline cursor-pointer" 
-                    onClick={() => {
-                        setOtpDigits(['', '', '', '', '', '']);
-                        setOTP('');
-                        inputRefs[0].current.focus();
-                    }}
-                >
-                    Resend code
-                </p>
+        try {
+            setLoading(true);
+            await fetch('https://anishop-backend-test.onrender.com/api/v1/order/checkout/cod-verify-otp/resend', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json',
+                    'authorization': localStorage.getItem('authToken'),
+                 },
+                body: JSON.stringify({ email }),
+            });
+        } catch (error) {
+            setError('An error occurred while resending OTP. Please try again later.');
+        } finally {
+            setLoading(false);
+            alert('OTP has been resent to your email');
+        }
+    }
+
+    return (
+        <div className="min-h-screen flex flex-col bg-[#191919]">
+            <div>
+                <TopBar />
+            </div>
+
+            <div className="flex-1 p-4 flex flex-col items-center justify-center content-center">
+                <div className="p-8 rounded-3xl max-w-xl w-full border border-[#FFFFFF1A]">
+                    <h2 className="text-4xl font-bold text-white mb-1">
+                        Enter confirmation code
+                    </h2>
+                    <p className="text-[#808080] mb-8">
+                        Enter the 6-digit code that you received on your email.
+                    </p>
+
+                    {error && (
+                        <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded mb-6">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="flex gap-2 mb-6 justify-center">
+                        {otpDigits.map((digit, index) => (
+                            <input
+                                key={index}
+                                ref={inputRefs[index]}
+                                type="text"
+                                className="w-14 h-14 text-center bg-[#222222] text-white rounded-lg border border-[#222222] focus:outline-none focus:border-[#FF3333]"
+                                maxLength={1}
+                                value={digit}
+                                onChange={(e) => handleOtpChange(index, e.target.value)}
+                                onKeyDown={(e) => handleKeyDown(index, e)}
+                            />
+                        ))}
+                    </div>
+
+                    <button
+                        onClick={() => handleSubmit(otpDigits.join(''))}
+                        disabled={loading || otpDigits.some((digit) => !digit)}
+                        className="w-full bg-[#FF3333] text-white py-3 rounded-lg hover:bg-[#E62E2E] transition-colors disabled:cursor-not-allowed"
+                    >
+                        {loading ? "Please wait..." : "Verify order"}
+                    </button>
+
+                    <button
+                        className="mt-4 text-[#808080] hover:text-white text-sm flex justify-start underline"
+                        onClick={handleResendOtp}
+                    >
+                        Resend OTP
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <Footer />
             </div>
         </div>
     );
