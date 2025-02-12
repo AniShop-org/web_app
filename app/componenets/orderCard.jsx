@@ -158,9 +158,13 @@ const OrderCard = ({ order }) => {
                     <div className="flex-1">
                         <div className="flex items-start justify-between">
                             <div>
-                                <h3 className="sm:text-lg font-medium text-white">
-                                    {order.product.name}
-                                </h3>
+                                    <h3 className="sm:text-lg font-medium text-white">
+                                        {
+                                            order.product.name.length > 25
+                                                ? order.product.name.slice(0, 25) + '...'
+                                                : order.product.name
+                                        }
+                                    </h3>
                                 <p className="mt-1 text-sm text-gray-400">
                                     Size {order.varient}
                                 </p>

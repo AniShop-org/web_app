@@ -67,7 +67,7 @@ export default function Signin() {
     return (
         <div className="flex flex-col md:flex-row w-full min-h-screen bg-[#191919] relative">
             {/* Background Image - Now spans full width on mobile */}
-            <div className="absolute inset-0 w-full h-full md:hidden">
+            <div className="absolute inset-0 w-full h-full md:hidden overflow-hidden">
                 <Image
                     src="/auth-banner.png"
                     alt="signin banner"
@@ -79,23 +79,18 @@ export default function Signin() {
 
             {/* Desktop Left side - Logo and Image */}
             <div className="hidden md:block md:w-1/2 relative">
-                <div className="absolute top-8 left-8 z-10">
-                    <Link href="/" className="flex items-center space-x-2">
-                        <svg
-                            width="32"
-                            height="32"
-                            viewBox="0 0 32 32"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z" fill="#FF3333" />
-                        </svg>
-                        <span className="text-white text-2xl font-bold tracking-wider">
-                            ANISHOP
-                        </span>
-                    </Link>
+                <div className="flex items-center space-x-4 pl-3 absolute top-6 left-6 z-10">
+                    <a
+                        href="/"
+                        className="flex items-center hover:opacity-90 transition-opacity"
+                    >
+                        <img src={"/logo.png"} alt="logo" className="h-6 w-6 lg:w-10 lg:h-10" />
+                        <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-1">
+                            AniShop
+                        </div>
+                    </a>
                 </div>
-                <div className="absolute inset-0 left-0">
+                <div className="absolute inset-0 left-0 overflow-hidden">
                     <Image
                         src="/auth-banner.png"
                         alt="signin banner"
@@ -107,30 +102,25 @@ export default function Signin() {
             </div>
 
             {/* Mobile Logo */}
-            <div className="md:hidden absolute top-8 left-8 z-10">
-                <Link href="/" className="flex items-center space-x-2">
-                    <svg
-                        width="32"
-                        height="32"
-                        viewBox="0 0 32 32"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z" fill="#FF3333" />
-                    </svg>
-                    <span className="text-white text-2xl font-bold tracking-wider">
-                        ANISHOP
-                    </span>
-                </Link>
+            <div className="flex items-center space-x-4 pl-3 md:hidden absolute top-6 left-6 z-10 overflow-hidden">
+                <a
+                    href="/"
+                    className="flex items-center hover:opacity-90 transition-opacity"
+                >
+                    <img src={"/logo.png"} alt="logo" className="h-6 w-6 lg:w-10 lg:h-10" />
+                    <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-1">
+                        AniShop
+                    </div>
+                </a>
             </div>
 
             {/* Form Container */}
-            <div className="w-full md:w-1/2 flex items-center justify-center relative z-10">
+            <div className="w-full md:w-1/2 flex items-center justify-center relative z-10 overflow-hidden">
                 <div className="w-full max-w-xl p-8 flex flex-col justify-center min-h-screen md:min-h-0">
-                    <h2 className="text-4xl font-bold text-white mb-1">
+                    <h2 className="sm:text-4xl text-2xl font-bold text-white mb-1">
                         Login to your account
                     </h2>
-                    <p className="text-[#808080] mb-8">
+                    <p className="text-[#808080] mb-8 text-sm sm:text-base">
                         It's great to see you again.
                     </p>
 

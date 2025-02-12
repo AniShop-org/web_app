@@ -50,10 +50,10 @@ const TrackOrderCard = ({ order }) => {
                     router.push(`/products/${order.product.id}?category=${order.product.categoryId}`);
                 }}
             >
-                <div className="p-4">
+                <div className=" p-2">
                     <div className="flex gap-4">
                         <Image
-                            className="h-32 w-32 object-cover rounded-lg"
+                            className="sm:h-32 sm:w-32 h-28 w-24 object-cover rounded-lg"
                             src={order.product.images[0]}
                             alt={order.product.name}
                             width={128}
@@ -63,20 +63,20 @@ const TrackOrderCard = ({ order }) => {
                         <div className="flex-1">
                             <div className="flex items-start justify-between">
                                 <div>
-                                    <h3 className="text-lg font-medium text-white">{order.product.name}</h3>
+                                    <h3 className="sm:text-lg text-base font-medium text-white">{order.product.name}</h3>
                                     <p className="mt-1 text-sm text-gray-400">Size {order.varient}</p>
                                 </div>
                                 {/* Status Indicator */}
-                                <div className="flex items-center gap-1 text-sm font-semibold">
+                                <div className="flex items-center gap-1 text-xs sm:text-sm">
                                     <StatusIcon size={16} style={{ color: status.color }} />
                                     <span style={{ color: status.color }}>{status.text}</span>
                                 </div>
                             </div>
                             <div className="mt-2 text-white text-sm">
-                                <p className='font-semibold'>
-                                    <strong>Quantity:</strong> {order.quantity || 'N/A'}
+                                <p className='flex gap-1'>
+                                    <div>Quantity:</div> {order.quantity || 'N/A'}
                                 </p>
-                                <p className='font-semibold text-lg'>
+                                <p className='sm:text-lg'>
                                     <strong>Price:</strong> ₹{order.price || 'N/A'}
                                 </p>
                             </div>

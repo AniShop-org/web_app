@@ -87,19 +87,18 @@ export default function ConfrimOrderOtp() {
             setError('An error occurred while resending OTP. Please try again later.');
         } finally {
             setLoading(false);
-            alert('OTP has been resent to your email');
         }
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#191919]">
+        <div className="min-h-screen flex flex-col bg-[#191919] sm:pt-28 pt-20">
             <div>
                 <TopBar />
             </div>
 
             <div className="flex-1 p-4 flex flex-col items-center justify-center content-center">
                 <div className="p-8 rounded-3xl max-w-xl w-full border border-[#FFFFFF1A]">
-                    <h2 className="text-4xl font-bold text-white mb-1">
+                    <h2 className="sm:text-3xl text-xl font-bold text-white mb-1">
                         Enter confirmation code
                     </h2>
                     <p className="text-[#808080] mb-8">
@@ -117,8 +116,8 @@ export default function ConfrimOrderOtp() {
                             <input
                                 key={index}
                                 ref={inputRefs[index]}
-                                type="text"
-                                className="w-14 h-14 text-center bg-[#222222] text-white rounded-lg border border-[#222222] focus:outline-none focus:border-[#FF3333]"
+                                type="number"
+                                className="sm:w-14 sm:h-14 w-11 h-11 text-center bg-[#222222] text-white rounded-lg border border-[#222222] focus:outline-none focus:border-[#FF3333] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 maxLength={1}
                                 value={digit}
                                 onChange={(e) => handleOtpChange(index, e.target.value)}

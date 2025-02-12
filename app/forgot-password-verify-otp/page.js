@@ -98,7 +98,7 @@ export default function OTPVerification() {
     return (
         <div className="flex flex-col md:flex-row w-full min-h-screen bg-[#191919] relative">
             {/* Mobile Background */}
-            <div className="absolute inset-0 w-full h-full md:hidden">
+            <div className="absolute inset-0 w-full h-full md:hidden overflow-hidden">
                 <Image
                     src="/auth-banner.png"
                     alt="verify banner"
@@ -109,16 +109,17 @@ export default function OTPVerification() {
             </div>
 
             {/* Desktop Left Side */}
-            <div className="hidden md:block md:w-1/2 relative">
-                <div className="absolute top-8 left-8 z-10">
-                    <Link href="/" className="flex items-center space-x-2">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z" fill="#FF3333" />
-                        </svg>
-                        <span className="text-white text-2xl font-bold tracking-wider">
-                            ANISHOP
-                        </span>
-                    </Link>
+            <div className="hidden md:block md:w-1/2 relative overflow-hidden">
+                <div className="flex items-center space-x-4 pl-3 absolute top-6 left-6 z-10">
+                    <a
+                        href="/"
+                        className="flex items-center hover:opacity-90 transition-opacity"
+                    >
+                        <img src={"/logo.png"} alt="logo" className="h-6 w-6 lg:w-10 lg:h-10" />
+                        <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-1">
+                            AniShop
+                        </div>
+                    </a>
                 </div>
                 <div className="absolute inset-0">
                     <Image
@@ -132,24 +133,25 @@ export default function OTPVerification() {
             </div>
 
             {/* Mobile Logo */}
-            <div className="md:hidden absolute top-8 left-8 z-10">
-                <Link href="/" className="flex items-center space-x-2">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                        <path d="M16 0L29.8564 8V24L16 32L2.14355 24V8L16 0Z" fill="#FF3333" />
-                    </svg>
-                    <span className="text-white text-2xl font-bold tracking-wider">
-                        ANISHOP
-                    </span>
-                </Link>
+            <div className="flex items-center space-x-4 pl-3 md:hidden absolute top-6 left-6 z-10 overflow-hidden">
+                <a
+                    href="/"
+                    className="flex items-center hover:opacity-90 transition-opacity"
+                >
+                    <img src={"/logo.png"} alt="logo" className="h-6 w-6 lg:w-10 lg:h-10" />
+                    <div className="text-white lg:text-3xl text-2xl font-extrabold tracking-wider pl-1">
+                        AniShop
+                    </div>
+                </a>
             </div>
 
             {/* Form Container */}
-            <div className="w-full md:w-1/2 flex items-center justify-center relative z-10">
+            <div className="w-full md:w-1/2 flex items-center justify-center relative z-10 overflow-hidden">
                 <div className="w-full max-w-xl p-8 flex flex-col justify-center min-h-screen md:min-h-0 border border-[#222222] rounded-2xl">
-                    <h2 className="text-4xl font-bold text-white mb-1">
+                    <h2 className="sm:text-4xl text-2xl font-bold text-white mb-1">
                         Verify your email
                     </h2>
-                    <p className="text-[#808080] mb-8">
+                    <p className="text-[#808080] mb-8 text-sm sm:text-base">
                         Enter the 6-digit code that was sent to {email}
                     </p>
 
@@ -164,8 +166,8 @@ export default function OTPVerification() {
                             <input
                                 key={index}
                                 ref={inputRefs[index]}
-                                type="text"
-                                className="w-14 h-14 text-center bg-[#222222] text-white rounded-lg border border-[#222222] focus:outline-none focus:border-[#FF3333]"
+                                type="number"
+                                className="w-14 h-14 text-center bg-[#222222] text-white rounded-lg border border-[#222222] focus:outline-none focus:border-[#FF3333] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 maxLength={1}
                                 value={digit}
                                 onChange={(e) => handleOtpChange(index, e.target.value)}
