@@ -1,17 +1,19 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { Package, CreditCard, ShoppingCart, Bell } from 'lucide-react';
 
 const NotificationIcon = ({ type }) => {
     switch (type) {
         case 'SHIPMENT_DISPATCHED':
-            return <Package className="w-5 h-5 text-blue-500" />;
+            return <Package className="w-5 h-5 text-[#FFFFFF]" />;
         case 'PAYMENT_SUCCESSFUL':
-            return <CreditCard className="w-5 h-5 text-green-500" />;
+            return <CreditCard className="w-5 h-5 text-[#FFFFFF]" />;
         case 'ORDER_CREATED':
-            return <ShoppingCart className="w-5 h-5 text-purple-500" />;
+            return <ShoppingCart className="w-5 h-5 text-[#FFFFFF]" />;
         default:
-            return <Bell className="w-5 h-5 text-gray-500" />;
+            return <Bell className="w-5 h-5 text-[#FFFFFF]" />;
     }
 };
 
@@ -20,7 +22,7 @@ const NotificationMessage = ({ type, data }) => {
         case 'SHIPMENT_DISPATCHED':
             return (
                 <>
-                    <p className="font-medium">Shipment Dispatched!</p>
+                    <p className="md:font-medium">Shipment Dispatched!</p>
                     <p className="text-sm text-[#808080]">
                         Your order is on its way via {data.carrier}. Track: {data.trackingNumber}
                     </p>
@@ -30,7 +32,7 @@ const NotificationMessage = ({ type, data }) => {
             return (
                 <>
                     <p className="font-medium">Payment Successful</p>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-[#808080]">
                         Payment of ${data.amountPaid} received via {data.paymentMethod}
                     </p>
                 </>
@@ -39,7 +41,7 @@ const NotificationMessage = ({ type, data }) => {
             return (
                 <>
                     <p className="font-medium">Order Placed</p>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-[#808080]">
                         Order placed for ${data.subtotal} with {data.shippingMethod} shipping
                     </p>
                 </>
@@ -52,7 +54,7 @@ const NotificationMessage = ({ type, data }) => {
 const NotificationItem = ({ notification }) => {
     return (
         <div className="flex items-start gap-4 p-4">
-            <div className="p-2 bg-gray-100 rounded-lg">
+            <div className="p-2 rounded-lg">
                 <NotificationIcon type={notification.type} />
             </div>
             <div className="flex-1">
@@ -69,6 +71,10 @@ const NotificationItem = ({ notification }) => {
 };
 
 export const NotificationList = ({ notifications }) => {
+
+    const [visibleNotifications, setVisibleNotifications] = useState(5);
+    const NOTIFICATIONS_PER_PAGE = 5;
+
     const groupByDate = (notifications) => {
         const groups = {};
         notifications.forEach(notification => {
@@ -81,25 +87,54 @@ export const NotificationList = ({ notifications }) => {
         return groups;
     };
 
-    const groupedNotifications = groupByDate(notifications);
+    const groupedNotifications = groupByDate(
+        notifications.slice(0, visibleNotifications)
+    );
+
+    const hasMoreNotifications = visibleNotifications < notifications.length;
+
+    const handleLoadMore = () => {
+        setVisibleNotifications(prev => prev + NOTIFICATIONS_PER_PAGE);
+    };
 
     return (
         <div className="max-w-2xl mx-auto">
-            {Object.entries(groupedNotifications).map(([date, items], index) => (
+            {Object.entries(groupedNotifications).map(([date, items], index, arr) => (
                 <div key={date}>
-                    <h3 className="text-lg font-bold text-white px-4 pb-2 sticky top-0">
+                    <h3 className="md:text-base text-white px-4 pb-2 sticky top-0">
                         {date}
                     </h3>
-                    <div className={index < Object.entries(groupedNotifications).length - 1 ? "divide-y divide-[#3C3C3C]" : ""}>
-                        {items.map(notification => (
-                            <NotificationItem
-                                key={notification.id}
-                                notification={notification}
-                            />
-                        ))}
-                    </div>
+                    {items.map(notification => (
+                        <NotificationItem
+                            key={notification.id}
+                            notification={notification}
+                        />
+                    ))}
+                    {index < arr.length - 1 && (
+                        <hr className="my-4 border-[#FFFFFF1A] sm:mx-auto" />
+                    )}
                 </div>
             ))}
+
+            {hasMoreNotifications && (
+                <div className="flex justify-center pt-6 pb-8">
+                    <button
+                        onClick={handleLoadMore}
+                        className="
+                            px-6 py-2.5 
+                            text-sm
+                            text-white 
+                            bg-[#252525] 
+                            rounded-full 
+                            hover:bg-[#303030] 
+                            transition-colors
+                            flex items-center gap-2
+                        "
+                    >
+                        View More
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

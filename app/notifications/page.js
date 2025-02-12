@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Footer from "../componenets/footer";
 import { TopBar } from "../componenets/topbar";
 import { Bell } from "lucide-react";
+import { SideNav } from "../componenets/sideNav";
 
 export default function NotificationsPage() {
   const router = useRouter();
@@ -19,7 +20,6 @@ export default function NotificationsPage() {
       router.push('/login');
       return;
     }
-
     const fetchNotifications = async () => {
       setLoading(true);
       setError('');
@@ -51,36 +51,43 @@ export default function NotificationsPage() {
   return (
     <div className="bg-[#191919] text-white min-h-screen flex flex-col">
       <TopBar />
-      <main className="container mx-auto px-4 py-6 flex-grow sm:mt-36 mt-14">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold">Notifications</h1>
+      <main className="container mx-auto px-4 py-6 flex flex-row sm:mt-36 mt-14 flex-grow">
+        {/* Side navigation on the left */}
+        <div>
+          <SideNav />
         </div>
-
-        {loading && (
-          <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+        {/* Main notifications content on the right */}
+        <div className="ml-4 md:pl-20">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold">Notifications</h1>
           </div>
-        )}
 
-        {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-4">
-            {error}
-          </div>
-        )}
+          {loading && (
+            <div className="flex justify-center py-8">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
+            </div>
+          )}
 
-        {!loading && !error && notifications.length === 0 && (
-          <div className="text-center py-12">
-            <Bell className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium">No notifications yet</h3>
-            <p className="text-gray-400">
-              We'll notify you when something important happens
-            </p>
-          </div>
-        )}
+          {error && (
+            <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-4">
+              {error}
+            </div>
+          )}
 
-        {!loading && !error && notifications.length > 0 && (
-          <NotificationList notifications={notifications} />
-        )}
+          {!loading && !error && notifications.length === 0 && (
+            <div className="text-center py-12">
+              <Bell className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium">No notifications yet</h3>
+              <p className="text-gray-400">
+                We'll notify you when something important happens
+              </p>
+            </div>
+          )}
+
+          {!loading && !error && notifications.length > 0 && (
+            <NotificationList notifications={notifications} />
+          )}
+        </div>
       </main>
       <Footer />
     </div>
