@@ -199,21 +199,21 @@ const ProductDetail = ({ product }) => {
                 </div>
 
                 <div className="flex items-center lg:gap-4 gap-6 mb-6">
-                    <div className="flex items-center lg:gap-4 gap-2 bg-white rounded-full p-2 lg:px-8 px-1">
+                    <div className="flex items-center lg:gap-2 gap-2 bg-white rounded-full p-2 lg:px-2 px-1">
                         <button
                             disabled={loading}
                             onClick={() => handleQuantityChange('decrease')}
                             className={`p-1 text-black hover:bg-gray-100 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <Minus className='h-3 w-3 lg:h-6 lg:w-6' />
+                                <Minus className='h-3 w-3 lg:h-4 lg:w-4' />
                         </button>
-                        <span className="lg:w-8 w-4 text-center text-sm lg:text-lg text-black">{quantity}</span>
+                        <span className="lg:w-8 w-4 text-center text-sm lg:text-base text-black">{quantity}</span>
                         <button
                             disabled={loading}
                             onClick={() => handleQuantityChange('increase')}
                             className={`p-1 text-black hover:bg-gray-100 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <Plus className='h-3 w-3 lg:h-6 lg:w-6' />
+                                <Plus className='h-3 w-3 lg:h-4 lg:w-4' />
                         </button>
                     </div>
                     <button 

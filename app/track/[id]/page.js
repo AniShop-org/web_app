@@ -72,7 +72,7 @@ export default function TrackOrder() {
             <SideNav />
           </div>
           <main className="flex-1 md:px-40 lg:pr-20">
-            <h1 className="text-white sm:text-3xl text-xl font-bold pb-6">Order status</h1>
+            <h1 className="text-white sm:text-2xl text-xl font-bold pb-6">Order status</h1>
             <div className="flex justify-center content-center pt-20">
               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
             </div>
@@ -91,8 +91,18 @@ export default function TrackOrder() {
           <SideNav />
         </aside>
         <main className="flex-1 md:px-40 lg:pr-20">
-          <h1 className="text-white sm:text-3xl text-2xl font-bold pb-6">Order status</h1>
-          <div>
+          <div className="flex md:gap-4 gap-2">
+          <button
+            onClick={() => router.push('/')}
+            className="pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </button>
+          <h1 className="text-white sm:text-3xl text-2xl font-bold">Order status</h1>
+          </div>
+          <div className="pt-6">
             <TrackOrderCard order={order} />
             <TrackingPage order={order} />
           </div>

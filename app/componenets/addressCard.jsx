@@ -1,4 +1,14 @@
-export const AddressCard = ({ address, isSelected, onSelect, onRemove, onEdit, isSelecting, isDeleting }) => (
+import { useRouter } from "next/navigation";
+
+export const AddressCard = ({ address, isSelected, onSelect, onRemove, isSelecting, isDeleting }) => {
+    const router = useRouter();
+
+    const handleEditAddress = async () => {
+        router.push(`/edit-address/${address.id}`);
+    }
+
+return (
+
     <div className={`bg-neutral-900/50 rounded-3xl sm:p-6 p-2 mb-2 border border-[#252525] ${isSelecting ? 'opacity-50' : ''}`}>
         <div
             className="flex items-start gap-3 cursor-pointer"
@@ -39,7 +49,7 @@ export const AddressCard = ({ address, isSelected, onSelect, onRemove, onEdit, i
                 {isDeleting ? 'Removing...' : 'Remove'}
             </button>
             <button
-                onClick={() => onEdit(address)}
+                onClick={() => handleEditAddress()}
                 disabled={isSelecting || isDeleting}
                 className={`text-white ${(isSelecting || isDeleting) ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
@@ -48,3 +58,4 @@ export const AddressCard = ({ address, isSelected, onSelect, onRemove, onEdit, i
         </div>
     </div>
 );
+}

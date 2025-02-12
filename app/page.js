@@ -49,7 +49,7 @@ export default function Home() {
         
         <div className="relative z-10 flex flex-col justify-center min-h-[50vh] lg:min-h-[70vh] px-4 pb-8 lg:px-20 font-sans container">
           <div className="max-w-2xl mx-auto pt-20">
-            <h1 className="text-3xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+            <h1 className="text-3xl lg:text-5xl font-bold text-white mb-4 leading-tight">
               {banner.heading}
             </h1>
             <p className="lg:text-lg text-sm text-gray-200 mb-8">

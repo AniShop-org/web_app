@@ -15,6 +15,7 @@ const MyAddresses = () => {
     const [selectingId, setSelectingId] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const router = useRouter();
+    const [editingId, setEditingId] = useState(null);
 
     if (typeof window != 'undefined') {
         if (!localStorage.getItem('authToken')) {
@@ -106,6 +107,8 @@ const MyAddresses = () => {
             setDeletingId(null)
         }
     }
+
+
 
     return (
         <div className="min-h-screen flex flex-col bg-[#191919] lg:pt-36 pt-16">
