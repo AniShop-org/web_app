@@ -120,7 +120,7 @@ const ProductDetail = ({ product }) => {
                     {product.images?.map((img, index) => (
                         <div
                             key={index}
-                            className={`w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 cursor-pointer border-2 ${selectedImage === index ? 'border-[#FF3333] rounded-2xl' : 'border-transparent'
+                            className={`w-16 h-16 md:w-18 md:h-18 lg:w-24 lg:h-24 cursor-pointer border-2 ${selectedImage === index ? 'border-[#FF3333] rounded-2xl' : 'border-transparent'
                                 }`}
                             onClick={() => setSelectedImage(index)}
                         >
@@ -140,19 +140,19 @@ const ProductDetail = ({ product }) => {
                             alt={product.name}
                             className="
                                 w-full
-                                max-w-[450px]
+                                max-w-[365px]
                                 object-cover
                                 rounded-xl
                                 h-[320px]
                                 md:h-[500px]
-                                lg:h-[500px]
+                                lg:h-[400px]
                             "
                         />
                 </div>
             </div>
 
             <div className="flex-1">
-                <h1 className="lg:text-4xl text-xl font-bold sm:mb-2">{product.name}</h1>
+                <h1 className="lg:text-3xl text-xl font-bold sm:mb-2">{product.name}</h1>
 
                 <div className="flex items-center gap-2 sm:mb-4 text-xl">
                     <div className="text-yellow-400">

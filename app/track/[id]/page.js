@@ -72,7 +72,7 @@ export default function TrackOrder() {
             <SideNav />
           </div>
           <main className="flex-1 md:px-40 lg:pr-20">
-            <h1 className="text-white sm:text-4xl text-2xl font-bold pb-6">Order status</h1>
+            <h1 className="text-white sm:text-3xl text-xl font-bold pb-6">Order status</h1>
             <div className="flex justify-center content-center pt-20">
               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
             </div>
@@ -91,7 +91,7 @@ export default function TrackOrder() {
           <SideNav />
         </aside>
         <main className="flex-1 md:px-40 lg:pr-20">
-          <h1 className="text-white sm:text-4xl text-2xl font-bold pb-6">Order status</h1>
+          <h1 className="text-white sm:text-3xl text-2xl font-bold pb-6">Order status</h1>
           <div>
             <TrackOrderCard order={order} />
             <TrackingPage order={order} />

@@ -45,7 +45,7 @@ const TrackOrderCard = ({ order }) => {
     return (
         <>
             <div
-                className="rounded-2xl bg-[#1A1A1A] overflow-hidden border border-[#252525] hover:shadow-lg duration-200 cursor-pointer"
+                className="rounded-2xl bg-[#1A1A1A] overflow-hidden border border-[#252525] hover:shadow-lg duration-200 cursor-pointer max-w-2xl"
                 onClick={() => {
                     router.push(`/products/${order.product.id}?category=${order.product.categoryId}`);
                 }}
@@ -53,7 +53,7 @@ const TrackOrderCard = ({ order }) => {
                 <div className=" p-2">
                     <div className="flex gap-4">
                         <Image
-                            className="sm:h-32 sm:w-32 h-28 w-24 object-cover rounded-lg"
+                            className="sm:h-28 sm:w-24 h-28 w-24 object-cover rounded-lg"
                             src={order.product.images[0]}
                             alt={order.product.name}
                             width={128}
@@ -63,7 +63,7 @@ const TrackOrderCard = ({ order }) => {
                         <div className="flex-1">
                             <div className="flex items-start justify-between">
                                 <div>
-                                    <h3 className="sm:text-lg text-base font-medium text-white">{order.product.name}</h3>
+                                    <h3 className="text-base font-medium text-white">{order.product.name}</h3>
                                     <p className="mt-1 text-sm text-gray-400">Size {order.varient}</p>
                                 </div>
                                 {/* Status Indicator */}
@@ -73,12 +73,12 @@ const TrackOrderCard = ({ order }) => {
                                 </div>
                             </div>
                             <div className="mt-2 text-white text-sm">
-                                <p className='flex gap-1'>
+                                <div className='flex gap-1'>
                                     <div>Quantity:</div> {order.quantity || 'N/A'}
-                                </p>
-                                <p className='sm:text-lg'>
+                                </div>
+                                <div className='sm:text-base'>
                                     <strong>Price:</strong> ₹{order.price || 'N/A'}
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>

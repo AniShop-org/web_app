@@ -107,16 +107,16 @@ export default function OrderPage() {
                     <SideNav />
                     <div className="flex-1">
                         <div className="mb-8">
-                            <div className='flex'>
-                            <button 
-                                onClick={() => router.back()}
-                                className="mb-6 pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                            <h1 className="sm:text-4xl text-2xl font-bold text-white mb-6">My Orders</h1>
+                            <div className='flex md:gap-4 gap-2'>
+                                <button 
+                                    onClick={() => router.push('/')}
+                                    className="mb-6 pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                    </svg>
+                                </button>
+                                <h1 className="sm:text-3xl text-2xl font-bold text-white mb-6">My Orders</h1>
                             </div>
                             <div className="flex gap-4 border-b border-[#252525]">
                                 {tabs.map((tab) => (

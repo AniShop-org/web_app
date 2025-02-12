@@ -6,11 +6,12 @@ import { TopBar } from '../componenets/topbar';
 import Footer from '../componenets/footer';
 import { SideNav } from '../componenets/sideNav';
 import { Heart } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function WishlistPage() {
     const [wishList, setWishList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    const router = useRouter();
     const fetchWishlist = async () => {
         try {
             const items = JSON.parse(localStorage.getItem('wishlist')) || [];
@@ -44,8 +45,18 @@ export default function WishlistPage() {
                 <div className="flex gap-8">
                     <SideNav />
                     <div className="flex-1">
+                        <div className='flex md:gap-4 gap-3'>
+                        <button
+                            onClick={() => router.push('/')}
+                            className="mb-6 pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2 pb-4"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                        </button>
                         <div className="sm:mb-8 mb-4">
                             <h1 className="sm:text-3xl text-2xl font-bold text-white">My Wishlist</h1>
+                        </div>
                         </div>
                         {isLoading ? (
                             <div className="flex justify-center content-center pt-20">

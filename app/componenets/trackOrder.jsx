@@ -61,7 +61,7 @@ const TrackingPage = ({ order }) => {
 
                             return (
                                 <div key={status.id} className="flex flex-col">
-                                    <h3 className="sm:text-xl font-medium">{info.text}</h3>
+                                    <h3 className="md:text-lg font-medium">{info.text}</h3>
                                     <p className="mt-1 sm:text-sm text-xs text-[#808080]">
                                         {status.updatedAt
                                             ? new Date(status.updatedAt).toLocaleString('en-US', {

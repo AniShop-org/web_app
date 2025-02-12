@@ -149,7 +149,7 @@ export default function categoryProducts() {
               </div>
             ) : (
               <div className=" container mx-auto">
-                <h1 className="text-3xl font-bold mb-4 text-white">
+                <h1 className="sm:text-2xl text-xl font-bold mb-4 text-white">
                   Products in {products[0]?.category?.name || "Category"}
                 </h1>
                 <ProductGrid products={products} />

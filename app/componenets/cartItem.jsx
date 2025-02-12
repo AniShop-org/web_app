@@ -19,12 +19,12 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
     };
 
     return (
-        <div className="relative flex justify-between items-center rounded-2xl border border-[#FFFFFF1A] lg:p-4 p-2">
+        <div className="relative flex justify-between items-center rounded-2xl border border-[#FFFFFF1A] p-2">
             <div className="flex items-center cursor-pointer" onClick={() => { router.push(`/products/${item.product.id}`) }}>
                 <img
                     src={item.product.images[0]}
                     alt={item.product.name}
-                    className="w-28 h-32 object-cover rounded-lg"
+                    className="sm:w-28 sm:h-32 w-24 h-28 object-cover rounded-lg"
                 />
                 <div className="ml-4">
                     <h2 className="font-bold">{item.product.name}</h2>
@@ -38,22 +38,22 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
                     onClick={handleRemove}
                     className="ml-4 p-2"
                 >
-                    <Trash2Icon className='h-4 w-4 lg:h-6 lg:w-6' color='red' />
+                    <Trash2Icon className='h-4 w-4 lg:h-5 lg:w-5' color='red' />
                 </button>
             </div>
-            <div className='absolute bottom-6 right-3 flex items-center lg:gap-2 gap-1 bg-white rounded-full p-1 sm:p-2 lg:px-4 px-1'>
+            <div className='absolute bottom-6 right-3 flex items-center lg:gap-2 gap-1 bg-white rounded-full p-1 sm:p-2 lg:px-2 px-1'>
                 <button
                     onClick={handleDecrease}
                     className="p-1 text-black hover:bg-gray-100 rounded"
                 >
-                    <Minus className='h-3 w-3 lg:h-5 lg:w-5' />
+                    <Minus className='h-3 w-3 lg:h-4 lg:w-4' />
                 </button>
-                <span className="sm:w-8 w-3-4 text-center text-black text-sm sm:text-lg">{item.quantity}</span>
+                <span className="sm:w-4 w-3 text-center text-black text-sm sm:text-base">{item.quantity}</span>
                 <button
                     onClick={handleIncrease}
                     className="p-1 text-black hover:bg-gray-100 rounded"
                 >
-                    <Plus className='h-3 w-3 lg:h-5 lg:w-5' />
+                    <Plus className='h-3 w-3 lg:h-4 lg:w-4' />
                 </button>
             </div>
         </div>

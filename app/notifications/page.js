@@ -57,7 +57,7 @@ export default function NotificationsPage() {
           <SideNav />
         </div>
         {/* Main notifications content on the right */}
-        <div className="ml-4 md:pl-20">
+        <div className="ml-4 md:pl-20 flex flex-col flex-grow">
           <div className="mb-6">
             <h1 className="text-2xl font-bold">Notifications</h1>
           </div>

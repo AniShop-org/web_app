@@ -148,7 +148,7 @@ const OrderCard = ({ order }) => {
             <div className="p-1">
                 <div className="flex gap-4">
                     <Image
-                        className="sm:h-32 sm:w-32 h-24 w-20 object-cover rounded-lg"
+                        className="sm:h-28 sm:w-28 h-24 w-20 object-cover rounded-lg"
                         src={order.product.images[0]}
                         alt={order.product.name}
                         width={128}
@@ -182,7 +182,7 @@ const OrderCard = ({ order }) => {
                                     </p>
 
                                 <button
-                                    className="sm:text-sm text-xs text-black bg-white p-1.5 rounded-md lg:mx-6 flex items-center gap-1 mr-1"
+                                    className="text-xs text-black bg-white p-1.5 rounded-md lg:mx-6 flex items-center gap-1 mr-1"
                                     onClick={handleButtonClick}
                                 >
                                     <span>{getButtonText()}</span>

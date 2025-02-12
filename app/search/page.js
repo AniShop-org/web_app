@@ -157,7 +157,7 @@ export default function SearchResults() {
               </div>
             ) : (
               <>
-                <h1 className="sm:text-3xl text-2xl font-bold mb-4 text-white container mx-auto">
+                <h1 className="sm:text-2xl text-xl font-bold mb-4 text-white container mx-auto">
                   Search Results for "{keyword}"
                 </h1>
                 <ProductGrid products={products} />

@@ -111,10 +111,10 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
 
     return (
         <div>
-            <div className="space-y-6 rounded-3xl border border-[#FFFFFF1A] p-6">
+            <div className="space-y-6 rounded-2xl border border-[#FFFFFF1A] p-4">
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-semibold">Delivery Address</h3>
+                        <h3 className=" font-semibold">Delivery Address</h3>
                         <button
                             className="text-blue-500 text-sm underline"
                             onClick={() => router.push("/change-address")}
@@ -139,8 +139,8 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                 </div>
 
                 <div className="space-y-4 border-t border-[#32323280] pt-4">
-                    <h3 className="text-lg font-semibold">Payment Method</h3>
-                    <div className="grid grid-cols-2 gap-3">
+                    <h3 className=" font-semibold">Payment Method</h3>
+                    <div className="grid grid-cols-2 gap-3 md:gap-4">
                         <button
                             onClick={() => setPaymentMethod('prepaid')}
                             className={`w-full p-3 rounded-2xl border flex flex-col items-center space-y-2 ${paymentMethod === 'prepaid'
@@ -148,7 +148,7 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                                 : 'border-[#32323280]'
                             }`}
                         >
-                            <img src="/razorpay-logo.png" alt="Razorpay" className="lg:h-6 h-3" />
+                            <img src="/razorpay-logo.png" alt="Razorpay" className="lg:h-4 h-3" />
                         </button>
 
                         <button
@@ -158,29 +158,29 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                                 : 'text-[#898989] border-[#32323280]'
                                 }`}
                         >
-                            <Banknote className='h-4 lg:h-6'/>
-                            <span className="lg:text-lg text-md text-sm lg:pl-2">Cash</span>
+                            <Banknote className='h-4 lg:h-4'/>
+                            <span className="md:text-base text-sm">Cash</span>
                         </button>
                     </div>
                 </div>
 
 
                 <div className="space-y-4 border-t border-[#32323280] pt-4">
-                    <h3 className="text-lg font-semibold">Order Summary</h3>
+                    <h3 className="font-semibold">Order Summary</h3>
                     <div className="space-y-2">
                         <div className="flex justify-between">
-                            <span className="text-[#808080] text-sm sm:text-lg">Sub-total</span>
-                            <span className='text-sm sm:text-lg'>₹{totalBasePrice}</span>
+                            <span className="text-[#808080] text-sm sm:text-base">Sub-total</span>
+                            <span className='text-sm sm:text-base'>₹{totalBasePrice}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-[#808080] text-sm sm:text-lg">Total discount</span>
-                            <span className='text-sm sm:text-lg'>₹{totalDiscount}</span>
+                            <span className="text-[#808080] text-sm sm:text-base">Total discount</span>
+                            <span className='text-sm sm:text-base'>₹{totalDiscount}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-[#808080] text-sm sm:text-lg">Shipping fee</span>
-                            <span className='text-sm sm:text-lg'>₹{shippingFee}</span>
+                            <span className="text-[#808080] text-sm sm:text-base">Shipping fee</span>
+                            <span className='text-sm sm:text-base'>₹{shippingFee}</span>
                         </div>
-                        <div className="flex justify-between pt-4 border-t border-[#434343] text-xl">
+                        <div className="flex justify-between pt-4 border-t border-[#434343] sm:text-xl text-lg">
                             <span>Total</span>
                             <span>₹{total}</span>
                         </div>
@@ -191,7 +191,7 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
             <button
                 onClick={handlePayment}
                 disabled={isLoading}
-                className="w-full sm:py-4 py-3 bg-red-500 text-white rounded-full font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full py-3 bg-red-500 text-white rounded-full font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
             >
                 <span>{isLoading ? 'Processing...' : 'Place Order'}</span>
                 {!isLoading && <span>→</span>}

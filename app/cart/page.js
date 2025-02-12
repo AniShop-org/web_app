@@ -178,7 +178,7 @@ export default function CartPage() {
                 <TopBar />
             </div>
             <div className='container mx-auto flex-grow'>
-                <h1 className="sm:text-4xl text-2xl font-bold sm:mb-8 mb-2">My cart</h1>
+                <h1 className="sm:text-3xl text-2xl font-bold sm:mb-8 mb-2">My cart</h1>
                 
                 {isLoading ?  
                     <div className="flex justify-center content-center pt-20">
