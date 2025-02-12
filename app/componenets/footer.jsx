@@ -8,7 +8,8 @@ export default function Footer() {
                     <div>
                         <div className="mb-4">
                             <a href="/">
-                                <Image src={"/logo-full.png"} width={128} height={128} alt="anishop logo" className="w-20 h-16"/>
+                                <Image src={"/logo.png"} width={128} height={128} alt="anishop logo" className="w-20 h-20"/>
+                                <p className="text-2xl font-bold">AniShop</p>
                             </a>
                         </div>
 
@@ -202,7 +203,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <p className="text-xs text-gray-500">&copy; 2022. Company Name. All rights reserved.</p>
+                <p className="text-xs text-gray-500">&copy; 2025. AniShop. All rights reserved.</p>
             </div>
         </footer>
 

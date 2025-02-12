@@ -180,7 +180,7 @@ const OrderCard = ({ order }) => {
                                     <p className="sm:text-xl text-white font-semibold">
                                         ₹{order.price}
                                     </p>
-                                    <div className='w-[78px] sm:w-[108px] bg-white rounded-md sm:m-2 sm:py-1 py-1'>
+                                    <div className='w-[78px] sm:w-[95px] bg-white rounded-md sm:m-2 sm:py-1 py-1 m-1'>
                                 <button
                                     className="text-xs text-black flex items-center mx-auto"
                                     onClick={handleButtonClick}
