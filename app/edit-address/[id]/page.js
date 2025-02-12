@@ -116,7 +116,7 @@ return (
                 <div className="flex-1">
                     <div className="mb-6 md:mb-8">
                         <h1 className="md:text-3xl text-2xl font-bold text-white">
-                            Add New Address
+                            Edit address
                         </h1>
                     </div>
 

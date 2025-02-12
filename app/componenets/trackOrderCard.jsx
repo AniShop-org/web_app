@@ -63,7 +63,11 @@ const TrackOrderCard = ({ order }) => {
                         <div className="flex-1">
                             <div className="flex items-start justify-between">
                                 <div>
-                                    <h3 className="text-base font-medium text-white">{order.product.name}</h3>
+                                    <h3 className="text-base font-medium text-white">
+                                        {order.product.name.length > 20 
+                                            ? order.product.name.substring(0, 15) + '...' 
+                                            : order.product.name}
+                                    </h3>
                                     <p className="mt-1 text-sm text-gray-400">Size {order.varient}</p>
                                 </div>
                                 {/* Status Indicator */}

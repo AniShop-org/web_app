@@ -93,7 +93,7 @@ export default function TrackOrder() {
         <main className="flex-1 md:px-40 lg:pr-20">
           <div className="flex md:gap-4 gap-2">
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.back()}
             className="pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

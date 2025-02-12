@@ -163,7 +163,7 @@ export default function OrderPage() {
                                                     onClick={handleLoadMore}
                                                     className="px-6 py-2 text-sm text-white bg-[#252525] rounded-full hover:bg-[#303030] transition-colors"
                                                 >
-                                                    View all
+                                                    View more
                                                 </button>
                                             </div>
                                         )}
