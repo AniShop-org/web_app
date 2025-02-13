@@ -8,7 +8,9 @@ export default function Footer() {
                     <div>
                         <div className="mb-4">
                             <a href="/">
-                                <Image src={"/logo.png"} width={128} height={128} alt="anishop logo" className="w-16 h-16"/>
+                            <div className="ml-4">
+                                <Image src={"/logo.png"} width={128} height={128} alt="anishop logo" className="w-12 h-12"/>
+                                </div>
                                 <p className="text-2xl font-bold text-white">AniShop</p>
                             </a>
                         </div>
