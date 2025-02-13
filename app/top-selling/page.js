@@ -172,7 +172,7 @@ export default function TopSellingPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
               </button>
-            <h1 className="text-2xl lg:text-4xl font-bold text-white">Top Selling</h1>
+            <h1 className="text-2xl lg:text-3xl font-bold text-white">Top Selling</h1>
           </div>
 
           {loading ? (

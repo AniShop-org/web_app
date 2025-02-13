@@ -96,7 +96,15 @@ export default function SearchResults() {
     return (
       <div className="min-h-screen bg-[#191919] max-w-auto">
         <TopBar />
-        <div className="max-w-7xl mx-auto py-40 container overflow-x-hidden">
+        <div className="max-w-7xl mx-auto md:py-40 py-24 container overflow-x-hidden">
+          <button
+            onClick={() => router.back()}
+            className="pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2 mb-20 ml-6 md:mb-4"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4 sm:h-6 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </button>
           <div className="flex px-4">
             <div>
               <FilterSidebar
@@ -106,6 +114,7 @@ export default function SearchResults() {
                 onClearFilters={handleClearFilters}
               />
             </div>
+  
             <div className="flex-1 flex flex-col items-center justify-center">
               <svg
                 className="h-12 w-12 text-gray-400 mb-4"

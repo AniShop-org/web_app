@@ -122,7 +122,16 @@ const ProductDetail = ({ product }) => {
                     onClose={() => setShowAlert(false)}
                 />
             )}
+            <button
+                onClick={() => router.back()}
+                className="pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4 sm:h-6 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </button>
         <div className="flex flex-col md:flex-row gap-8 bg-[#191919] text-white p-6 px-4">
+               
             {/* Left side - Image gallery */}
             <div className="flex flex-col-reverse md:flex-row gap-4">
                 {/* Thumbnail column */}
@@ -228,7 +237,7 @@ const ProductDetail = ({ product }) => {
                     </div>
                     <button 
                         disabled={loading}
-                        className={`flex-1 bg-[#FF3333] text-white lg:py-3 py-2 rounded-full hover:bg-red-600 
+                        className={`flex-1 bg-[#FF3333] text-white lg:py-3 py-2 rounded-full hover:bg-red-600 md:mx-12
                             ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={isInCart ? handleViewCart : handleAddToCart}
                     >

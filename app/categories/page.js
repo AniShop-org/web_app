@@ -35,7 +35,7 @@ export default function ExploreAllCategories() {
       <div className="min-h-screen bg-[#191919] flex flex-col">
         <TopBar />
         <main className="container mx-auto px-4 md:pt-36 pt-20 pb-36 content-center flex-grow">
-          <h1 className="text-white sm:text-3xl text-xl font-bold mb-8">BROWSE BY CATEGORY</h1>
+          <h1 className="text-white sm:text-3xl text-xl font-bold mb-8">Browse by category</h1>
           <div className="flex justify-center content-center pt-20">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
           </div>
@@ -60,7 +60,7 @@ export default function ExploreAllCategories() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
         </button>
-        <h1 className="text-white sm:text-3xl text-xl font-bold">BROWSE BY CATEGORY</h1>
+          <h1 className="text-white sm:text-3xl text-xl font-bold">Browse by category</h1>
         </div>
         <div className="mt-8">
           {categories.map((category, index) => (
