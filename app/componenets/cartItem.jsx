@@ -18,6 +18,13 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
         onRemove(item);
     };
 
+    const truncateText = (text, maxLength) => {
+        if (text && text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
     return (
         <div className="relative flex justify-between items-center rounded-2xl border border-[#FFFFFF1A] p-2">
             <div className="flex items-center cursor-pointer" onClick={() => { router.push(`/products/${item.product.id}`) }}>
@@ -27,7 +34,7 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
                     className="sm:w-28 sm:h-32 w-24 h-28 object-cover rounded-lg"
                 />
                 <div className="ml-4">
-                    <h2 className="font-bold">{item.product.name}</h2>
+                    <h2 className="font-bold">{truncateText(item.product.name, 20)}</h2>
                     <p className="text-[#FFFFFF99]">Size: {item.variant.size}</p>
                     <p className="text-[#FFFFFF99] text-sm">M.R.P: <s>₹{item.product.basePrice}</s></p>
                     <p className="text-white font-bold text-xl">₹{item.product.discountPrice}</p>

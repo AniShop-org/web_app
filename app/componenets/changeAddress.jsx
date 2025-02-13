@@ -108,7 +108,7 @@ const ChangeAddress = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#191919] pt-36">
+        <div className="min-h-screen flex flex-col bg-[#191919] md:pt-36 pt-16">
             <TopBar />
             <div className="flex-grow container mx-auto px-4 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
                 <div className="pr-10">
@@ -116,10 +116,10 @@ const ChangeAddress = () => {
                 </div>
                 <div className="flex-grow">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-4xl text-white font-bold pb-4">Select Address</h2>
+                        <h2 className="md:text-3xl text-2xl text-white font-bold pb-4">Select Address</h2>
                     </div>
                     <div>
-                        <div className="pb-4 font-semibold">Saved Addresses</div>
+                        <div className="pb-4">Saved Addresses</div>
                         {loading ? (
                             <div className="flex justify-center content-center pt-20">
                                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-200" />
@@ -146,17 +146,17 @@ const ChangeAddress = () => {
                             ))
                         ))}
                     </div>
-                    <div className="pt-8 flex justify-between gap-4">
-                        <button className="border border-[#FFFFFF] rounded-full lg:p-3 p-2 lg:px-20 px-10" 
+                    <div className="md:pt-8 pt-3 flex justify-between sm:gap-4 gap-2">
+                        <button className="border border-[#FFFFFF] rounded-full text-xs md:text-sm lg:p-2 p-2 lg:px-20 px-4" 
                         onClick={() => 
                             router.push('/new-address')}
                         >
-                            <span className="flex items-center"><Plus size={28} className="mr-2"/>Add new address</span>
+                            <span className="flex items-center text-white"><Plus size={18} className="md:mr-2"/>Add new address</span>
                         </button>
-                        <button className="bg-[#FF3333] rounded-full lg:p-3 lg:px-20 px-8 p-2" onClick={() => {
+                        <button className="bg-[#FF3333] rounded-full lg:p-3 lg:px-20 md:px-8 px-4 sm:p-2 p-2 text-xs md:text-sm" onClick={() => {
                             router.push("/cart")
                         }}>
-                            <span className="flex items-center">Continue to checkout <ArrowRight className="ml-2" size={28}/></span>
+                            <span className="flex items-center text-white">Continue to checkout <ArrowRight className="md:ml-2" size={18}/></span>
                         </button>
                     </div>
                 </div>

@@ -102,7 +102,7 @@ return (
                 
                 <div className="flex-1">
                     <div className="mb-6 md:mb-8">
-                        <h1 className="md:text-3xl text-2xl font-bold text-white">
+                        <h1 className="md:text-3xl text-xl font-bold text-white">
                             Add New Address
                         </h1>
                     </div>

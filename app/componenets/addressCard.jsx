@@ -7,9 +7,16 @@ export const AddressCard = ({ address, isSelected, onSelect, onRemove, isSelecti
         router.push(`/edit-address/${address.id}`);
     }
 
+    const truncateText = (text, maxLength) => {
+        if (text && text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
 return (
 
-    <div className={`bg-neutral-900/50 rounded-3xl sm:p-6 p-2 mb-2 border border-[#252525] ${isSelecting ? 'opacity-50' : ''}`}>
+    <div className={`bg-neutral-900/50 rounded-2xl sm:p-6 p-2 mb-2 border border-[#252525] ${isSelecting ? 'opacity-50' : ''}`}>
         <div
             className="flex items-start gap-3 cursor-pointer"
             onClick={() => !isSelecting && !isDeleting && onSelect(address.id)}
@@ -28,15 +35,15 @@ return (
                         {address.addressType}
                     </span>
                 </div>
-                <p className="text-[#D9D9D9] text-sm mt-1 leading-relaxed">
+                <p className="text-[#D9D9D9] sm:text-sm text-xs mt-1 leading-relaxed">
                     {address.mobile}<br />
-                    {address.address}, {address.locality}<br />
-                    {address.district}<br />
-                    {address.city} - {address.pincode}
+                    {truncateText(`${address.address}, ${address.locality}`, 20)}<br />
+                    {truncateText(address.district, 20)}<br />
+                    {truncateText(address.city, 15)} - {address.pincode}
                 </p>
             </div>
         </div>
-        <div className="flex justify-end space-x-4 text-sm">
+        <div className="flex justify-end space-x-4 md:text-sm text-xs">
             <button
                 onClick={() => {
                     if (window.confirm('Are you sure you want to remove this address?')) {
