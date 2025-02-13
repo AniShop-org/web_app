@@ -3,7 +3,7 @@
 import { Search, Menu, ShoppingCart, User, Bell, X, Image } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AccountDropdown from "./accountDropdown";
 
 export const TopBar = () => {
@@ -25,6 +25,14 @@ export const TopBar = () => {
     const toggleSearchBar = () => {
         setShowSearchBar((prev) => !prev);
     };
+
+    const searchInputRef = useRef(null);
+
+    useEffect(() => {
+        if (showSearchBar && searchInputRef.current) {
+            searchInputRef.current.focus();
+        }
+    }, [showSearchBar]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -171,6 +179,7 @@ export const TopBar = () => {
                                     size={20}
                                 />
                                 <input
+                                    ref={searchInputRef}
                                     type="text"
                                     placeholder="Search for products..."
                                     value={searchTerm}
@@ -179,7 +188,7 @@ export const TopBar = () => {
                                     onBlur={() => setShowRecent(false)}
                                     className="w-full py-3 pl-12 pr-12 bg-[#2A2A2A] text-gray-200 rounded-full 
                                  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF3333]
-                                 transition-all duration-200 autofocus"
+                                 transition-all duration-200"
                                 />
                                 <button
                                     type="button"
@@ -223,3 +232,7 @@ export const TopBar = () => {
         </div>
     );
 };
+
+
+
+

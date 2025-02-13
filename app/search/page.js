@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { ProductGrid } from "../componenets/ProductGrid";
 import { Pagination } from "../componenets/Pagination";
@@ -11,7 +11,7 @@ import Footer from "../componenets/footer";
 export default function SearchResults() {
   const searchParams = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
-
+  const router = useRouter();
   const [filters, setFilters] = useState({
     minRating: 0,
     minPrice: 0,
@@ -157,10 +157,22 @@ export default function SearchResults() {
               </div>
             ) : (
               <>
-                <h1 className="sm:text-2xl text-xl font-bold mb-4 text-white container mx-auto">
+                  <div className="flex md:gap-4 gap-2">
+                  <button
+                    onClick={() => router.push('/')}
+                    className="pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2"
+                  >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4 sm:h-6 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                  </button>
+                <h1 className="sm:text-2xl text-xl font-bold text-white container mx-auto">
                   Search Results for "{keyword}"
                 </h1>
+                </div>
+                <div className="pt-4">
                 <ProductGrid products={products} />
+                  </div>
               </>
             )}
             <hr className="my-6 border-[#FFFFFF1A] sm:mx-auto mt-10" />

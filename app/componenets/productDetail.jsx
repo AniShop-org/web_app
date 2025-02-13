@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Reviews from './reviews';
+import Alert from './alert';
 
 const ProductDetail = ({ product }) => {
     const [selectedSize, setSelectedSize] = useState('');
@@ -12,6 +13,8 @@ const ProductDetail = ({ product }) => {
     const [isInCart, setIsInCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
     const router = useRouter();
     const handleAddToCart = async () => {
@@ -23,7 +26,8 @@ const ProductDetail = ({ product }) => {
 
         const variant = product.variants.find(v => v.size === selectedSize);
         if (!variant) {
-            alert('Please select a size');
+            setAlertMessage('Please select a size');
+            setShowAlert(true);
             return;
         }
 
@@ -112,6 +116,12 @@ const ProductDetail = ({ product }) => {
 
     return (
         <div>
+            {showAlert && (
+                <Alert
+                    message={alertMessage}
+                    onClose={() => setShowAlert(false)}
+                />
+            )}
         <div className="flex flex-col md:flex-row gap-8 bg-[#191919] text-white p-6 px-4">
             {/* Left side - Image gallery */}
             <div className="flex flex-col-reverse md:flex-row gap-4">

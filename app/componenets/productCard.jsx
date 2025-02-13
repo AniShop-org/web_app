@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
               
                 {/* Price */}
                 <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-white">
+                    <span className="md:text-lg text-base font-bold text-white">
                         ₹{product.discountPrice}
                     </span>
                     {product.percentOff > 0 && (

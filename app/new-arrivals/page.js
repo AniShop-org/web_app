@@ -6,6 +6,7 @@ import { ProductGrid } from "../componenets/ProductGrid";
 import { Pagination } from "../componenets/Pagination";
 import { TopBar } from "../componenets/topbar";
 import Footer from "../componenets/footer";
+import { useRouter } from "next/navigation";
 
 export default function NewArrivals() {
   const [products, setProducts] = useState([]);
@@ -23,6 +24,8 @@ export default function NewArrivals() {
 
   const filtersRef = useRef(filters);
 
+  const router = useRouter();
+  
   const fetchProducts = async (desiredPage = currentPage) => {
     setLoading(true);
     try {
@@ -154,8 +157,16 @@ export default function NewArrivals() {
 
         {/* Main Content */}
         <div className="flex-1 w-full">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl lg:text-4xl font-bold text-white">New Arrivals</h1>
+          <div className="flex items-center mb-6 md:gap-4 gap-2">
+              <button
+                onClick={() => router.push('/')}
+                className="pr-2 py-2 text-sm text-white rounded-lg flex items-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-4 sm:h-6 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+              </button>
+            <h1 className="text-2xl lg:text-3xl font-bold text-white">New Arrivals</h1>
           </div>
 
           {loading ? (

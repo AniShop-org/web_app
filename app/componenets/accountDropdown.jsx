@@ -4,28 +4,25 @@ import { useState } from 'react';
 import { LogOutIcon, LucideLogIn, MapPinned, PackageSearch, ShoppingBagIcon, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import AlertModal from './logout-aleet';
 
 export default function AccountDropdown() {
     const [isOpen, setIsOpen] = useState(false);
+    const [showSignOutModal, setShowSignOutModal] = useState(false);
+
     const router = useRouter();
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
 
     const handleSignOut = () => {
-        Swal.fire({
-            icon: 'warning',
-            confirmButtonColor: 'red',
-            title: 'Are you sure you want to logout?',
-            showCancelButton: true,
-            confirmButtonText: 'Logout',
-            cancelButtonText: 'Cancel',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                localStorage.removeItem('authToken');
-                router.push('/login')
-            }
-        })
+        setShowSignOutModal(true);
+    };
+
+    const confirmSignOut = () => {
+        localStorage.removeItem('authToken');
+        router.push('/login');
+        setShowSignOutModal(false);
     };
 
     const isLoggedIn = Boolean(typeof window !== "undefined" ? localStorage.getItem("authToken") : null);
@@ -81,7 +78,7 @@ export default function AccountDropdown() {
                         <div>
                             <button
                                 onClick={handleSignOut}
-                                className="flex justify-start gap-4 items-center px-4 pb-2 hover:bg-[#252525] w-full"
+                                className="flex justify-start gap-4 items-center px-4 pb-2 hover:bg-[#252525] w-full text-white"
                             >
                                 <LogOutIcon size={18} fill="white" /> Log out
                             </button>
@@ -102,6 +99,11 @@ export default function AccountDropdown() {
                     </div>
                 )
             )}
+            <AlertModal
+                isOpen={showSignOutModal}
+                onClose={() => setShowSignOutModal(false)}
+                onConfirm={confirmSignOut}
+            />
         </div>
     );
 }
