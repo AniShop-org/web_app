@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { Suspense } from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,9 +31,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#191919]`}
       >
-        <Suspense>
-          {children}
-        </Suspense>
+        <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`}>
+          <Suspense>
+            {children}
+          </Suspense>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { useGoogleLogin } from "@react-oauth/google";
+import Swal from "sweetalert2";
 
 const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,6 +65,78 @@ export default function Signin() {
             setLoading(false);
         }
     };
+
+    const logInWithGoogle = useGoogleLogin({
+        scope: 'openid email profile',
+        onSuccess: async (tokenResponse) => {
+            try {
+                setLoading(true)
+                const userInfo = await fetch(
+                    'https://www.googleapis.com/oauth2/v3/userinfo',
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${tokenResponse.access_token}`,
+                        },
+                    }
+                );
+
+                const userData = await userInfo.json();
+
+                const googleUser = {
+                    email: userData.email,
+                    username: userData.name,
+                    profilePhoto: userData.picture,
+                };
+               // Call your backend API with the user data
+                try {
+                    
+                    const response = await fetch(
+                        "https://anishop-backend-test.onrender.com/api/v1/user/auth/login",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                email: googleUser.email,
+                                method: "google"
+                            }),
+                        }
+                    );
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        localStorage.setItem('authToken', data.token);
+                        setTimeout(() => {
+                            Swal.fire({
+                                title: 'Login Successful',
+                                text: 'You have successfully logged in',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            router.push('/');
+                        
+                        }, 2000)
+                    } else {
+                        setError(data.message || "Signup failed");
+                    }
+                } catch (err) {
+                    setError("Something went wrong. Please try again.");
+                } finally {
+                    setLoading(false);
+                }
+
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+                setError('Failed to get user information');
+            }
+        },
+        onError: (error) => {
+            console.error('Login Failed:', error);
+            setError('Google login failed');
+        }
+    });
 
     return (
         <div className="flex flex-col md:flex-row w-full min-h-screen bg-[#191919] relative">
@@ -129,7 +203,21 @@ export default function Signin() {
                             {error}
                         </div>
                     )}
-
+                    <div className="flex justify-center">
+                        <button className="bg-white text-black rounded-lg p-2.5 px-20 md:px-28 flex" onClick={logInWithGoogle}>
+                            <div className="pr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="23" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262" id="google">
+                                    <path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path>
+                                    <path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path>
+                                    <path fill="#FBBC05" d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"></path>
+                                    <path fill="#EB4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"></path>
+                                </svg>
+                            </div>
+                            Login with Google</button>
+                    </div>
+                    <div className="flex items-center justify-center mb-6 mt-1 sm:gap-1.5 gap-1">
+                        <div className=" h-0.5 w-full bg-[#999999]" /> or <div className=" h-0.5 w-full bg-[#999999]" />
+                    </div>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Email */}
                         <div>
