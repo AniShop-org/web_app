@@ -30,7 +30,7 @@ const EditaddressPage = () => {
     const fetchAddress = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`https://anishop-backend-test.onrender.com/api/v1/user/account/address/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/address/${id}`, {
                 headers: {
                     'Authorization': typeof window !== 'undefined'
                         ? localStorage.getItem('authToken')
@@ -69,7 +69,7 @@ const EditaddressPage = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const response = await fetch(`https://anishop-backend-test.onrender.com/api/v1/user/account/update-address/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/update-address/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

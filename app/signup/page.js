@@ -98,7 +98,7 @@ export default function Signup() {
 
         try {
             const response = await fetch(
-                "https://anishop-backend-test.onrender.com/api/v1/user/auth/signup",
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/auth/signup`,
                 {
                     method: "POST",
                     headers: {
@@ -145,7 +145,7 @@ export default function Signup() {
                 try {
                     
                     const response = await fetch(
-                        "https://anishop-backend-test.onrender.com/api/v1/user/auth/signup",
+                        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/auth/signup`,
                         {
                             method: "POST",
                             headers: {

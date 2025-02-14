@@ -28,7 +28,7 @@ export default function categoryProducts() {
   const fetchSearchResults = async (desiredPage = page) => {
     setLoading(true);
     try {
-      const url = `https://anishop-backend-test.onrender.com/api/v1/products/category/${id}?minPrice=${filtersRef.current.minPrice}&maxPrice=${
+      const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/products/category/${id}?minPrice=${filtersRef.current.minPrice}&maxPrice=${
         filtersRef.current.maxPrice
       }&minRating=${filtersRef.current.minRating}&size=${encodeURIComponent(
         filtersRef.current.size

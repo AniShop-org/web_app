@@ -12,7 +12,7 @@ export default function HelpCenter() {
 
     const fetchFAQItems = async () => {
         try {
-            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/admin/workspace/faq');
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/admin/workspace/faq`);
             const data = await response.json();
             setFAQItems(data.data);
         } catch (error) {

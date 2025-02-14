@@ -33,7 +33,7 @@ export default function NewAddress() {
 
         try {
             const token = localStorage.getItem('authToken');
-            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/account/new-address', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/new-address`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

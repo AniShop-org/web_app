@@ -29,7 +29,7 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
 
         try {
             if (paymentMethod === 'prepaid') {
-                const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/order/checkout/prepaid', {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order/checkout/prepaid`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -55,7 +55,8 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                     },
                     handler: async (response) => {
                         try {
-                            const verifyResponse = await fetch('https://anishop-backend-test.onrender.com/api/v1/order/verify-payment-signature', {
+                            setIsLoading(true);
+                            const verifyResponse = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order/verify-payment-signature`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ const Checkout = ({ cartSummery, totalDiscount, totalBasePrice, activeAddress })
                     paymentObject.open();
                 }
             } else {
-                const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/order/checkout/cod-verify-otp', {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order/checkout/cod-verify-otp`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

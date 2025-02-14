@@ -33,7 +33,7 @@ export default function TrackOrder() {
 
     const fetchOrders = async () => {
       try {
-        const res = await fetch(`https://anishop-backend-test.onrender.com/api/v1/order/id/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order/id/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

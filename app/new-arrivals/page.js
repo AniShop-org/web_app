@@ -29,7 +29,7 @@ export default function NewArrivals() {
   const fetchProducts = async (desiredPage = currentPage) => {
     setLoading(true);
     try {
-      const url = `https://anishop-backend-test.onrender.com/api/v1/products/newProducts?&minPrice=${filtersRef.current.minPrice}&maxPrice=${
+      const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/products/newProducts?&minPrice=${filtersRef.current.minPrice}&maxPrice=${
         filtersRef.current.maxPrice
       }&minRating=${filtersRef.current.minRating}&size=${encodeURIComponent(
         filtersRef.current.size

@@ -36,7 +36,7 @@ export default function ResetPasswordEmail() {
 
         try {
             const response = await fetch(
-                "https://anishop-backend-test.onrender.com/api/v1/user/auth/forgot-password",
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/auth/forgot-password`,
                 {
                     method: "POST",
                     headers: {

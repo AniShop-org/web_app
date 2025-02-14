@@ -28,7 +28,7 @@ export default function SearchResults() {
   const fetchSearchResults = async (desiredPage = page) => {
     setLoading(true);
     try {
-      const url = `https://anishop-backend-test.onrender.com/api/v1/products/search-filter?keyword=${encodeURIComponent(
+      const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/products/search-filter?keyword=${encodeURIComponent(
         keyword
       )}&minPrice=${filtersRef.current.minPrice}&maxPrice=${
         filtersRef.current.maxPrice

@@ -113,7 +113,7 @@ const OrderCard = ({ order }) => {
                 ? localStorage.getItem('authToken')
                 : null;
             const response = await fetch(
-                'https://anishop-backend-test.onrender.com/api/v1/order/review',
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order/review`,
                 {
                     method: 'POST',
                     headers: {

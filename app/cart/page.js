@@ -29,7 +29,7 @@ export default function CartPage() {
     const fetchActiveAddress = async () => {
         try {
             const token = localStorage.getItem('authToken');
-            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/account/active-address', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/active-address`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export default function CartPage() {
         try {
             const token = localStorage.getItem('authToken');
             const response = await fetch(
-                'https://anishop-backend-test.onrender.com/api/v1/products/cart/viewCart',
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/products/cart/viewCart`,
                 {
                     method: 'GET',
                     headers: {
@@ -102,7 +102,7 @@ export default function CartPage() {
 
         try {
             const response = await fetch(
-                'https://anishop-backend-test.onrender.com/api/v1/products/cart/updateCart',
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/products/cart/updateCart`,
                 {
                     method: 'PUT',
                     headers: {
@@ -137,7 +137,7 @@ export default function CartPage() {
 
         try {
             const response = await fetch(
-                'https://anishop-backend-test.onrender.com/api/v1/products/cart/updateCart',
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/products/cart/updateCart`,
                 {
                     method: 'PUT',
                     headers: {

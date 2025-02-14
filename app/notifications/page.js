@@ -25,7 +25,7 @@ export default function NotificationsPage() {
       setError('');
 
       try {
-        const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/notifications', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notifications`, {
           headers: {
             'authorization': token,
           },

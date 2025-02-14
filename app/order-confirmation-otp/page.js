@@ -27,7 +27,7 @@ export default function ConfrimOrderOtp() {
         setError('');
 
         try {
-            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/order/checkout/cod', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order/checkout/cod`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export default function ConfrimOrderOtp() {
 
         try {
             setLoading(true);
-            await fetch('https://anishop-backend-test.onrender.com/api/v1/order/checkout/cod-verify-otp/resend', {
+            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order/checkout/cod-verify-otp/resend`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json',
                     'authorization': localStorage.getItem('authToken'),

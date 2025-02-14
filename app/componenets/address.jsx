@@ -25,7 +25,7 @@ const MyAddresses = () => {
 
     useEffect(() => {
         // Fetch active address first
-        fetch('https://anishop-backend-test.onrender.com/api/v1/user/account/active-address', {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/active-address`, {
             headers: {
                 'Authorization': typeof window !== 'undefined'
                     ? localStorage.getItem('authToken')
@@ -41,7 +41,7 @@ const MyAddresses = () => {
             .catch(err => console.error('Error fetching active address:', err));
 
         // Fetch all addresses
-        fetch('https://anishop-backend-test.onrender.com/api/v1/user/account/address', {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/address`, {
             headers: {
                 'Authorization': typeof window !== 'undefined'
                     ? localStorage.getItem('authToken')
@@ -62,7 +62,7 @@ const MyAddresses = () => {
         try {
             setSelectingId(addressId);
             const response = await fetch(
-                `https://anishop-backend-test.onrender.com/api/v1/user/account/active-address/${addressId}`,
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/active-address/${addressId}`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -87,7 +87,7 @@ const MyAddresses = () => {
         try {
             setDeletingId(addressId);
             const response = await fetch(
-                `https://anishop-backend-test.onrender.com/api/v1/user/account/delete-address/${addressId}`,
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/account/delete-address/${addressId}`,
                 {
                     method: 'DELETE',
                     headers: {

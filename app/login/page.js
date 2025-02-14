@@ -44,7 +44,7 @@ export default function Signin() {
 
         try {
             const response = await fetch(
-                "https://anishop-backend-test.onrender.com/api/v1/user/auth/login",
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/auth/login`,
                 {
                     method: "POST",
                     headers: {
@@ -91,7 +91,7 @@ export default function Signin() {
                 try {
                     
                     const response = await fetch(
-                        "https://anishop-backend-test.onrender.com/api/v1/user/auth/login",
+                        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/auth/login`,
                         {
                             method: "POST",
                             headers: {

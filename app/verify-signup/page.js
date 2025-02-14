@@ -42,7 +42,7 @@ export default function OTPVerification() {
         setError('');
 
         try {
-            const response = await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/signup-verify-otp', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/auth/signup-verify-otp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export default function OTPVerification() {
 
         try {
             setLoading(true);
-            await fetch('https://anishop-backend-test.onrender.com/api/v1/user/auth/resend-signup-otp', {
+            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/auth/resend-signup-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),

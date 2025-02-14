@@ -15,7 +15,7 @@ export default function ExploreAllCategories() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch('https://anishop-backend-test.onrender.com/api/v1/category');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/category`);
       const data = await res.json();
       setCategories(data.categories);
       setCount(data.numberOfProductsPerCategory);
