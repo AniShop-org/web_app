@@ -56,11 +56,7 @@ export const TopBar = () => {
     };
 
     const navigateToCartOrLogin = () => {
-        if (!token) {
-            router.push("/login");
-        } else {
-            router.push("/cart");
-        }
+        router.push("/cart");
     };
 
     const navigateToNotifications = () => {
