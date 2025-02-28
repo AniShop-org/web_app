@@ -66,6 +66,7 @@ export default function CartPage() {
           totalItems: data.totalItems || 0,
           totalPrice: data.totalPrice || 0,
         });
+        localStorage.setItem("cart", JSON.stringify(data.cartItems || []));
       } else {
         console.error("Failed to fetch cart items");
         setCartItems([]);
@@ -324,6 +325,7 @@ export default function CartPage() {
                 totalBasePrice={totalBasePrice}
                 activeAddress={activeAddress}
                 isLoggedIn={isLoggedIn}
+                isUpdating={isUpdating}
               />
             </div>
           </div>

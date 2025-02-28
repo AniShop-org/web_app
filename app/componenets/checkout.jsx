@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Banknote, MapPin } from "lucide-react";
+import { checkUserHasAddress } from "../utils/cartSync";
 
 const Checkout = ({
   cartSummery,
@@ -10,12 +11,26 @@ const Checkout = ({
   totalBasePrice,
   activeAddress,
   isLoggedIn,
+  isUpdating,
 }) => {
   const [paymentMethod, setPaymentMethod] = useState("prepaid");
   const [isLoading, setIsLoading] = useState(false);
   const [showFullAddress, setShowFullAddress] = useState(false);
+  const [hasVerifiedAddress, setHasVerifiedAddress] = useState(!!activeAddress);
 
   const router = useRouter();
+
+  // Check for address on mount and when isLoggedIn changes
+  useEffect(() => {
+    const verifyAddress = async () => {
+      if (isLoggedIn) {
+        const hasAddress = await checkUserHasAddress();
+        setHasVerifiedAddress(hasAddress);
+      }
+    };
+
+    verifyAddress();
+  }, [isLoggedIn]);
 
   const shippingFee = cartSummery?.deliveryCharge || 0;
   const total = cartSummery.totalPrice;
@@ -34,6 +49,12 @@ const Checkout = ({
     if (!isLoggedIn) {
       // Redirect to login page if user is not logged in
       router.push("/login?redirect=cart");
+      return;
+    }
+
+    // If user is logged in but has no address, redirect to add address page
+    if (!hasVerifiedAddress) {
+      router.push("/add-address?redirect=cart");
       return;
     }
 
@@ -257,7 +278,7 @@ const Checkout = ({
       <div className="pt-4 px-1">
         <button
           onClick={handlePayment}
-          disabled={isLoading}
+          disabled={isLoading || isUpdating}
           className="w-full py-3 bg-red-500 text-white rounded-full font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
         >
           <span>
